@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prontuário - SGCO</title>
   <link rel="stylesheet" href="prontuario.css">
+  <link rel="stylesheet" href="busca.css">
 </head>
 <body>
   <aside class="sidebar">
@@ -23,8 +24,17 @@
       <label>Observações:</label><textarea rows="5"></textarea>
       <div class="buttons">
         <button>Atualizar Prontuário</button>
+        <button type="button" id="btnPesquisar">Pesquisar</button>
       </div>
     </form>
   </main>
+  <main class="content" id="search">
+    <h1>Pesquisar</h1>
+      <div id="info-search">
+      <label>Paciente:</label><input type="text">
+      </div>
+  </main>
+  
+  <script src="busca.js"></script>
 </body>
 </html>

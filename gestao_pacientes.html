@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestão de Pacientes - SGCO</title>
   <link rel="stylesheet" href="gestao_pacientes.css">
+  <link rel="stylesheet" href="busca.css">
 </head>
 <body>
   <aside class="sidebar">
@@ -24,9 +25,18 @@
       <label>Telefone:</label><input type="text">
       <div class="buttons">
         <button>Cadastrar</button>
-        <button>Atualizar</button>
+        <button type="button" id="btnPesquisar">Pesquisar</button>
       </div>
     </form>
   </main>
+
+  <main class="content" id="search">
+    <h1>Pesquisar</h1>
+      <div id="info-search">
+      <label>Nome:</label><input type="text">
+      </div>
+  </main>
+  
+  <script src="busca.js"></script>
 </body>
 </html>

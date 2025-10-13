@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fornecedores de Materiais - SGCO</title>
   <link rel="stylesheet" href="fornecedores_materiais.css">
+  <link rel="stylesheet" href="busca.css">
 </head>
 <body>
   <aside class="sidebar">
@@ -23,9 +24,17 @@
       <label>Email:</label><input type="email">
       <div class="buttons">
         <button>Cadastrar</button>
-        <button>Atualizar</button>
+        <button type="button" id="btnPesquisar">Pesquisar</button>
       </div>
     </form>
   </main>
+  <main class="content" id="search">
+    <h1>Pesquisar</h1>
+      <div id="info-search">
+      <label>Nome do Fornecedor:</label><input type="text">
+      </div>
+  </main>
+  
+  <script src="busca.js"></script>
 </body>
 </html>
