@@ -18,8 +18,13 @@
   <main class="content">
     <h1>Orçamento</h1>
     <form>
-      <label>Paciente:</label><input type="text">
-      <label>Procedimentos:</label><input type="text" placeholder="Selecione os procedimentos">
+      <label><b>Paciente:</b></label><input type="text">
+      <label><b>Procedimentos:</b></label>
+      <label for="procedimentos-select">Escolha os procedimentos (Ctrl + Click para selecionar vários)</label>
+      <select id="procedimentos-select" multiple>
+        <option value="canal">Canal</option>
+        <option value="limpeza">Limpeza</option>
+      </select>
       <div class="buttons">
         <button>Gerar Orçamento</button>
       </div>
