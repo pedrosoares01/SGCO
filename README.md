@@ -1,4 +1,4 @@
-# SGO---Sistema-de-Gerenciamento-Odontologico
+# SGO - Sistema de Gerenciamento Odontologico
 Descrição do projeto.
 
 ## Equipe de Desenvolvimento
