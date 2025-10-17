@@ -1,4 +1,4 @@
-# SGO - Sistema de Gerenciamento Odontologico
+# SGCO - Sistema de Gerenciamento Consultorios Odontologico
 Descrição do projeto.
 
 ## Equipe de Desenvolvimento
