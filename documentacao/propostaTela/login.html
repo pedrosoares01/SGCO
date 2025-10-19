@@ -13,14 +13,18 @@
 
     <form>
       <label for="usuario">Usuário</label>
-      <input type="text" id="usuario" placeholder="Digite seu usuário">
+      <input type="text" id="usuario" placeholder="Digite seu usuário" required>
 
       <label for="senha">Senha</label>
-      <input type="password" id="senha" placeholder="Digite sua senha">
-        <p>Não está cadastrado faça <a href="gestao_usuarios.html">Cadastro</a></p>
-      <button type="button" onclick="window.location.href='index.html'">Entrar gerente</button>
-      <button type="button" onclick="window.location.href='indexrecepcionista.html'">Entrar Recepcionista</button>
-      <button type="button" onclick="window.location.href='indexprofissional.html'">Entrar Profissional</button>
+      <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+      <p class="cadastro-text">Não está cadastrado? Faça <a href="gestao_usuarios.html">Cadastro</a></p>
+
+      <div class="buttons">
+        <button type="button" onclick="window.location.href='index.html'" class="btn-primary">Entrar Gerente</button>
+        <button type="button" onclick="window.location.href='indexrecepcionista.html'" class="btn-primary">Entrar Recepcionista</button>
+        <button type="button" onclick="window.location.href='indexprofissional.html'" class="btn-primary">Entrar Profissional</button>
+      </div>
     </form>
   </div>
 </body>

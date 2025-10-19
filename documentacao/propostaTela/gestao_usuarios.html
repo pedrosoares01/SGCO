@@ -1,46 +1,83 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR"> 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestão de Usuários - SGCO</title>
+  <meta name="description" content="Sistema de Gestão e Controle Odontológico - Gerencie usuários de forma eficiente">
   <link rel="stylesheet" href="gestao_usuarios.css">
-  <link rel="stylesheet" href="busca.css">
+  <link rel="stylesheet" href="sidebar.css">
 </head>
 <body>
   <aside class="sidebar">
-    <h2>SGCO</h2>
+    <a href="index.html"><h2>SGCO</h2></a>
     <ul>
-      <li><a href="index.html">🏠 Menu Principal</a></li>
-      <li><a href="gestao_usuarios.html" class="active">Gestão de Usuários</a></li>
+      <li><a href="gestao_pacientes.html">Gestão de Pacientes</a></li>
+      <li><a href="gestao_usuarios.html">Gestão de Usuários</a></li>
+      <li><a href="gestao_procedimentos.html">Gestão de Procedimentos</a></li>
+      <li><a href="estoque.html">Controle de Estoque</a></li>
+      <li><a href="fornecedores_materiais.html">Fornecedores de Materiais</a></li>
+      <li><a href="fornecedores_servicos.html">Fornecedores de Serviços</a></li>
+      <li><a href="receita.html">Gestão da Receita</a></li>
+      <li><a href="pacientes_agendados.html">Pacientes Agendados</a></li>
+      <li><a href="login.html" class="logout">Sair</a></li>
     </ul>
   </aside>
 
+  <!-- Main Content -->
   <main class="content">
     <h1>Gestão de Usuários</h1>
-    <form>
-      <label>Nome:</label><input type="text">
-      <label>Email:</label><input type="email">
-      <label>Cargo:</label>
-      <select>
-        <option>Recepcionista</option>
-        <option>Profissional</option>
-        <option>Gerente</option>
-      </select>
-      <div class="buttons">
-        <button>Cadastrar</button>
-        <button type="button" id="btnPesquisar">Pesquisar</button>
-      </div>
-    </form>
+
+    <div class="container">
+      <!-- Cadastro de Usuário -->
+      <section class="card">
+        <h2>Cadastro de Usuário</h2>
+        <form id="userForm">
+          <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="name" placeholder="Nome completo do usuário" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="email@exemplo.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="role">Cargo</label>
+            <select id="role" name="role">
+              <option value="recepcionista">Recepcionista</option>
+              <option value="profissional">Profissional</option>
+              <option value="gerente">Gerente</option>
+            </select>
+          </div>
+
+          <div class="buttons">
+            <button type="submit" class="btn-primary">Cadastrar</button>
+            <button type="button" class="btn-secondary">Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Pesquisa de Usuário -->
+      <section class="card">
+        <h2>🔍 Pesquisar Usuário</h2>
+        <form id="searchForm">
+          <div class="form-group">
+            <label for="search">Nome do Usuário</label>
+            <input type="text" id="search" name="search" placeholder="Digite o nome para pesquisar...">
+          </div>
+
+          <button type="submit" class="btn-search">Buscar</button>
+        </form>
+
+        <div class="search-results">
+          <p class="info-text">Resultados da pesquisa aparecerão aqui</p>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <main class="content" id="search">
-    <h1>Pesquisar</h1>
-      <div id="info-search">
-      <label>Nome:</label><input type="text">
-      </div>
-  </main>
-  
   <script src="busca.js"></script>
 </body>
 </html>
