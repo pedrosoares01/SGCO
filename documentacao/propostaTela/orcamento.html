@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR"> 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orçamento - SGCO</title>
+  <link rel="stylesheet" href="orcamento.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="indexprofissional.html"><h2>SGCO</h2></a>
+    <ul>
+      <li><a href="orcamento.html" class="active">Orçamento</a></li>
+      <li><a href="estoque.html">Controle de Estoque</a></li>
+      <li><a href="prontuario.html">Prontuário</a></li>
+      <li><a href="pacientes_agendados.html">Pacientes Agendados</a></li>
+      <li><a href="login.html" class="logout">Sair</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <h1>Orçamento</h1>
+    <div class="container">
+      <section class="card">
+        <form>
+          <div class="form-group">
+            <label>Paciente:</label>
+            <input type="text" placeholder="Digite o nome do paciente">
+          </div>
+
+          <div class="form-group">
+            <label>Procedimentos:</label>
+            <label for="procedimentos-select">Escolha os procedimentos (Ctrl + Click para selecionar vários)</label>
+            <select id="procedimentos-select" multiple>
+              <option value="canal">Canal</option>
+              <option value="limpeza">Limpeza</option>
+              <option value="restauracao">Restauração</option>
+              <option value="extraçao">Extração</option>
+            </select>
+          </div>
+
+          <div class="buttons">
+            <button class="btn-primary">Gerar Orçamento</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

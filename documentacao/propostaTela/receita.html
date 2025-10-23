@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão da Receita - SGCO</title>
+  <link rel="stylesheet" href="receita.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="index.html"><h2>SGCO</h2></a>
+    <ul>
+      <li><a href="gestao_pacientes.html">Gestão de Pacientes</a></li>
+      <li><a href="gestao_usuarios.html">Gestão de Usuários</a></li>
+      <li><a href="gestao_procedimentos.html">Gestão de Procedimentos</a></li>
+      <li><a href="estoque.html">Controle de Estoque</a></li>
+      <li><a href="fornecedores_materiais.html">Fornecedores de Materiais</a></li>
+      <li><a href="fornecedores_servicos.html">Fornecedores de Serviços</a></li>
+      <li><a href="receita.html" class="active">Gestão da Receita</a></li>
+      <li><a href="pacientes_agendados.html">Pacientes Agendados</a></li>
+      <li><a href="login.html" class="logout">Sair</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <h1>Gestão da Receita</h1>
+
+    <div class="container">
+      <!-- Painel de Relatórios -->
+      <section class="card">
+        <h2>Relatórios Financeiros</h2>
+        <p>Gere relatórios com as despesas e receitas do consultório.</p>
+        <button class="btn-primary">Gerar Relatório</button>
+      </section>
+
+      <!-- Registro de Despesas -->
+      <section class="card">
+        <h2>Registro de Despesas</h2>
+        <form id="expenseForm">
+          <div class="form-group">
+            <label for="expense">Despesa</label>
+            <input type="text" id="expense" name="expense" placeholder="Descrição da despesa" required>
+          </div>
+
+          <div class="form-group">
+            <label for="amount">Valor (R$)</label>
+            <input type="number" id="amount" name="amount" step="0.01" placeholder="0,00" required>
+          </div>
+
+          <div class="form-group">
+            <label for="payment">Forma de Pagamento</label>
+            <select id="payment" name="payment">
+              <option>Dinheiro</option>
+              <option>Cartão de Crédito</option>
+              <option>Cartão de Débito</option>
+              <option>PIX</option>
+            </select>
+          </div>
+
+          <div class="buttons">
+            <button type="submit" class="btn-primary">Registrar Despesa</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avaliação de Profissionais - SGCO</title>
+  <link rel="stylesheet" href="avaliacao.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="indexrecepcionista.html"><h2>SGCO</h2></a>
+    <ul>
+      <li><a href="gestao_pacientes.html">Gestão de Pacientes</a></li>
+      <li><a href="agenda.html">Agenda</a></li>
+      <li><a href="pagamento.html">Pagamentos</a></li>
+      <li><a href="pacientes_agendados.html">Pacientes Agendados</a></li>
+      <li><a href="avaliacao.html" class="active">Avaliação de Profissionais</a></li>
+      <li><a href="login.html" class="logout">Sair</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <h1>Avaliação de Profissionais</h1>
+
+    <div class="container">
+      <section class="card">
+        <form>
+          <label>Profissional:</label>
+          <input type="text" placeholder="Digite o nome do profissional">
+
+          <label>Nota:</label>
+          <select>
+            <option>1 - Péssimo</option>
+            <option>2 - Ruim</option>
+            <option>3 - Regular</option>
+            <option>4 - Bom</option>
+            <option>5 - Excelente</option>
+          </select>
+
+          <label>Comentário:</label>
+          <textarea rows="4" placeholder="Escreva sua opinião..."></textarea>
+
+          <div class="buttons">
+            <button>Enviar Avaliação</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
