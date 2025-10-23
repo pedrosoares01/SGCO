@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fornecedores de Materiais - SGCO</title>
+  <link rel="stylesheet" href="fornecedores_materiais.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="index.html"><h2>SGCO</h2></a>
+    <ul>
+      <li><a href="gestao_pacientes.html">Gestão de Pacientes</a></li>
+      <li><a href="gestao_usuarios.html">Gestão de Usuários</a></li>
+      <li><a href="gestao_procedimentos.html">Gestão de Procedimentos</a></li>
+      <li><a href="estoque.html">Controle de Estoque</a></li>
+      <li><a href="fornecedores_materiais.html" class="active">Fornecedores de Materiais</a></li>
+      <li><a href="fornecedores_servicos.html">Fornecedores de Serviços</a></li>
+      <li><a href="receita.html">Gestão da Receita</a></li>
+      <li><a href="pacientes_agendados.html">Pacientes Agendados</a></li>
+      <li><a href="login.html" class="logout">Sair</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <h1>Gestão de Fornecedores de Materiais</h1>
+
+    <div class="container">
+      <!-- Cadastro de Fornecedor -->
+      <section class="card">
+        <h2>Cadastro de Fornecedor</h2>
+        <form id="fornecedorForm">
+          <div class="form-group">
+            <label for="nomeFornecedor">Nome do Fornecedor</label>
+            <input type="text" id="nomeFornecedor" name="nomeFornecedor" placeholder="Nome do fornecedor" required>
+          </div>
+
+          <div class="form-group">
+            <label for="contatoFornecedor">Contato</label>
+            <input type="text" id="contatoFornecedor" name="contatoFornecedor" placeholder="Telefone ou celular">
+          </div>
+
+          <div class="form-group">
+            <label for="emailFornecedor">Email</label>
+            <input type="email" id="emailFornecedor" name="emailFornecedor" placeholder="email@exemplo.com">
+          </div>
+
+          <div class="buttons">
+            <button type="submit" class="btn-primary">Cadastrar</button>
+            <button type="button" class="btn-secondary">Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Pesquisa de Fornecedor -->
+      <section class="card">
+        <h2>🔍 Pesquisar Fornecedor</h2>
+        <form id="searchForm">
+          <div class="form-group">
+            <label for="searchFornecedor">Nome do Fornecedor</label>
+            <input type="text" id="searchFornecedor" name="searchFornecedor" placeholder="Digite o nome para pesquisar...">
+          </div>
+
+          <button type="submit" class="btn-search">Buscar</button>
+        </form>
+
+        <div class="search-results">
+          <p class="info-text">Resultados da pesquisa aparecerão aqui</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="busca.js"></script>
+</body>
+</html>
