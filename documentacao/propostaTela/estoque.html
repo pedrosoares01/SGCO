@@ -4,36 +4,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Controle de Estoque - SGCO</title>
+  <meta name="description" content="Controle de materiais e quantidades do estoque do SGCO">
   <link rel="stylesheet" href="estoque.css">
   <link rel="stylesheet" href="busca.css">
+  <link rel="stylesheet" href="sidebar.css">
 </head>
 <body>
   <aside class="sidebar">
-    <h2>SGCO</h2>
+    <a href="index.html"><h2>SGCO</h2></a>
     <ul>
-      <li><a href="index.html">🏠 Menu Principal</a></li>
-      <li><a href="estoque.html" class="active">Controle de Estoque</a></li>
+      <li><a href="gestao_pacientes.html">Gestão de Pacientes</a></li>
+      <li><a href="gestao_usuarios.html">Gestão de Usuários</a></li>
+      <li><a href="gestao_procedimentos.html">Gestão de Procedimentos</a></li>
+      <li><a href="estoque.html">Controle de Estoque</a></li>
+      <li><a href="fornecedores_materiais.html">Fornecedores de Materiais</a></li>
+      <li><a href="fornecedores_servicos.html">Fornecedores de Serviços</a></li>
+      <li><a href="receita.html">Gestão da Receita</a></li>
+      <li><a href="pacientes_agendados.html">Pacientes Agendados</a></li>
+      <li><a href="login.html" class="logout">Sair</a></li>
     </ul>
   </aside>
 
+  <!-- Main Content -->
   <main class="content">
     <h1>Controle de Estoque</h1>
-    <form>
-      <label>Material:</label><input type="text">
-      <label>Quantidade:</label><input type="number">
-      <div class="buttons">
-        <button>Cadastrar</button>
-        <button type="button" id="btnPesquisar">Pesquisar</button>
-      </div>
-    </form>
+
+    <div class="container">
+      <!-- Cadastro de Material -->
+      <section class="card">
+        <h2>Cadastro de Material</h2>
+        <form id="materialForm">
+          <div class="form-group">
+            <label for="material">Material</label>
+            <input type="text" id="material" name="material" placeholder="Nome do material" required>
+          </div>
+
+          <div class="form-group">
+            <label for="quantidade">Quantidade</label>
+            <input type="number" id="quantidade" name="quantidade" placeholder="Quantidade disponível" required>
+          </div>
+
+          <div class="buttons">
+            <button type="submit" class="btn-primary">Cadastrar</button>
+            <button type="button" class="btn-secondary">Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Pesquisa de Material -->
+      <section class="card">
+        <h2>🔍 Pesquisar Material</h2>
+        <form id="searchForm">
+          <div class="form-group">
+            <label for="searchMaterial">Nome do Material</label>
+            <input type="text" id="searchMaterial" name="searchMaterial" placeholder="Digite o nome para pesquisar...">
+          </div>
+
+          <button type="submit" class="btn-search">Buscar</button>
+        </form>
+
+        <div class="search-results">
+          <p class="info-text">Resultados da pesquisa aparecerão aqui</p>
+        </div>
+      </section>
+    </div>
   </main>
-  <main class="content" id="search">
-    <h1>Pesquisar</h1>
-      <div id="info-search">
-      <label>Material:</label><input type="text">
-      </div>
-  </main>
-  
+
   <script src="busca.js"></script>
 </body>
 </html>
