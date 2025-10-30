@@ -36,7 +36,7 @@
     <div class="card">
       <h3>📅 Agenda</h3>
       <p>Agende e visualize consultas marcadas.</p>
-      <a href="agenda.html">Acessar</a>
+      <a href="agenda/agenda.jsp">Acessar</a>
     </div>
 
     <div class="card">

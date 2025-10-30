@@ -1,3 +1,4 @@
+<%@ page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -10,7 +11,6 @@
     <link rel="stylesheet" href="../sidebar.css">
 </head>
 <body>
-<!-- Sidebar -->
 <aside class="sidebar">
     <a href="indexrecepcionista.html"><h2>SGCO</h2></a>
     <ul>
@@ -22,15 +22,29 @@
         <li><a href="login.html" class="logout">Sair</a></li>
     </ul>
 </aside>
-
-<!-- Main Content -->
+<%
+String paciente, profissional, data, hora;
+paciente = request.getParameter("paciente");
+profissional = request.getParameter("profissional");
+data = request.getParameter("data");
+hora = request.getParameter("hora");
+Connection connection;
+PreparedStatement st;
+Class.forName("com.mysql.cj.jdbc.Driver");
+connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda","root","sgcopass");
+st = connection.prepareStatement("INSERT INTO agenda VALUES(?,?,?,?)");
+st.setString(1, paciente);
+st.setString(2, profissional);
+st.setString(3, data);
+st.setString(4, hora);
+st.executeUpdate();
+%>
 <main class="content">
     <h1>Agenda</h1>
     <div class="container">
-        <!-- Agendar Consulta -->
         <section class="card">
             <h2>Agendar Consulta</h2>
-            <form id="agendaForm">
+            <form id="agendaForm" action ="agenda.jsp" method="POST">
                 <label>Paciente:</label>
                 <input type="text" name="paciente" placeholder="Nome do paciente" required>
                 <label>Profissional:</label>

@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>sgco.sgco.view.web.SGCOViewWeb</exec.mainClass>
+        <exec.mainClass>controller.AgendaController</exec.mainClass>
     </properties>
     <dependencies>
         <dependency>
@@ -19,6 +19,11 @@
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.0.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.5.0</version>
         </dependency>
     </dependencies>
     <build>
