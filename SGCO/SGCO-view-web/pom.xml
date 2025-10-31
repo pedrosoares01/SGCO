@@ -30,7 +30,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Dependência opcional para JSP (caso use páginas JSP) -->
+        <!-- Dependência opcional para JSP -->
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
