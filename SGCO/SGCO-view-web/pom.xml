@@ -29,6 +29,16 @@
             <version>6.0.0</version> 
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>SGCO-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>SGCO-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     
     <build>

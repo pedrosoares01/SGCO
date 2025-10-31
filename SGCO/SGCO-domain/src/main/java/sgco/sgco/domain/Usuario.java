@@ -1,12 +1,10 @@
 package sgco.sgco.domain;
 
-import sgco.sgco.domain.util.UsuarioTipo;
-
 public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private UsuarioTipo cargo;
+    private String cargo;
     
     public void setNome(String nome){
         this.nome = nome;
@@ -32,11 +30,11 @@ public class Usuario {
         return senha;
     }
     
-    public void setCargo(UsuarioTipo cargo){
+    public void setCargo(String cargo){
         this.cargo = cargo;
     }
     
-    public UsuarioTipo getCargo(){
+    public String getCargo(){
         return cargo;
     }
 }
