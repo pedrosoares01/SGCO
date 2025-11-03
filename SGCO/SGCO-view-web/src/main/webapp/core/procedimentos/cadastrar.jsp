@@ -33,7 +33,13 @@
 
 		<div class="buttons">
 			<button type="submit" class="btn-primary">Cadastrar</button>
-			<button type="button" class="btn-secondary">Limpar</button>
+			<button type="button" class="btn-secondary" onclick="limparFormulario()">Limpar</button>
 		</div>
 	</form>
 </section>
+
+<script>
+    function limparFormulario() {
+        document.getElementById("procedimentoForm").reset();
+    }
+</script>

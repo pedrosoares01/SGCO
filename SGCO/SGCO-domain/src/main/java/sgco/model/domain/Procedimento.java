@@ -12,6 +12,12 @@ public class Procedimento {
         this.preco = preco;
     }
 
+    public Procedimento(int id, String nome, double preco) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+    }
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
