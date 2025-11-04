@@ -5,6 +5,7 @@ public class Usuario {
     private String email;
     private String senha;
     private String cargo;
+    private int id;
     
     public void setNome(String nome){
         this.nome = nome;
@@ -36,5 +37,13 @@ public class Usuario {
     
     public String getCargo(){
         return cargo;
+    }
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public int getId(){
+        return id;
     }
 }
