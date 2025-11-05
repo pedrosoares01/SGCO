@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fornecedores de Serviços - SGCO</title>
+  <link rel="stylesheet" href="fornecedores_servicos.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="index.html"><h2>SGCO</h2></a>
+    <ul>
+      <li><a href="gestao_pacientes.html">Gestão de Pacientes</a></li>
+      <li><a href="gestao_usuarios.html">Gestão de Usuários</a></li>
+      <li><a href="gestao_procedimentos.html">Gestão de Procedimentos</a></li>
+      <li><a href="estoque.html">Controle de Estoque</a></li>
+      <li><a href="fornecedores_materiais.html">Fornecedores de Materiais</a></li>
+      <li><a href="fornecedores_servicos.html" class="active">Fornecedores de Serviços</a></li>
+      <li><a href="receita.html">Gestão da Receita</a></li>
+      <li><a href="pacientes_agendados.html">Pacientes Agendados</a></li>
+      <li><a href="login.html" class="logout">Sair</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <h1>Gestão de Fornecedores de Serviços</h1>
+
+    <div class="container">
+      <!-- Cadastro de Serviço -->
+      <section class="card">
+        <h2>Cadastro de Serviço</h2>
+        <form id="servicoForm">
+          <div class="form-group">
+            <label for="nomeServico">Nome do Serviço</label>
+            <input type="text" id="nomeServico" name="nomeServico" placeholder="Nome do serviço" required>
+          </div>
+
+          <div class="form-group">
+            <label for="fornecedorServico">Fornecedor</label>
+            <input type="text" id="fornecedorServico" name="fornecedorServico" placeholder="Nome do fornecedor">
+          </div>
+
+          <div class="form-group">
+            <label for="contatoServico">Contato</label>
+            <input type="text" id="contatoServico" name="contatoServico" placeholder="Telefone ou email">
+          </div>
+
+          <div class="buttons">
+            <button type="submit" class="btn-primary">Cadastrar</button>
+            <button type="button" class="btn-secondary">Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Pesquisa de Serviço -->
+      <section class="card">
+        <h2>🔍 Pesquisar Serviço</h2>
+        <form id="searchFormServico">
+          <div class="form-group">
+            <label for="searchServico">Nome do Serviço</label>
+            <input type="text" id="searchServico" name="searchServico" placeholder="Digite o nome para pesquisar...">
+          </div>
+
+          <button type="submit" class="btn-search">Buscar</button>
+        </form>
+
+        <div class="search-results">
+          <p class="info-text">Resultados da pesquisa aparecerão aqui</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="busca.js"></script>
+</body>
+</html>
