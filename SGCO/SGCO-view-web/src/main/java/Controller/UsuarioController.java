@@ -51,7 +51,7 @@ public class UsuarioController extends HttpServlet {
 
             GestaoUsuarioService usuarioService = new GestaoUsuarioService();
             usuarioService.cadastrar(usuario);
-
+            response.sendRedirect("sucesso.jsp?msg=cadastro realizado com sucesso");
         } catch (Exception e) {
             response.sendRedirect("erro.jsp?msg=" + e.getMessage());
         }
@@ -75,7 +75,7 @@ public class UsuarioController extends HttpServlet {
 
             GestaoUsuarioService usuarioService = new GestaoUsuarioService();
             usuarioService.atualizar(usuario);
-
+            response.sendRedirect("sucesso.jsp?msg=atualização realizada com sucesso");
         } catch (Exception e) {
             response.sendRedirect("erro.jsp?msg=" + e.getMessage());
         }
@@ -95,7 +95,7 @@ public class UsuarioController extends HttpServlet {
 
             GestaoUsuarioService usuarioService = new GestaoUsuarioService();
             usuarioService.excluir(usuario);
-
+            response.sendRedirect("sucesso.jsp?msg=exclusão realizada com sucesso");
         } catch (Exception e) {
             response.sendRedirect("erro.jsp?msg=" + e.getMessage());
         }

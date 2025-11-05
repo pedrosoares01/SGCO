@@ -15,14 +15,15 @@ public class UsuarioDAO {
         PreparedStatement st;
         Class.forName("com.mysql.cj.jdbc.Driver");
         
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios");
-        String sql = "INSERT INTO usuarios VALUES (?,?,?,?)";
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios", "root", "rjm30.03.24");
+        String sql = "INSERT INTO usuarios VALUES (?,?,?,?,?)";
         st = conexao.prepareStatement(sql);
         
         st.setString(1, usuario.getNome());
         st.setString(2, usuario.getEmail());
         st.setString(3, usuario.getSenha());
         st.setString(4, usuario.getCargo());
+        st.setInt(5, usuario.getId());
         st.executeUpdate();
     }
     
@@ -31,8 +32,8 @@ public class UsuarioDAO {
         PreparedStatement st;
         Class.forName("com.mysql.cj.jdbc.Driver");
         
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios");
-        String sql = "UPDATE usuario SET nome = ?, email = ?, senha = ?, cargo = ? WHERE id = ?";
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios", "root", "rjm30.03.24");
+        String sql = "UPDATE usuarios SET nome = ?, email = ?, senha = ?, cargo = ? WHERE id = ?";
         st = conexao.prepareStatement(sql);
         st.setString(1, usuario.getNome());
         st.setString(2, usuario.getEmail());
@@ -47,7 +48,7 @@ public class UsuarioDAO {
         PreparedStatement st;
         Class.forName("com.mysql.cj.jdbc.Driver");
         
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios");
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios" , "root", "rjm30.03.24");
         String sql = "DELETE FROM usuarios WHERE id = ? AND email = ? AND nome = ?";
         st = conexao.prepareStatement(sql);
         st.setString(3, usuario.getNome());

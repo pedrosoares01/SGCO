@@ -8,6 +8,10 @@ public class GestaoUsuarioService {
     
     private UsuarioDAO usuarioDAO;
 
+    public GestaoUsuarioService() {
+        usuarioDAO = new UsuarioDAO();
+    }
+
     public void cadastrar(Usuario usuario) throws Exception{
         usuarioDAO.cadastrar(usuario);
     }
