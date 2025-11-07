@@ -18,6 +18,10 @@ public class UsuarioController extends HttpServlet {
 
         String acao = request.getParameter("acao");
 
+        if (acao == null) {
+            acao = "pesquisar";
+        }
+
         switch (acao) {
             case "atualizar":
                 atualizarUsuario(request, response);
@@ -27,6 +31,9 @@ public class UsuarioController extends HttpServlet {
                 break;
             case "excluir":
                 excluirUsuario(request,response);
+                break;
+            case "pesquisar":
+                pesquisarUsuario(request,response);
                 break;
             default:
                 break;
@@ -51,9 +58,10 @@ public class UsuarioController extends HttpServlet {
 
             GestaoUsuarioService usuarioService = new GestaoUsuarioService();
             usuarioService.cadastrar(usuario);
-            response.sendRedirect("sucesso.jsp?msg=cadastro realizado com sucesso");
+            request.setAttribute("msg", "Cadastro realizado com sucesso!");
+            request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         } catch (Exception e) {
-            response.sendRedirect("erro.jsp?msg=" + e.getMessage());
+            request.getRequestDispatcher("erro.jsp?msg=" + e.getMessage()).forward(request, response);
         }
     }
 
@@ -75,9 +83,10 @@ public class UsuarioController extends HttpServlet {
 
             GestaoUsuarioService usuarioService = new GestaoUsuarioService();
             usuarioService.atualizar(usuario);
-            response.sendRedirect("sucesso.jsp?msg=atualização realizada com sucesso");
+            request.setAttribute("msg", "Atualização realizada com sucesso!");
+            request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         } catch (Exception e) {
-            response.sendRedirect("erro.jsp?msg=" + e.getMessage());
+            request.getRequestDispatcher("erro.jsp?msg=" + e.getMessage()).forward(request, response);
         }
     }
     
@@ -87,18 +96,49 @@ public class UsuarioController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+            String cargo = request.getParameter("cargo");
 
             Usuario usuario = new Usuario();
             usuario.setId(id);
             usuario.setNome(nome);
             usuario.setEmail(email);
+            usuario.setSenha(senha);
+            usuario.setCargo(cargo);
 
             GestaoUsuarioService usuarioService = new GestaoUsuarioService();
             usuarioService.excluir(usuario);
-            response.sendRedirect("sucesso.jsp?msg=exclusão realizada com sucesso");
+            request.setAttribute("msg", "Exclusao realizada com sucesso!");
+            request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         } catch (Exception e) {
-            response.sendRedirect("erro.jsp?msg=" + e.getMessage());
+            request.getRequestDispatcher("erro.jsp?msg=" + e.getMessage()).forward(request, response);
         }
     }
-    
+
+    private void pesquisarUsuario(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+
+            String nome = request.getParameter("nome");
+
+            Usuario usuario = new Usuario();
+            Usuario usuarioRetorno = new Usuario();
+            usuario.setNome(nome);
+
+            GestaoUsuarioService usuarioService = new GestaoUsuarioService();
+            usuarioRetorno = usuarioService.pesquisar(usuario);
+
+            request.setAttribute("id", usuarioRetorno.getId());
+            request.setAttribute("nome", usuarioRetorno.getNome());
+            request.setAttribute("email", usuarioRetorno.getEmail());
+            request.setAttribute("cargo", usuarioRetorno.getCargo());
+            request.setAttribute("senha", "");
+
+            request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            request.getRequestDispatcher("erro.jsp?msg=" + e.getMessage()).forward(request, response);
+        }
+    }
+
 }

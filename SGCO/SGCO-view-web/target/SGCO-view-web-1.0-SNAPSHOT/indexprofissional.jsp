@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SGCO - Profissional</title>
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
   <aside class="sidebar">
@@ -26,25 +26,25 @@
       <div class="card">
         <h3>💰 Orçamento</h3>
         <p>Crie orçamentos com base nos procedimentos cadastrados.</p>
-        <a href="orcamento.html">Acessar</a>
+        <a href="orcamento.jsp">Acessar</a>
       </div>
 
       <div class="card">
         <h3>📦 Controle de Estoque</h3>
         <p>Verifique ou atualize os materiais disponíveis no consultório.</p>
-        <a href="estoque.html">Acessar</a>
+        <a href="estoque.jsp">Acessar</a>
       </div>
 
       <div class="card">
         <h3>🩺 Prontuário</h3>
         <p>Atualize os prontuários dos pacientes com os procedimentos realizados.</p>
-        <a href="prontuario.html">Acessar</a>
+        <a href="prontuario.jsp">Acessar</a>
       </div>
 
       <div class="card">
         <h3>📅 Pacientes Agendados</h3>
         <p>Visualize a agenda de consultas e os pacientes marcados.</p>
-        <a href="pacientes_agendados.html">Acessar</a>
+        <a href="pacientes_agendados.jsp">Acessar</a>
       </div>
     </div>
   </main>

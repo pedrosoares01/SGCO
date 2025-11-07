@@ -1,17 +1,18 @@
+<%@page contentType ="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SGCO - Menu Principal</title>
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
   <aside class="sidebar">
     <h2>SGCO</h2>
     <ul>
       <li><a href="gestao_pacientes.jsp">Gestão de Pacientes</a></li>
-      <li><a href="gestaoUsuarios/gestao_usuarios.jsp">Gestão de Usuários</a></li>
+      <li><a href="${pageContext.request.contextPath}/gestaoUsuarios/gestao_usuarios.jsp">Gestão de Usuários</a></li>
       <li><a href="gestao_procedimentos.jsp">Gestão de Procedimentos</a></li>
       <li><a href="estoque.jsp">Controle de Estoque</a></li>
       <li><a href="fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
@@ -36,7 +37,7 @@
       <div class="card">
         <h3>🧑‍💼 Gestão de Usuários</h3>
         <p>Gerencie recepcionistas, profissionais e permissões de acesso.</p>
-        <a href="gestao_usuarios.jsp">Acessar</a>
+        <a href="${pageContext.request.contextPath}/gestaoUsuarios/gestao_usuarios.jsp">Acessar</a>
       </div>
 
       <div class="card">

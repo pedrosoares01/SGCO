@@ -3,7 +3,7 @@ package sgco.sgco.dao.ram;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.ResultSet;
 import sgco.sgco.domain.Usuario;
 
 
@@ -56,5 +56,30 @@ public class UsuarioDAO {
         st.setInt(1, usuario.getId());
         st.executeUpdate();
     }
-    
+
+    public Usuario pesquisar(Usuario usuario) throws Exception {
+        Connection conexao;
+        PreparedStatement st;
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios" , "root", "rjm30.03.24");
+        String sql = "SELECT * FROM usuarios WHERE  nome = ?";
+        st = conexao.prepareStatement(sql);
+        st.setString(1, usuario.getNome());
+        ResultSet result = st.executeQuery();
+
+        Usuario usuarioRetorno = null;
+
+        if (result.next()) {
+            usuarioRetorno = new Usuario();
+            usuarioRetorno.setId(result.getInt("id"));
+            usuarioRetorno.setNome(result.getString("nome"));
+            usuarioRetorno.setEmail(result.getString("email"));
+            usuarioRetorno.setSenha(result.getString("senha"));
+            usuarioRetorno.setCargo(result.getString("cargo"));
+
+        }
+        return  usuarioRetorno;
+    }
+
 }
