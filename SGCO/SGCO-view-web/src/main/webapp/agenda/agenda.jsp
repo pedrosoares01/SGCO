@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*" %>
+<%@page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda - SGCO</title>
-    <link rel="stylesheet" href="agenda.css">
-    <link rel="stylesheet" href="../sidebar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/agenda.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
 </head>
 <body>
 <aside class="sidebar">
@@ -22,29 +22,13 @@
         <li><a href="login.html" class="logout">Sair</a></li>
     </ul>
 </aside>
-<%
-String paciente, profissional, data, hora;
-paciente = request.getParameter("paciente");
-profissional = request.getParameter("profissional");
-data = request.getParameter("data");
-hora = request.getParameter("hora");
-Connection connection;
-PreparedStatement st;
-Class.forName("com.mysql.cj.jdbc.Driver");
-connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda","root","sgcopass");
-st = connection.prepareStatement("INSERT INTO agenda VALUES(?,?,?,?)");
-st.setString(1, paciente);
-st.setString(2, profissional);
-st.setString(3, data);
-st.setString(4, hora);
-st.executeUpdate();
-%>
 <main class="content">
     <h1>Agenda</h1>
     <div class="container">
         <section class="card">
             <h2>Agendar Consulta</h2>
-            <form id="agendaForm" action ="agenda.jsp" method="POST">
+            <form id="agendaForm" method="POST" action ="${pageContext.request.contextPath}/AgendaController">
+                <input type="hidden" name="action" id="action">
                 <label>Paciente:</label>
                 <input type="text" name="paciente" placeholder="Nome do paciente" required>
                 <label>Profissional:</label>
@@ -54,29 +38,63 @@ st.executeUpdate();
                 <label>Hora:</label>
                 <input type="time" name="hora" required>
                 <div class="buttons">
-                    <button type="submit" class="btn-primary">Agendar</button>
+                    <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='agendar'">Agendar</button>
                 </div>
             </form>
         </section>
-
-        <!-- Pesquisar Agendamento -->
         <section class="card">
             <h2>🔍 Pesquisar Agendamento</h2>
-            <form id="searchForm">
+            <form method="POST" action="${pageContext.request.contextPath}/AgendaController">
+                <input type="hidden" name="action" id="action">
                 <label>Paciente ou Profissional:</label>
-                <input type="text" name="search" placeholder="Digite para pesquisar...">
+                <input type="text" name="search" placeholder="Digite para pesquisar..." required>
                 <div class="buttons">
-                    <button type="submit" class="btn-primary">Buscar</button>
+                    <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='pesquisar'">Buscar</button>
                 </div>
             </form>
-
-            <!-- Caixa de resultados dentro do card -->
+            <%
+                try{
+                    List<sgco.sgco.domain.Agenda> resultados = (List<sgco.sgco.domain.Agenda>) request.getAttribute("resultados");
+                    String nome = (String) request.getAttribute("nome");
+                    if (resultados != null) {
+            %>
             <div class="search-results">
-                <p class="info-text">Resultados da pesquisa aparecerão aqui</p>
+                <h3>Resultados da pesquisa por "<%= nome %>":</h3>
+                <table>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Profissional</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                    </tr>
+                    <%
+                        if (resultados.isEmpty()) {
+                    %>
+                    <tr><td colspan="4">Nenhum agendamento encontrado.</td></tr>
+                    <%
+                    } else {
+                        for (sgco.sgco.domain.Agenda a : resultados) {
+                    %>
+                    <tr>
+                        <td><%= a.getPaciente() %></td>
+                        <td><%= a.getProfissional() %></td>
+                        <td><%= a.getData() %></td>
+                        <td><%= a.getHora() %></td>
+                    </tr>
+                    <%
+                            }
+                        }
+                    %>
+                </table>
             </div>
+            <%
+                    }
+                } catch (Exception e){
+                        e.printStackTrace();
+                    }
+            %>
         </section>
     </div>
 </main>
-
 </body>
 </html>

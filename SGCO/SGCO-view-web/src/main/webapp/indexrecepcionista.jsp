@@ -6,8 +6,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SGCO - Recepcionista</title>
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
 </head>
 <body>
 <aside class="sidebar">
