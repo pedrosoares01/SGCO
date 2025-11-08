@@ -1,3 +1,7 @@
+<%@ page import="Controller.LoginController" %>
+<%@page contentType ="text/html" pageEncoding="UTF-8"%>
+
+<% LoginController.validarSessao(request,response);%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -15,7 +19,7 @@
       <li><a href="pagamento.jsp">Pagamentos</a></li>
       <li><a href="pacientes_agendados.jsp">Pacientes Agendados</a></li>
       <li><a href="avaliacao.jsp">Avaliação de Profissionais</a></li>
-      <li><a href="login.jsp" class="logout">Sair</a></li>
+        <li><a href="LogoutController" class="logout">Sair</a></li>
     </ul>
   </aside>
 

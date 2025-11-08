@@ -33,13 +33,16 @@ public class GestaoUsuarioService {
 
         String senha =  usuario.getSenha();
 
-        Criptografia criptografia = null;
+        Usuario usuarioRetorno  = usuarioDAO.pesquisar(usuario);
 
-        String senhaCriptografada = Criptografia.criptografar(senha);
+        if (Criptografia.verificarSenha(usuario.getSenha(), usuarioRetorno.getSenha())){
+            usuario.setSenha(usuarioRetorno.getSenha());
+            usuarioDAO.atualizar(usuario);
+        }
+        else {
+            throw new Exception("senha incorreta!");
+        }
 
-        usuario.setSenha(senhaCriptografada);
-
-        usuarioDAO.atualizar(usuario);
     }
     
     public void excluir(Usuario usuario) throws Exception {
@@ -77,5 +80,6 @@ public class GestaoUsuarioService {
         }
 
     }
+
 
 }

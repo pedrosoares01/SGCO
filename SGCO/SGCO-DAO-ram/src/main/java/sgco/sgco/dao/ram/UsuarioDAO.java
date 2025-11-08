@@ -77,9 +77,34 @@ public class UsuarioDAO {
             usuarioRetorno.setEmail(result.getString("email"));
             usuarioRetorno.setSenha(result.getString("senha"));
             usuarioRetorno.setCargo(result.getString("cargo"));
-
+            return  usuarioRetorno;
         }
-        return  usuarioRetorno;
+
+
+        throw new Exception("Usuário não encontrado!");
+    }
+
+    public Usuario logar(Usuario usuario) throws Exception {
+        Connection conexao;
+        PreparedStatement st;
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios" , "root", "rjm30.03.24");
+        String sql = "SELECT * FROM usuarios WHERE  nome = ?";
+        st = conexao.prepareStatement(sql);
+        st.setString(1, usuario.getNome());
+        ResultSet result = st.executeQuery();
+
+        Usuario usuarioRetorno = null;
+
+        if (result.next()) {
+            usuarioRetorno = new Usuario();
+            usuarioRetorno.setSenha(result.getString("senha"));
+            usuarioRetorno.setCargo(result.getString("cargo"));
+            return  usuarioRetorno;
+        }
+
+        throw new Exception("Usuário não encontrado!");
     }
 
 }

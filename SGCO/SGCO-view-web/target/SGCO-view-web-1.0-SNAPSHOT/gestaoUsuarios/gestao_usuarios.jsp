@@ -13,7 +13,7 @@
         <aside class="sidebar">
             <h2>SGCO</h2>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/index.jsp">Menu Principal</a></li>
+                <li><a href="${pageContext.request.contextPath}/indexgerente.jsp">Menu Principal</a></li>
                 <li><a href="gestao_usuarios.jsp" class="active">Gestão de Usuários</a></li>
             </ul>
         </aside>
@@ -24,11 +24,11 @@
                 
                 <input type="hidden" name="acao" value="" id="acao">
                 
-                <label>Nome:</label><input type="text" name="nome" value="<%= request.getAttribute("nome") == null ? "" : request.getAttribute("nome") %>" required>
+                <label>Nome:</label><input type="text" placeholder="nome" name="nome" value="<%= request.getAttribute("nome") == null ? "" : request.getAttribute("nome") %>" required>
                 
-                <label>Email:</label><input type="email" name="email" value="<%= request.getAttribute("email") == null ? "" : request.getAttribute("email")  %>" required >
+                <label>Email:</label><input type="email" placeholder="email@gmail.com" name="email" value="<%= request.getAttribute("email") == null ? "" : request.getAttribute("email")  %>" required >
                 
-                <label>Id:</label><input type="text" name="id" value="<%= request.getAttribute("id") == null ? "" : request.getAttribute("id") %>">
+                <label>Id:</label><input type="text" placeholder="id" name="id" value="<%= request.getAttribute("id") == null ? "" : request.getAttribute("id") %>">
                 
                 <label>Cargo:</label>
                 <select name="cargo" required>
@@ -37,7 +37,7 @@
                     <option value="Gerente" <%= "Gerente".equals(request.getAttribute("cargo")) ? "selected" : "" %>>Gerente</option>
                 </select>
                 
-                <label>Senha:</label><input type="password" name="senha" value="<%= request.getAttribute("senha") == null ? "" : request.getAttribute("senha") %>" required>
+                <label>Senha:</label><input type="password" placeholder="digite a senha" name="senha" value="<%= request.getAttribute("senha") == null ? "" : request.getAttribute("senha") %>" required>
                 
                 <div class="buttons">
                     <button type="submit" onclick="document.getElementById('acao').value='cadastrar'">Cadastrar</button>
