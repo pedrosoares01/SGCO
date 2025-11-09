@@ -1,5 +1,7 @@
 <%@page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page import="sgco.sgco.domain.Agenda"%>
+<%@ page import="java.sql.ResultSet" %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -45,18 +47,18 @@
         <section class="card">
             <h2>🔍 Pesquisar Agendamento</h2>
             <form method="POST" action="${pageContext.request.contextPath}/AgendaController">
-                <input type="hidden" name="action" id="action">
+                <input type="hidden" name="action" id="actionp">
                 <label>Paciente ou Profissional:</label>
-                <input type="text" name="search" placeholder="Digite para pesquisar..." required>
+                <input type="text" name="nome" placeholder="Digite para pesquisar..." required>
                 <div class="buttons">
                     <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='pesquisar'">Buscar</button>
                 </div>
             </form>
             <%
                 try{
-                    List<sgco.sgco.domain.Agenda> resultados = (List<sgco.sgco.domain.Agenda>) request.getAttribute("resultados");
+                    List<Agenda> resultados = (List<Agenda>) request.getAttribute("resultados");
                     String nome = (String) request.getAttribute("nome");
-                    if (resultados != null) {
+                    if (resultados != null && !resultados.isEmpty()) {
             %>
             <div class="search-results">
                 <h3>Resultados da pesquisa por "<%= nome %>":</h3>
@@ -73,7 +75,7 @@
                     <tr><td colspan="4">Nenhum agendamento encontrado.</td></tr>
                     <%
                     } else {
-                        for (sgco.sgco.domain.Agenda a : resultados) {
+                        for (Agenda a : resultados) {
                     %>
                     <tr>
                         <td><%= a.getPaciente() %></td>
@@ -90,8 +92,8 @@
             <%
                     }
                 } catch (Exception e){
-                        e.printStackTrace();
-                    }
+                    e.printStackTrace(new java.io.PrintWriter(String.valueOf(out)));
+                }
             %>
         </section>
     </div>

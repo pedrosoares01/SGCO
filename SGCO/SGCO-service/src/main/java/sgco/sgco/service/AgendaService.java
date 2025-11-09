@@ -1,7 +1,7 @@
 package sgco.sgco.service;
 import sgco.sgco.dao.ram.AgendaDAO;
 import sgco.sgco.domain.Agenda;
-
+import java.sql.ResultSet;
 import java.util.List;
 
 public class AgendaService {
@@ -15,11 +15,7 @@ public class AgendaService {
     }
 
     public List<Agenda> pesquisar(Agenda agenda) throws Exception {
-        validar(agenda);
-        List<Agenda> lista;
-        lista = agendaDAO.pesquisar(agenda);
-        System.out.println(">>> Chamou AgendaDAO.pesquisar()");
-        return lista;
+        return agendaDAO.pesquisar(agenda);
     }
 
     private void validar(Agenda agenda) throws Exception{

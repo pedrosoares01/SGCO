@@ -1,5 +1,6 @@
 package controller;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,6 +14,9 @@ import sgco.sgco.service.AgendaService;
 public class AgendaController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        if (action == null) {
+            action = "pesquisar";
+        }
         switch (action) {
             case "agendar":
                 agendar(request, response);
@@ -20,8 +24,11 @@ public class AgendaController extends HttpServlet {
             case "pesquisar":
                 pesquisar(request, response);
                 break;
+            default:
+                break;
         }
     }
+
     private void agendar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String paciente, profissional, data, hora;
@@ -36,15 +43,15 @@ public class AgendaController extends HttpServlet {
             agenda.setHora(hora);
             AgendaService agendaService = new AgendaService();
             agendaService.agendar(agenda);
-            request.getRequestDispatcher("agenda/agenda.jsp?msg=Paciente agendado com sucesso").forward(request, response);
+            request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         } catch(Exception e){
-            request.getRequestDispatcher("agenda/agenda.jsp?msg=Erro ao agendar paciente").forward(request, response);
+            request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         }
     }
     protected void pesquisar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(">>> Entrou no método pesquisar()");
         try {
-            String nome = request.getParameter("search");
+            String nome = request.getParameter("nome");
             List<Agenda> lista;
             Agenda agenda = new Agenda();
             agenda.setPaciente(nome);
@@ -56,7 +63,7 @@ public class AgendaController extends HttpServlet {
             request.setAttribute("resultados", lista);
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         } catch (Exception e){
-            request.getRequestDispatcher("agenda/agenda.jsp?msg=Não foi possível encontrar um agendamento").forward(request, response);
+            request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         }
     }
 }
