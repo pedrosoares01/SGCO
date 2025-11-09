@@ -29,18 +29,15 @@
                         <% for (Procedimento p : resultados) { %>
                             <div class="result-item">
                                 <div class="result-info">
-                                    <strong><%= p.getNome() %></strong>
+                                    <strong><%= p.getNome() %></strong><br>
                                     <span>R$ <%= String.format("%.2f", p.getPreco()) %></span>
                                 </div>
 
-                                <div class="result-actions">
-                                    <form action="${pageContext.request.contextPath}/ProcedimentoController" method="get" class="edit-form">
-                                        <input type="hidden" name="acao" value="editar">
-                                        <input type="hidden" name="id" value="<%= p.getId() %>">
-                                        <button type="submit" class="btn-edit">Editar</button>
-                                    </form>
-
-                                </div>
+                                <form action="${pageContext.request.contextPath}/OrcamentoController" method="get" class="select-form">
+                                    <input type="hidden" name="acao" value="selecionarProcedimento">
+                                    <input type="hidden" name="id" value="<%= p.getId() %>">
+                                    <button type="submit" class="btn-select">Selecionar</button>
+                                </form>
                             </div>
                         <% } %>
                     </div>

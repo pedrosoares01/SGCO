@@ -95,7 +95,9 @@
     <div class="card">
         <h2>Editar Procedimento</h2>
 
-        <form action="${pageContext.request.contextPath}/AtualizarProcedimento" method="post">
+        <form action="${pageContext.request.contextPath}/ProcedimentoController" method="post">
+            <input type="hidden" name="acao" value="atualizar">
+
             <input type="hidden" name="id" value="<%= p.getId() %>">
 
             <label for="nome">Nome do Procedimento</label>
@@ -106,8 +108,7 @@
 
             <div class="btn-group">
                 <button type="submit" class="btn-save">Salvar</button>
-                <button type="button" class="btn-delete" 
-                        onclick="confirmarExclusao(<%= p.getId() %>)">Excluir</button>
+                <button type="button" class="btn-delete" onclick="confirmarExclusao(<%= p.getId() %>)">Excluir</button>
             </div>
         </form>
     </div>
@@ -115,7 +116,8 @@
     <script>
         function confirmarExclusao(id) {
             if (confirm("Tem certeza que deseja excluir este procedimento?")) {
-                window.location.href = "${pageContext.request.contextPath}/ExcluirProcedimento?id=" + id;
+                // redireciona para o controller com ação de exclusão
+                window.location.href = "${pageContext.request.contextPath}/ProcedimentoController?acao=excluir&id=" + id;
             }
         }
     </script>

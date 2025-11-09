@@ -8,12 +8,12 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
 	</head>
-	<body> 
+	<body>
 		<jsp:include page="../sidebar.jsp" />
 		<main class="content">
 			<div class="container">
-				<jsp:include page="cadastrar.jsp" />
-				<jsp:include page="pesquisar.jsp" />
+				<jsp:include page="/core/orcamento/pesquisarPaciente.jsp" />
+				<jsp:include page="/core/orcamento/pesquisarProcedimento.jsp" />
 			</div>
 		</main>
 	</body>
