@@ -20,7 +20,10 @@
 
 <section class="card">
 	<h2>Cadastro de Procedimento</h2>
-	<form id="procedimentoForm" action="/SGCO-view-web/CadastrarProcedimento" method="post">
+
+	<form id="procedimentoForm" action="${pageContext.request.contextPath}/ProcedimentoController" method="post">
+		<input type="hidden" name="acao" value="cadastrar">
+
 		<div class="form-group">
 			<label for="procedimento">Procedimento</label>
 			<input type="text" id="procedimento" name="procedimento" placeholder="Nome do procedimento" required>

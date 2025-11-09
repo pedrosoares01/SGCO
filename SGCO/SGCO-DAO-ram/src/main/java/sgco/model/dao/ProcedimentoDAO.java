@@ -1,10 +1,7 @@
 package sgco.model.dao;
 
 import sgco.dao.exception.NomeProcedimentoInvalidoException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import sgco.model.domain.Procedimento;
@@ -47,7 +44,6 @@ public class ProcedimentoDAO {
                     int id = rs.getInt("id");
                     String nomeProcedimento = rs.getString("nome");
                     double preco = rs.getDouble("preco");
-                    // ✅ Inclui o ID corretamente
                     procedimentos.add(new Procedimento(id, nomeProcedimento, preco));
                 }
             }
@@ -135,4 +131,5 @@ public class ProcedimentoDAO {
             return false;
         }
     }
+    
 }

@@ -6,8 +6,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    padding: 2rem; /* Aumentado para se alinhar com o estilo da página */
-    border-radius: 12px; /* Consistente com o estilo de outros componentes */
+    padding: 2rem;
+    border-radius: 12px;
     box-shadow: 0 4px 12px rgba(2, 62, 138, 0.08);
     text-align: center;
     z-index: 9999;
@@ -15,21 +15,21 @@
 }
 
 #popup.sucesso {
-    border-top: 5px solid #28a745; /* Cor de sucesso */
+    border-top: 5px solid #28a745; 
 }
 
 #popup.erro {
-    border-top: 5px solid #dc3545; /* Cor de erro */
+    border-top: 5px solid #dc3545;
 }
 
 #popup p {
-    margin-bottom: 1.5rem; /* Ajuste da margem para espaçamento adequado */
-    font-size: 1rem; /* Consistente com a fonte da página */
-    color: #1a3a52; /* Cor do texto */
+    margin-bottom: 1.5rem; 
+    font-size: 1rem; 
+    color: #1a3a52; 
 }
 
 #popup button {
-    background: #023e8a; /* Cor do botão primário */
+    background: #023e8a; 
     color: white;
     border: none;
     border-radius: 8px;
@@ -38,11 +38,11 @@
     font-size: 1rem;
     font-weight: 600;
     transition: all 0.3s ease;
-    margin-top: 1rem; /* Espaçamento acima do botão */
+    margin-top: 1rem; 
 }
 
 #popup button:hover {
-    background-color: #0077b6; /* Cor ao passar o mouse */
+    background-color: #0077b6;
     box-shadow: 0 4px 12px rgba(2, 62, 138, 0.3);
 }
 
