@@ -17,7 +17,7 @@
     <li><a href="agenda.html">Agenda</a></li>
     <li><a href="pagamento.html">Pagamentos</a></li>
     <li><a href="pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
-    <li><a href="avaliacao.html">Avaliação de Profissionais</a></li>
+    <li><a href="${pageContext.request.contextPath}avaliacao.jsp">Avaliação de Profissionais</a></li>
     <li><a href="login.html" class="logout">Sair</a></li>
   </ul>
 </aside>

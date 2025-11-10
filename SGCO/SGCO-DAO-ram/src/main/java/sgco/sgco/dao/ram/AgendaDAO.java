@@ -35,8 +35,9 @@ public class AgendaDAO {
             a.setData(rs.getString("data_agendamento"));
             a.setHora(rs.getString("hora_agendamento"));
             lista.add(a);
-            return lista;
         }
-        throw new Exception("Nenhuma correspondecia");
+        if (lista.isEmpty())
+            throw new Exception("Nenhuma correspondecia");
+        return lista;
     }
 }

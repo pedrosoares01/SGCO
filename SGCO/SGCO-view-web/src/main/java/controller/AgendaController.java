@@ -1,6 +1,5 @@
 package controller;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -49,7 +48,7 @@ public class AgendaController extends HttpServlet {
         }
     }
     protected void pesquisar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(">>> Entrou no método pesquisar()");
+        response.sendRedirect("agenda/agenda.jsp");
         try {
             String nome = request.getParameter("nome");
             List<Agenda> lista;
@@ -61,7 +60,7 @@ public class AgendaController extends HttpServlet {
             System.out.println(">>> Chamou AgendaService.pesquisar()");
             request.setAttribute("nome", nome);
             request.setAttribute("resultados", lista);
-            request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
+            response.sendRedirect("agenda/agenda.jsp");
         } catch (Exception e){
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         }

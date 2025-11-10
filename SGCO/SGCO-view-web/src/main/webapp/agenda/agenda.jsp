@@ -91,9 +91,7 @@
             </div>
             <%
                     }
-                } catch (Exception e){
-                    e.printStackTrace(new java.io.PrintWriter(String.valueOf(out)));
-                }
+                } catch (Exception e){}
             %>
         </section>
     </div>

@@ -23,13 +23,13 @@ public class AgendaService {
             throw new Exception("A data não foi preenchida");
         }
         if (agenda.getPaciente() == null || agenda.getPaciente().isBlank()) {
-            throw new Exception("A data não foi preenchida");
+            throw new Exception("O paciente não foi preenchida");
         }
         if (agenda.getProfissional() == null || agenda.getProfissional().isBlank()) {
-            throw new Exception("A data não foi preenchida");
+            throw new Exception("O profissional não foi preenchida");
         }
         if (agenda.getHora() == null || agenda.getHora().isBlank()) {
-            throw new Exception("A data não foi preenchida");
+            throw new Exception("A hora não foi preenchida");
         }
     }
 }
