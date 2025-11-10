@@ -47,7 +47,6 @@
         <section class="card">
             <h2>🔍 Pesquisar Agendamento</h2>
             <form method="POST" action="${pageContext.request.contextPath}/AgendaController">
-                <input type="hidden" name="action" id="actionp">
                 <label>Paciente ou Profissional:</label>
                 <input type="text" name="nome" placeholder="Digite para pesquisar..." required>
                 <div class="buttons">

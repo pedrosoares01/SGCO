@@ -38,6 +38,9 @@ public class AgendaDAO {
         }
         if (lista.isEmpty())
             throw new Exception("Nenhuma correspondecia");
+        rs.close();
+        st.close();
+        conn.close();
         return lista;
     }
 }

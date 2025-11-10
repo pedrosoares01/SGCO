@@ -48,7 +48,6 @@ public class AgendaController extends HttpServlet {
         }
     }
     protected void pesquisar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("agenda/agenda.jsp");
         try {
             String nome = request.getParameter("nome");
             List<Agenda> lista;
@@ -57,10 +56,9 @@ public class AgendaController extends HttpServlet {
             agenda.setProfissional(nome);
             AgendaService agendaService = new AgendaService();
             lista = agendaService.pesquisar(agenda);
-            System.out.println(">>> Chamou AgendaService.pesquisar()");
             request.setAttribute("nome", nome);
             request.setAttribute("resultados", lista);
-            response.sendRedirect("agenda/agenda.jsp");
+            request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         } catch (Exception e){
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         }
