@@ -25,8 +25,8 @@
         <input type="hidden" name="acao" value="cadastrar">
 
         <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="text" id="name" name="name" placeholder="Nome completo do paciente" required>
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome completo do paciente" required>
         </div>
 
         <div class="form-group">
@@ -35,13 +35,13 @@
         </div>
 
         <div class="form-group">
-            <label for="address">Endereço</label>
-            <input type="text" id="address" name="address" placeholder="Rua, número, bairro, cidade">
+            <label for="endereco">Endereço</label>
+            <input type="text" id="endereco" name="endereco" placeholder="Rua, número, bairro, cidade">
         </div>
 
         <div class="form-group">
-            <label for="phone">Telefone</label>
-            <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" required>
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
         </div>
 
         <div class="form-group">

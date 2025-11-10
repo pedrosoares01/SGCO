@@ -14,13 +14,12 @@
                    placeholder="Digite o nome para pesquisar..." required>
         </div>
 
-        <button type="submit" class="btn-search">Buscar</button>
+        <button type="submit" class="btn-primary">Buscar</button>
     </form>
 
     <div class="search-results">
         <%
             List<Paciente> resultados = (List<Paciente>) request.getAttribute("resultados");
-
             if (resultados != null) {
                 if (!resultados.isEmpty()) {
         %>
@@ -34,10 +33,10 @@
                                 </div>
 
                                 <div class="result-actions">
-                                    <form action="${pageContext.request.contextPath}/PacienteController" method="get" class="edit-form">
+                                    <form action="${pageContext.request.contextPath}/PacienteController" method="get">
                                         <input type="hidden" name="acao" value="editar">
                                         <input type="hidden" name="id" value="<%= p.getId() %>">
-                                        <button type="submit" class="btn-edit">Editar</button>
+                                        <button type="submit" class="btn-secondary">Editar</button>
                                     </form>
                                 </div>
                             </div>
