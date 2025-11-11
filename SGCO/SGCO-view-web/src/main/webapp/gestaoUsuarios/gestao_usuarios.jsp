@@ -63,7 +63,5 @@
 
             </div>
         </main>
-
-        <script src="busca.js"></script>
     </body>
 </html>
