@@ -1,158 +1,253 @@
 package sgco.controller;
 
-import sgco.model.dao.ProcedimentoDAO;
-import sgco.model.dao.PacienteDAO;
 import sgco.model.dao.OrcamentoDAO;
-import sgco.model.domain.Procedimento;
-import sgco.model.domain.Paciente;
+import sgco.model.dao.PacienteDAO;
+import sgco.model.dao.ProcedimentoDAO;
 import sgco.model.domain.Orcamento;
+import sgco.model.domain.Paciente;
+import sgco.model.domain.Procedimento;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Logger;
 
 @WebServlet(name = "OrcamentoController", urlPatterns = {"/OrcamentoController"})
 public class OrcamentoController extends HttpServlet {
 
-    private ProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
-    private OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
+    private static final Logger logger = Logger.getLogger(OrcamentoController.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String acao = request.getParameter("acao");
 
-        if ("selecionarProcedimento".equals(acao)) {
-            selecionarProcedimento(request, response);
-        } else if ("listarSelecionados".equals(acao)) {
-            listarProcedimentosSelecionados(request, response);
-        } else if ("selecionarPaciente".equals(acao)) {
-            selecionarPaciente(request, response);
-        } else {
-            response.sendRedirect("core/orcamento/pagina.jsp");
+        try {
+            if (acao == null || acao.equals("listar")) {
+                listarOrcamentos(request, response);
+            } else if (acao.equals("editar")) {
+                editarOrcamento(request, response);
+            } else if (acao.equals("pesquisar")) {
+                pesquisarPorId(request, response);
+            } else if (acao.equals("selecionarProcedimento")) {
+                selecionarProcedimento(request, response);
+            } else if (acao.equals("novo")) {
+                abrirNovoOrcamento(request, response);
+            } else if (acao.equals("excluir")) {
+                excluirOrcamento(request, response);
+            }
+        } catch (Exception e) {
+            logger.severe("Erro em doGet: " + e.getMessage());
+            e.printStackTrace();
+            request.setAttribute("mensagemErro", "Erro: " + e.getMessage());
+            request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String acao = request.getParameter("acao");
 
-        if ("salvar".equals(acao)) {
-            salvarOrcamento(request, response);
-        } else {
-            response.sendRedirect("core/orcamento/pagina.jsp");
-        }
-    }
-
-    private void selecionarProcedimento(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
         try {
-            int idProcedimento = Integer.parseInt(request.getParameter("id"));
-            Procedimento procedimento = procedimentoDAO.buscarPorId(idProcedimento);
-
-            HttpSession session = request.getSession();
-            List<Procedimento> procedimentosSelecionados =
-                    (List<Procedimento>) session.getAttribute("procedimentosSelecionados");
-
-            if (procedimentosSelecionados == null) {
-                procedimentosSelecionados = new ArrayList<>();
+            if ("salvar".equals(acao) || "inserir".equals(acao)) {
+                salvarOrcamento(request, response);
+            } else if ("atualizar".equals(acao)) {
+                atualizarOrcamento(request, response);
+            } else if ("selecionarPaciente".equals(acao)) {
+                selecionarPaciente(request, response);
+            } else if ("pesquisar".equals(acao)) {
+                pesquisarPorId(request, response);
+            } else {
+                listarOrcamentos(request, response);
             }
-
-            procedimentosSelecionados.add(procedimento);
-            session.setAttribute("procedimentosSelecionados", procedimentosSelecionados);
-
-            request.setAttribute("mensagem", "Procedimento adicionado ao orçamento!");
-            request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
-
         } catch (Exception e) {
+            logger.severe("Erro em doPost: " + e.getMessage());
             e.printStackTrace();
-            request.setAttribute("mensagemErro", "Erro ao adicionar procedimento: " + e.getMessage());
+            request.setAttribute("mensagemErro", "Erro ao processar: " + e.getMessage());
             request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
         }
     }
 
-    private void listarProcedimentosSelecionados(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        List<Procedimento> procedimentosSelecionados =
-                (List<Procedimento>) session.getAttribute("procedimentosSelecionados");
-
-        if (procedimentosSelecionados == null) {
-            procedimentosSelecionados = new ArrayList<>();
-        }
-
-        request.setAttribute("procedimentosSelecionados", procedimentosSelecionados);
+    private void listarOrcamentos(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, Exception {
+        OrcamentoDAO dao = new OrcamentoDAO();
+        List<Orcamento> lista = dao.listarTodos();
+        request.setAttribute("resultados", lista);
         request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
     }
 
-    private void selecionarPaciente(HttpServletRequest request, HttpServletResponse response)
+    private void pesquisarPorId(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, Exception {
+        String idParam = request.getParameter("searchId");
+        List<Orcamento> resultados;
+        OrcamentoDAO dao = new OrcamentoDAO();
+
+        if (idParam != null && !idParam.isEmpty()) {
+            try {
+                int id = Integer.parseInt(idParam);
+                Orcamento o = dao.buscarPorId(id);
+                resultados = (o != null) ? List.of(o) : List.of();
+            } catch (NumberFormatException e) {
+                resultados = List.of();
+            }
+        } else {
+            resultados = List.of();
+        }
+
+        request.setAttribute("resultados", resultados);
+        request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
+    }
+
+    private void editarOrcamento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        OrcamentoDAO dao = new OrcamentoDAO();
+        Orcamento orcamento = dao.buscarPorId(id);
 
-        try {
-            int idPaciente = Integer.parseInt(request.getParameter("id"));
-            PacienteDAO pacienteDAO = new PacienteDAO();
-            Paciente paciente = pacienteDAO.buscarPorId(idPaciente);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("pacienteSelecionado", paciente);
-
-            request.setAttribute("mensagem", "Paciente selecionado com sucesso!");
-            request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("mensagemErro", "Erro ao selecionar paciente: " + e.getMessage());
-            request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
+        if (orcamento != null) {
+            request.setAttribute("orcamento", orcamento);
+            request.getRequestDispatcher("/core/orcamento/editar_orcamento.jsp").forward(request, response);
+        } else {
+            request.setAttribute("mensagem", "Orçamento não encontrado!");
+            request.getRequestDispatcher("/core/orcamento/pagina.jsp").forward(request, response);
         }
     }
 
     private void salvarOrcamento(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
+        HttpSession session = request.getSession();
+        List<Integer> procedimentosSelecionados = (List<Integer>) session.getAttribute("procedimentosSelecionados");
 
-        try {
-            HttpSession session = request.getSession();
-
-            Paciente paciente = (Paciente) session.getAttribute("pacienteSelecionado");
-            List<Procedimento> procedimentosSelecionados =
-                    (List<Procedimento>) session.getAttribute("procedimentosSelecionados");
-
-            if (paciente == null) {
-                request.setAttribute("mensagemErro", "Selecione um paciente antes de salvar o orçamento.");
-                request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
-                return;
-            }
-
-            if (procedimentosSelecionados == null || procedimentosSelecionados.isEmpty()) {
-                request.setAttribute("mensagemErro", "Adicione pelo menos um procedimento antes de salvar o orçamento.");
-                request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
-                return;
-            }
-
-            Orcamento orcamento = new Orcamento();
-            orcamento.setDescricao(request.getParameter("descricao"));
-            orcamento.setIdPaciente(paciente.getId());
-            orcamento.setIdProfissional(1);
-            orcamento.setValor(procedimentosSelecionados.stream().mapToDouble(Procedimento::getPreco).sum());
-
-            orcamentoDAO.inserir(orcamento);
-
-            session.removeAttribute("procedimentosSelecionados");
-            session.removeAttribute("pacienteSelecionado");
-
-            request.setAttribute("mensagem", "Orçamento salvo com sucesso!");
-            request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("mensagemErro", "Erro ao salvar orçamento: " + e.getMessage());
-            request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
+        if (procedimentosSelecionados == null || procedimentosSelecionados.isEmpty()) {
+            request.setAttribute("mensagemErro", "Nenhum procedimento selecionado.");
+            listarOrcamentos(request, response);
+            return;
         }
+
+        int idPaciente = Integer.parseInt(request.getParameter("id_paciente"));
+        String valorStr = request.getParameter("valor").replace(",", ".");
+        double valor = Double.parseDouble(valorStr);
+        Integer idProfissional = (Integer) session.getAttribute("idProfissionalLogado");
+        if (idProfissional == null) idProfissional = 1;
+
+        ProcedimentoDAO pDao = new ProcedimentoDAO();
+        List<String> nomesProcedimentos = new ArrayList<>();
+
+        for (Integer id : procedimentosSelecionados) {
+            Procedimento p = pDao.buscarPorId(id);
+            if (p != null) nomesProcedimentos.add(p.getNome());
+        }
+
+        Orcamento orc = new Orcamento();
+        orc.setIdPaciente(idPaciente);
+        orc.setValor(valor);
+        orc.setIdProfissional(idProfissional);
+        orc.setIdsProcedimentos(procedimentosSelecionados);
+        orc.gerarDescricao(nomesProcedimentos);
+
+        OrcamentoDAO dao = new OrcamentoDAO();
+        boolean sucesso = dao.inserir(orc);
+
+        if (sucesso) {
+            session.removeAttribute("procedimentosSelecionados");
+            request.setAttribute("mensagem", "Orçamento salvo com sucesso!");
+        } else {
+            request.setAttribute("mensagemErro", "Erro ao salvar orçamento.");
+        }
+
+        listarOrcamentos(request, response);
+    }
+
+    private void atualizarOrcamento(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, Exception {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String descricao = request.getParameter("descricao");
+        String valorStr = request.getParameter("valor").replace(",", ".");
+        double valor = Double.parseDouble(valorStr);
+        int idProfissional = Integer.parseInt(request.getParameter("idProfissional"));
+        int idPaciente = Integer.parseInt(request.getParameter("idPaciente"));
+
+        Orcamento orc = new Orcamento();
+        orc.setId(id);
+        orc.setDescricao(descricao);
+        orc.setValor(valor);
+        orc.setIdProfissional(idProfissional);
+        orc.setIdPaciente(idPaciente);
+
+        OrcamentoDAO dao = new OrcamentoDAO();
+
+        dao.excluir(id);
+        boolean sucesso = dao.inserir(orc); 
+
+        if (sucesso) {
+            request.setAttribute("mensagem", "Orçamento atualizado com sucesso!");
+        } else {
+            request.setAttribute("mensagemErro", "Erro ao atualizar orçamento.");
+        }
+
+        listarOrcamentos(request, response);
+    }
+
+    private void excluirOrcamento(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, Exception {
+        int id = Integer.parseInt(request.getParameter("id"));
+        OrcamentoDAO dao = new OrcamentoDAO();
+        boolean sucesso = dao.excluir(id);
+
+        if (sucesso) {
+            request.setAttribute("mensagem", "Orçamento excluído com sucesso!");
+        } else {
+            request.setAttribute("mensagemErro", "Erro ao excluir orçamento.");
+        }
+
+        listarOrcamentos(request, response);
+    }
+
+    private void selecionarPaciente(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        int idPaciente = Integer.parseInt(request.getParameter("id_paciente"));
+        request.getSession().setAttribute("idPacienteSelecionado", idPaciente);
+        response.sendRedirect("OrcamentoController?acao=novo");
+    }
+
+    private void selecionarProcedimento(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        HttpSession session = request.getSession();
+        List<Integer> procedimentosSelecionados = (List<Integer>) session.getAttribute("procedimentosSelecionados");
+
+        if (procedimentosSelecionados == null) procedimentosSelecionados = new ArrayList<>();
+
+        int idProcedimento = Integer.parseInt(request.getParameter("id_procedimento"));
+        if (!procedimentosSelecionados.contains(idProcedimento)) procedimentosSelecionados.add(idProcedimento);
+
+        session.setAttribute("procedimentosSelecionados", procedimentosSelecionados);
+        response.sendRedirect("OrcamentoController?acao=novo");
+    }
+
+    private void abrirNovoOrcamento(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, Exception {
+        HttpSession session = request.getSession();
+        Integer idPaciente = (Integer) session.getAttribute("idPacienteSelecionado");
+        List<Integer> procedimentosSelecionados = (List<Integer>) session.getAttribute("procedimentosSelecionados");
+
+        if (idPaciente != null) {
+            PacienteDAO pDao = new PacienteDAO();
+            Paciente paciente = pDao.buscarPorId(idPaciente);
+            request.setAttribute("pacienteSelecionado", paciente);
+        }
+
+        if (procedimentosSelecionados != null && !procedimentosSelecionados.isEmpty()) {
+            ProcedimentoDAO prDao = new ProcedimentoDAO();
+            List<Procedimento> lista = new ArrayList<>();
+            for (Integer id : procedimentosSelecionados) {
+                Procedimento p = prDao.buscarPorId(id);
+                if (p != null) lista.add(p);
+            }
+            request.setAttribute("procedimentosSelecionados", lista);
+        }
+
+        request.getRequestDispatcher("core/orcamento/novo_orcamento.jsp").forward(request, response);
     }
 }

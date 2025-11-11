@@ -192,13 +192,26 @@ public class ProcedimentoController extends HttpServlet {
     private void pesquisarProcedimento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String nomeProcedimento = request.getParameter("searchProcedimento");
+        String origem = request.getParameter("origem");
 
         try {
             ProcedimentoDAO dao = new ProcedimentoDAO();
             List<Procedimento> resultados = dao.pesquisarPorNome(nomeProcedimento);
-
             request.setAttribute("resultados", resultados);
-            request.getRequestDispatcher("/core/procedimentos/pagina.jsp").forward(request, response);
+
+            if ("orcamento".equals(origem)) {
+                Integer idPaciente = (Integer) request.getSession().getAttribute("idPacienteSelecionado");
+                if (idPaciente != null) {
+                    sgco.model.dao.PacienteDAO pDao = new sgco.model.dao.PacienteDAO();
+                    sgco.model.domain.Paciente paciente = pDao.buscarPorId(idPaciente);
+                    request.setAttribute("pacienteSelecionado", paciente);
+                }
+
+                request.getRequestDispatcher("/core/orcamento/novo_orcamento.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/core/procedimentos/pagina.jsp").forward(request, response);
+            }
+
         } catch (Exception e) {
             enviarMensagem(request, response, "Erro ao pesquisar: " + e.getMessage(), "erro");
         }

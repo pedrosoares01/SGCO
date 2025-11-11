@@ -1,14 +1,35 @@
 package sgco.model.dao;
 
 import java.sql.*;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import sgco.model.domain.Paciente;
 
 public class PacienteDAO {
 
-    private static final Logger logger = Logger.getLogger(PacienteDAO.class.getName());
+    public boolean inserir(Paciente p) {
+        String sql = "INSERT INTO paciente (nome, cpf, endereco, telefone, email) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, p.getNome());
+            stmt.setString(2, p.getCpf());
+            stmt.setString(3, p.getEndereco());
+            stmt.setString(4, p.getTelefone());
+            stmt.setString(5, p.getEmail());
+
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro SQL ao inserir paciente: " + e.getMessage());
+            return false;
+        } catch (Exception e) {
+            System.err.println("Erro de conexão ao inserir paciente: " + e.getMessage());
+            return false;
+        }
+    }
 
     public List<Paciente> pesquisarPorNome(String nome) {
         List<Paciente> pacientes = new ArrayList<>();
@@ -21,58 +42,91 @@ public class PacienteDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Paciente p = new Paciente();
-                    p.setId(rs.getInt("id"));
-                    p.setNome(rs.getString("nome"));
-                    p.setCpf(rs.getString("cpf"));
-                    p.setEndereco(rs.getString("endereco"));
-                    p.setTelefone(rs.getString("telefone"));
-                    p.setEmail(rs.getString("email"));
-                    pacientes.add(p);
+                    pacientes.add(new Paciente(
+                            rs.getInt("id"),
+                            rs.getString("nome"),
+                            rs.getString("cpf"),
+                            rs.getString("endereco"),
+                            rs.getString("telefone"),
+                            rs.getString("email")
+                    ));
                 }
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Erro SQL ao pesquisar pacientes: {0}", e.getMessage());
+            System.err.println("Erro SQL ao pesquisar pacientes: " + e.getMessage());
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Erro de conexão ao pesquisar pacientes: {0}", e.getMessage());
+            System.err.println("Erro de conexão ao pesquisar pacientes: " + e.getMessage());
         }
 
         return pacientes;
     }
 
-    public Paciente buscarPorId(int id) {
-        String sql = "SELECT id, nome, cpf, endereco, telefone, email FROM paciente WHERE id = ?";
-        Paciente p = null;
+    public Paciente buscarPorId(int id) throws Exception {
+        String sql = "SELECT * FROM paciente WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    p = new Paciente();
-                    p.setId(rs.getInt("id"));
-                    p.setNome(rs.getString("nome"));
-                    p.setCpf(rs.getString("cpf"));
-                    p.setEndereco(rs.getString("endereco"));
-                    p.setTelefone(rs.getString("telefone"));
-                    p.setEmail(rs.getString("email"));
-                }
-            }
-
-            if (p == null) {
-                logger.log(Level.INFO, "Nenhum paciente encontrado com o ID: {0}", id);
+            if (rs.next()) {
+                return new Paciente(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("endereco"),
+                        rs.getString("telefone"),
+                        rs.getString("email")
+                );
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Erro SQL ao buscar paciente por ID: {0}", e.getMessage());
+            System.err.println("Erro SQL ao buscar paciente por ID: " + e.getMessage());
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Erro de conexão ao buscar paciente por ID: {0}", e.getMessage());
+            System.err.println("Erro ao buscar paciente: " + e.getMessage());
+            throw e;
         }
 
-        return p;
+        return null;
+    }
+
+    public boolean atualizar(Paciente p) throws Exception {
+        String sql = "UPDATE paciente SET nome = ?, cpf = ?, endereco = ?, telefone = ?, email = ? WHERE id = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, p.getNome());
+            stmt.setString(2, p.getCpf());
+            stmt.setString(3, p.getEndereco());
+            stmt.setString(4, p.getTelefone());
+            stmt.setString(5, p.getEmail());
+            stmt.setInt(6, p.getId());
+
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar paciente: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean excluir(int id) throws Exception {
+        String sql = "DELETE FROM paciente WHERE id = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao excluir paciente: " + e.getMessage());
+            return false;
+        }
     }
 }
-

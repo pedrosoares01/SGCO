@@ -222,6 +222,16 @@ button.btn-search:hover {
   background-color: #0077b6;
 }
 
+.search-group {
+  display: flex;
+  gap: 0.5rem; /* espaço entre input e botão */
+  align-items: center;
+}
+
+.search-group input {
+  flex: 1; /* input ocupa o máximo de espaço */
+}
+
 @media (max-width: 1024px) {
   .container {
     grid-template-columns: 1fr;
