@@ -7,45 +7,73 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>SGCO-view-web</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>controller.AgendaController</exec.mainClass>
+        <exec.mainClass>sgco.sgco.view.web.SGCOViewWeb</exec.mainClass>
     </properties>
+
     <dependencies>
+        <!-- Dependência para Servlets -->
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
+
+         <dependency>
+	        <groupId>jakarta.servlet</groupId>
+	        <artifactId>jakarta.servlet-api</artifactId>
+	        <version>6.0.0</version>
+	        <scope>provided</scope>
+	    </dependency>
+
         <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>9.5.0</version>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.3</version>
+            <scope>provided</scope>
         </dependency>
+
+
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>SGCO-domain</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>SGCO-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+		    <groupId>SGCO</groupId>
+		    <artifactId>SGCO-domain</artifactId>
+		    <version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>SGCO</groupId>
+		    <artifactId>SGCO-DAO-ram</artifactId>
+		    <version>1.0-SNAPSHOT</version>
+		</dependency>
     </dependencies>
+
     <build>
+        <finalName>SGCO-view-web</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
