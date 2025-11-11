@@ -11,6 +11,14 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>sgco.sgco.dao.ram.SGCODAORam</exec.mainClass>
+        <exec.mainClass>sgco.sgco.dao.ram.AgendaDAO</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>SGCO-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+    </dependencies>
 </project>
