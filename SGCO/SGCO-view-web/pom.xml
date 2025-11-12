@@ -2,16 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>SGCO</groupId>
-        <artifactId>SGCO</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
+    <artifactId>SGCO</artifactId>
+    <groupId>SGCO</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+    <groupId>SGCO</groupId>
     <artifactId>SGCO-view-web</artifactId>
-    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>SGCO-view-web</name>
+    
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>sgco.sgco.view.web.SGCOViewWeb</exec.mainClass>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <jakartaee>10.0.0</jakartaee>
     </properties>
 
     <dependencies>
