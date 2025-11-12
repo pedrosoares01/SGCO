@@ -52,11 +52,23 @@ body {
 
 .logout:hover {
   background-color: #e63946;
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-y: hidden
+}
+
+body {
+  display: flex;
+  min-height: 100vh; /* garante que o body ocupe toda a tela */
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background-color: #f5f8fa;
 }
 
 .content {
   flex: 1;
   padding: 3rem;
+  overflow-y: auto;
 }
 
 h1 {

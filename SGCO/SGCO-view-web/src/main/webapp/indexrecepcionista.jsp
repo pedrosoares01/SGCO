@@ -59,5 +59,7 @@
       </div>
     </div>
   </main>
-</body>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
+</head>
 </html>
