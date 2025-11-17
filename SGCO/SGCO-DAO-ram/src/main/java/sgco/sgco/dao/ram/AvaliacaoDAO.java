@@ -8,7 +8,7 @@ import java.util.List;
 public class AvaliacaoDAO {
     public List<Avaliacao> avaliar(Avaliacao avaliacao) throws Exception {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/avaliacao", "root", "sgcopass");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco", "root", "Sgco1234");
         String sqlInsert = "INSERT INTO avaliacao(profissional, nota) VALUES (?, ?)";
         PreparedStatement stInsert = conn.prepareStatement(sqlInsert);
         stInsert.setString(1, avaliacao.getProfissional());

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class AgendaDAO {
     public void agendar(Agenda agenda) throws Exception {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "sgcopass");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco", "root", "Sgco1234");
         PreparedStatement st = conn.prepareStatement("INSERT INTO agenda (paciente, profissional, data_agendamento, hora_agendamento) VALUES (?, ?, ?, ?)");
         st.setString(1, agenda.getPaciente());
         st.setString(2, agenda.getProfissional());
@@ -21,7 +21,7 @@ public class AgendaDAO {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection conn;
         PreparedStatement st;
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "sgcopass");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco", "root", "Sgco1234");
         String sql = "SELECT * FROM agenda WHERE paciente LIKE ? OR profissional LIKE ? ORDER BY data_agendamento, hora_agendamento";
         st = conn.prepareStatement(sql);
         st.setString(1, "%" + agenda.getPaciente() + "%");

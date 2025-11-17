@@ -9,23 +9,8 @@
       
   <version>1.0-SNAPSHOT</version>
       
-  <packaging>pom</packaging>
-      
-    
-  <modules>
-            
-    <module>SGCO-common</module>
-            
-    <module>SGCO-DAO-ram</module>
-            
-    <module>SGCO-domain</module>
-            
-    <module>SGCO-service</module>
-          
-    <module>SGCO-view-web</module>
-      
-  </modules>
-      
+  <packaging>war</packaging>
+
   <properties>
             
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,9 +24,6 @@
         <module>SGCO-service</module>
         <module>SGCO-view-web</module>
     </modules>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     
     <dependencies>
 	     <dependency>
@@ -58,10 +40,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.11.0</version>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
