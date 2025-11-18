@@ -59,9 +59,12 @@ public class UsuarioController extends HttpServlet {
             GestaoUsuarioService usuarioService = new GestaoUsuarioService();
             usuarioService.cadastrar(usuario);
             request.setAttribute("msg", "Cadastro realizado com sucesso!");
+            request.setAttribute("tipoMensagem", "sucesso");
             request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         } catch (Exception e) {
-            request.getRequestDispatcher("erro.jsp?msg=" + e.getMessage()).forward(request, response);
+            request.setAttribute("msg", e.getMessage());
+            request.setAttribute("tipoMensagem", "erro");
+            request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         }
     }
 
@@ -84,9 +87,12 @@ public class UsuarioController extends HttpServlet {
             GestaoUsuarioService usuarioService = new GestaoUsuarioService();
             usuarioService.atualizar(usuario);
             request.setAttribute("msg", "Atualização realizada com sucesso!");
+            request.setAttribute("tipoMensagem", "sucesso");
             request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         } catch (Exception e) {
-            request.getRequestDispatcher("erro.jsp?msg=" + e.getMessage()).forward(request, response);
+            request.setAttribute("msg", e.getMessage());
+            request.setAttribute("tipoMensagem", "erro");
+            request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         }
     }
     
@@ -109,9 +115,12 @@ public class UsuarioController extends HttpServlet {
             GestaoUsuarioService usuarioService = new GestaoUsuarioService();
             usuarioService.excluir(usuario);
             request.setAttribute("msg", "Exclusao realizada com sucesso!");
+            request.setAttribute("tipoMensagem", "sucesso");
             request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         } catch (Exception e) {
-            request.getRequestDispatcher("erro.jsp?msg=" + e.getMessage()).forward(request, response);
+            request.setAttribute("msg", e.getMessage());
+            request.setAttribute("tipoMensagem", "erro");
+            request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         }
     }
 
@@ -137,7 +146,9 @@ public class UsuarioController extends HttpServlet {
             request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
 
         } catch (Exception e) {
-            request.getRequestDispatcher("erro.jsp?msg=" + e.getMessage()).forward(request, response);
+            request.setAttribute("msg", e.getMessage());
+            request.setAttribute("tipoMensagem", "erro");
+            request.getRequestDispatcher("gestaoUsuarios/gestao_usuarios.jsp").forward(request, response);
         }
     }
 
