@@ -2,6 +2,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="sgco.sgco.domain.Agenda"%>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.LocalDateTime" %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -47,10 +49,11 @@
         <section class="card">
             <h2>🔍 Pesquisar Agendamento</h2>
             <form method="POST" action="${pageContext.request.contextPath}/AgendaController">
+                <input type="hidden" name="action" id="action">
                 <label>Paciente ou Profissional:</label>
                 <input type="text" name="nome" placeholder="Digite para pesquisar..." required>
                 <div class="buttons">
-                    <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='pesquisar'">Buscar</button>
+                    <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='listar'">Buscar</button>
                 </div>
             </form>
             <%
@@ -92,6 +95,44 @@
                     }
                 } catch (Exception e){}
             %>
+        </section>
+        <section class="card">
+            <h2> Lembrete de Agendamento</h2>
+            <form method="POST" action="${pageContext.request.contextPath}/AgendaController">
+                <label>nome do Profissional:</label>
+                <input type="text" name="nome" placeholder="Digite para pesquisar..." required>
+                <div class="buttons">
+                    <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='pesquisar'">listar pacientes</button>
+                </div>
+            </form>
+            <%
+                    List<Agenda> resultados = (List<Agenda>) request.getAttribute("resultados");
+                    String nome = (String) request.getAttribute("nome");
+                    LocalDateTime dataAtual = LocalDateTime.now();
+                    if (resultados != null && !resultados.isEmpty()) {
+            %>
+            <div class="search-results">
+                <h3>Pacientes de "<%= nome %>":</h3>
+                <%
+                    if (resultados.isEmpty()) {
+                %>
+                <p>Nenhum paciente encontrado</p>
+                <%
+                } else if (a.getData() > dataAtual){
+                %>
+                <label>
+                    <select>
+                        <%for (Agenda a : resultados) {%>
+                        <option value=""><%=a.getPaciente()%></option>
+                        <%
+                                }
+                            }
+                        %>
+                    </select>
+                </label>
+
+            </div>
+            <% } %>
         </section>
     </div>
 </main>

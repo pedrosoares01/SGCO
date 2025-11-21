@@ -18,6 +18,10 @@ public class AgendaService {
         return agendaDAO.pesquisar(agenda);
     }
 
+    public List<Agenda> listar(Agenda agenda) throws Exception {
+        return agendaDAO.listar(agenda);
+    }
+
     private void validar(Agenda agenda) throws Exception{
         if (agenda.getData() == null || agenda.getData().isBlank()) {
             throw new Exception("A data não foi preenchida");

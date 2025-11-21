@@ -43,4 +43,31 @@ public class AgendaDAO {
         conn.close();
         return lista;
     }
+
+    public List<Agenda> listar(Agenda agenda) throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn;
+        PreparedStatement st;
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "sgcopass");
+        String sql = "SELECT * FROM agenda WHERE data = CURDATE() + INTERVAL 1 DAY;";
+        st = conn.prepareStatement(sql);
+        st.setString(1, "%" + agenda.getProfissional() + "%");
+        ResultSet rs = st.executeQuery();
+        List<Agenda> lista = new ArrayList<>();
+        while (rs.next()) {
+            Agenda a = new Agenda();
+            a.setPaciente(rs.getString("paciente"));
+            a.setProfissional(rs.getString("profissional"));
+            a.setData(rs.getString("data_agendamento"));
+            a.setHora(rs.getString("hora_agendamento"));
+            lista.add(a);
+        }
+        if (lista.isEmpty())
+            throw new Exception("Nenhuma correspondecia");
+        rs.close();
+        st.close();
+        conn.close();
+        return lista;
+    }
+
 }

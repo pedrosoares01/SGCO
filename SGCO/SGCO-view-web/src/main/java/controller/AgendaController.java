@@ -23,6 +23,8 @@ public class AgendaController extends HttpServlet {
             case "pesquisar":
                 pesquisar(request, response);
                 break;
+            case "listar":
+                listar(request, response);
             default:
                 break;
         }
@@ -53,6 +55,22 @@ public class AgendaController extends HttpServlet {
             List<Agenda> lista;
             Agenda agenda = new Agenda();
             agenda.setPaciente(nome);
+            agenda.setProfissional(nome);
+            AgendaService agendaService = new AgendaService();
+            lista = agendaService.pesquisar(agenda);
+            request.setAttribute("nome", nome);
+            request.setAttribute("resultados", lista);
+            request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
+        } catch (Exception e){
+            request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
+        }
+    }
+
+    protected void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String nome = request.getParameter("nome");
+            List<Agenda> lista;
+            Agenda agenda = new Agenda();
             agenda.setProfissional(nome);
             AgendaService agendaService = new AgendaService();
             lista = agendaService.pesquisar(agenda);
