@@ -87,15 +87,23 @@ public class PagamentoController extends HttpServlet {
         try {
             String idStr = request.getParameter("orcamentoId");
             String forma = request.getParameter("formaPagamento");
-            String valorStr = request.getParameter("valor");
 
-            if (idStr == null || forma == null || forma.isEmpty() || valorStr == null) {
+            if (idStr == null || forma == null || forma.isEmpty()) {
                 enviarMensagem(request, response, "Preencha todos os campos!", "erro");
                 return;
             }
 
             int orcamentoId = Integer.parseInt(idStr);
-            double valor = Double.parseDouble(valorStr);
+
+            OrcamentoDAO orcDao = new OrcamentoDAO();
+            Orcamento orc = orcDao.buscarPorId(orcamentoId);
+
+            if (orc == null) {
+                enviarMensagem(request, response, "Orçamento não encontrado!", "erro");
+                return;
+            }
+
+            double valor = orc.getValor();
 
             Pagamento pagamento = new Pagamento();
             pagamento.setOrcamentoId(orcamentoId);
@@ -118,6 +126,7 @@ public class PagamentoController extends HttpServlet {
             enviarMensagem(request, response, "Erro ao salvar: " + e.getMessage(), "erro");
         }
     }
+
     private void enviarMensagem(HttpServletRequest request, HttpServletResponse response,
                                 String mensagem, String tipo)
             throws ServletException, IOException {
