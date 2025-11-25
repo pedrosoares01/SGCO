@@ -80,7 +80,7 @@ public class PacienteController extends HttpServlet {
             boolean sucesso = dao.inserir(p);
 
             if (sucesso) {
-                enviarMensagem(request, response, "Paciente cadastrado com sucesso!", "sucesso");
+                response.sendRedirect("PacienteController?acao=pesquisar");
             } else {
                 enviarMensagem(request, response, "Erro ao cadastrar o paciente.", "erro");
             }
@@ -180,14 +180,33 @@ public class PacienteController extends HttpServlet {
     private void pesquisarPaciente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nome = request.getParameter("searchPaciente");
+        String nome = request.getParameter("search");
+        String origem = request.getParameter("origem");
+
+        System.out.println(">>> DEBUG PacienteController.pesquisarPaciente()");
+        System.out.println("search = " + nome);
+        System.out.println("origem = " + origem);
+        System.out.println("acao = " + request.getParameter("acao"));
+        System.out.println("--------------------------------------");
 
         try {
             PacienteDAO dao = new PacienteDAO();
             List<Paciente> resultados = dao.pesquisarPorNome(nome);
 
-            request.setAttribute("resultados", resultados);
-            request.getRequestDispatcher("/core/paciente/pagina.jsp").forward(request, response);
+            request.setAttribute("resultadosPacientes", resultados);
+
+            if ("orcamento".equals(origem)) {
+                Integer idProcedimento = (Integer) request.getSession().getAttribute("idProcedimentoSelecionado");
+                if (idProcedimento != null) {
+                    sgco.model.dao.ProcedimentoDAO procDao = new sgco.model.dao.ProcedimentoDAO();
+                    sgco.model.domain.Procedimento procedimento = procDao.buscarPorId(idProcedimento);
+                    request.setAttribute("procedimentoSelecionado", procedimento);
+                }
+
+                request.getRequestDispatcher("/core/orcamento/novo_orcamento.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/core/paciente/pagina.jsp").forward(request, response);
+            }
 
         } catch (Exception e) {
             enviarMensagem(request, response, "Erro ao pesquisar pacientes: " + e.getMessage(), "erro");

@@ -63,6 +63,10 @@ h1 {
   margin-bottom: 1.25rem;
 }
 
+div.select-list {
+	margin-top:1rem;
+}
+
 label {
   display: block;
   margin-bottom: 0.5rem;
@@ -220,6 +224,16 @@ button.btn-search:hover {
 
 .btn-edit:hover {
   background-color: #0077b6;
+}
+
+.search-group {
+  display: flex;
+  gap: 0.5rem; /* espaço entre input e botão */
+  align-items: center;
+}
+
+.search-group input {
+  flex: 1; /* input ocupa o máximo de espaço */
 }
 
 @media (max-width: 1024px) {

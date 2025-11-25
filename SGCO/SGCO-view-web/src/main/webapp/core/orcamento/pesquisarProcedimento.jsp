@@ -7,6 +7,7 @@
 
     <form id="searchForm" action="${pageContext.request.contextPath}/ProcedimentoController" method="post">
         <input type="hidden" name="acao" value="pesquisar">
+        <input type="hidden" name="origem" value="orcamento"> 
 
         <div class="form-group">
             <label for="searchProcedimento">Nome do Procedimento</label>
@@ -34,10 +35,10 @@
                                 </div>
 
                                 <form action="${pageContext.request.contextPath}/OrcamentoController" method="get" class="select-form">
-                                    <input type="hidden" name="acao" value="selecionarProcedimento">
-                                    <input type="hidden" name="id" value="<%= p.getId() %>">
-                                    <button type="submit" class="btn-select">Selecionar</button>
-                                </form>
+								    <input type="hidden" name="acao" value="selecionarProcedimento">
+								    <input type="hidden" name="id_procedimento" value="<%= p.getId() %>">
+								    <button type="submit" class="btn-select">Selecionar</button>
+								</form>
                             </div>
                         <% } %>
                     </div>
