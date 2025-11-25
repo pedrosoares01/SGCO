@@ -49,7 +49,7 @@ public class AgendaDAO {
         Connection conn;
         PreparedStatement st;
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "sgcopass");
-        String sql = "SELECT * FROM agenda WHERE data = CURDATE() + INTERVAL 1 DAY;";
+        String sql = "SELECT * FROM agenda WHERE data = CURDATE() + INTERVAL 1 DAY, profissional = ?;";
         st = conn.prepareStatement(sql);
         st.setString(1, "%" + agenda.getProfissional() + "%");
         ResultSet rs = st.executeQuery();

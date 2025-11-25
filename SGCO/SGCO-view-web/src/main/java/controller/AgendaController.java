@@ -1,4 +1,4 @@
-package controller;
+package Controller;
 import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.ServletException;
@@ -73,7 +73,7 @@ public class AgendaController extends HttpServlet {
             Agenda agenda = new Agenda();
             agenda.setProfissional(nome);
             AgendaService agendaService = new AgendaService();
-            lista = agendaService.pesquisar(agenda);
+            lista = agendaService.listar(agenda);
             request.setAttribute("nome", nome);
             request.setAttribute("resultados", lista);
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);

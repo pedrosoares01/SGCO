@@ -53,7 +53,7 @@
                 <label>Paciente ou Profissional:</label>
                 <input type="text" name="nome" placeholder="Digite para pesquisar..." required>
                 <div class="buttons">
-                    <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='listar'">Buscar</button>
+                    <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='pesquisar'">Buscar</button>
                 </div>
             </form>
             <%
@@ -97,19 +97,19 @@
             %>
         </section>
         <section class="card">
-            <h2> Lembrete de Agendamento</h2>
+            <h2> Pacientes marcados para amanhã</h2>
             <form method="POST" action="${pageContext.request.contextPath}/AgendaController">
+                <input type="hidden" name="action" id="action">
                 <label>nome do Profissional:</label>
                 <input type="text" name="nome" placeholder="Digite para pesquisar..." required>
                 <div class="buttons">
-                    <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='pesquisar'">listar pacientes</button>
+                    <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='listar'">listar pacientes</button>
                 </div>
             </form>
             <%
                     List<Agenda> resultados = (List<Agenda>) request.getAttribute("resultados");
+                    int tamanho =  resultados.size();
                     String nome = (String) request.getAttribute("nome");
-                    LocalDateTime dataAtual = LocalDateTime.now();
-                    if (resultados != null && !resultados.isEmpty()) {
             %>
             <div class="search-results">
                 <h3>Pacientes de "<%= nome %>":</h3>
@@ -118,19 +118,18 @@
                 %>
                 <p>Nenhum paciente encontrado</p>
                 <%
-                } else if (a.getData() > dataAtual){
+                } else{
                 %>
-                <label>
-                    <select>
-                        <%for (Agenda a : resultados) {%>
-                        <option value=""><%=a.getPaciente()%></option>
-                        <%
-                                }
-                            }
-                        %>
+                <form action="${pageContext.request.contextPath}/LembreteController" method="post">
+                    <select name="pacientes" multiple size="<%= tamanho %>">
+                        <% for (Agenda a : resultados) { %>
+                        <option value="<%= a.getPaciente() %>">
+                            <%= a.getPaciente() %> - <%= a.getHora() %>
+                        </option>
+                        <% } %>
                     </select>
-                </label>
-
+                    <button type="submit" class="btn-primary">Enviar lembretes</button>
+                </form>
             </div>
             <% } %>
         </section>

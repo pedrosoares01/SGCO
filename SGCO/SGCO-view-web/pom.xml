@@ -55,6 +55,12 @@
 		    <artifactId>SGCO-DAO-ram</artifactId>
 		    <version>1.0-SNAPSHOT</version>
 		</dependency>
+        <dependency>
+            <groupId>SGCO</groupId>
+            <artifactId>SGCO-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
