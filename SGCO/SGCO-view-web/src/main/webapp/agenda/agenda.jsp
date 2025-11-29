@@ -1,7 +1,7 @@
 <%@page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="sgco.sgco.domain.Agenda"%>
-<%@ page import="java.sql.ResultSet" %>
+<%@ page import="sgco.sgco.domain.Usuario" %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -14,14 +14,14 @@
 </head>
 <body>
 <aside class="sidebar">
-    <a href="indexrecepcionista.html"><h2>SGCO</h2></a>
+    <a href="${pageContext.request.contextPath}/indexrecepcionista.jsp"><h2>SGCO</h2></a>
     <ul>
         <li><a href="${pageContext.request.contextPath}gestao_pacientes/gestao_pacientes.jsp">Gestão de Pacientes</a></li>
-        <li><a href="agenda.jsp">Agenda</a></li>
+        <li><a href="${pageContext.request.contextPath}/AgendaController">Agenda</a></li>
         <li><a href="${pageContext.request.contextPath}/pagamento/pagamento.jsp">Pagamentos</a></li>
         <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
         <li><a href="${pageContext.request.contextPath}/avaliacao/avaliacao.jsp">Avaliação de Profissionais</a></li>
-        <li><a href="${pageContext.request.contextPath}/login/login.jsp" class="logout">Sair</a></li>
+        <li><a href="${pageContext.request.contextPath}LogoutController" class="logout">Sair</a></li>
     </ul>
 </aside>
 <main class="content">
@@ -34,7 +34,33 @@
                 <label>Paciente:</label>
                 <input type="text" name="paciente" placeholder="Nome do paciente" required>
                 <label>Profissional:</label>
-                <input type="text" name="profissional" placeholder="Nome do profissional" required>
+                <%
+                    try{
+                        List<Usuario> profissionais = (List<Usuario>) request.getAttribute("profissionais");
+                        if (profissionais != null) {
+                %>
+                <select>
+                    <%
+                            if (profissionais.isEmpty()) {
+                    %>
+                    <option value="">Nenhum profissional encontrado</option>
+                    <%
+                            } else {
+                                %>
+                    <option value="">Selecione um profissional:</option>
+                    <%
+                                for (Usuario p : profissionais) {
+                    %>
+                    <option value="<%= p.getNome() %>"><%= p.getNome() %></option>
+                    <%
+                                }
+                            }
+                    %>
+                </select>
+                <%
+                        }
+                    } catch (Exception e){}
+                %>
                 <label>Data:</label>
                 <input type="date" name="data" required>
                 <label>Hora:</label>
@@ -42,6 +68,24 @@
                 <div class="buttons">
                     <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='agendar'">Agendar</button>
                 </div>
+            </form>
+            <%
+                String mensagem = (String) request.getAttribute("msg");
+                String tipoMensagem = (String) request.getAttribute("tipoMensagem");
+            %>
+
+            <% if (mensagem != null) { %>
+            <div id="popup" class="<%= tipoMensagem %>">
+                <p><%= mensagem %></p>
+                <button onclick="fecharPopup()">OK</button>
+            </div>
+
+            <script>
+                function fecharPopup() {
+                    document.getElementById("popup").style.display = "none";
+                }
+            </script>
+            <% } %>
             </form>
         </section>
         <section class="card">

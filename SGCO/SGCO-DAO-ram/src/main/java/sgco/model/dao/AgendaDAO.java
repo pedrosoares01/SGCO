@@ -1,6 +1,8 @@
 package sgco.model.dao;
 import java.sql.*;
 import sgco.sgco.domain.Agenda;
+import sgco.sgco.domain.Usuario;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -32,6 +34,25 @@ public class AgendaDAO {
             a.setData(rs.getString("data_agendamento"));
             a.setHora(rs.getString("hora_agendamento"));
             lista.add(a);
+        }
+        if (lista.isEmpty())
+            throw new Exception("Nenhuma correspondecia");
+        rs.close();
+        st.close();
+        conn.close();
+        return lista;
+    }
+    public List<Usuario> listarProfissionais() throws Exception {
+        Connection conn = ConnectionFactory.getConnection();
+        PreparedStatement st;
+        String sql = "SELECT * FROM usuarios WHERE cargo = 'Profissional'";
+        st = conn.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        List<Usuario> lista = new ArrayList<>();
+        while (rs.next()) {
+            Usuario p = new Usuario();
+            p.setNome(rs.getString("nome"));
+            lista.add(p);
         }
         if (lista.isEmpty())
             throw new Exception("Nenhuma correspondecia");

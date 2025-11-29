@@ -1,7 +1,7 @@
 package sgco.sgco.service;
 import sgco.model.dao.AgendaDAO;
 import sgco.sgco.domain.Agenda;
-import java.sql.ResultSet;
+import sgco.sgco.domain.Usuario;
 import java.util.List;
 
 public class AgendaService {
@@ -13,11 +13,12 @@ public class AgendaService {
         validar(agenda);
         agendaDAO.agendar(agenda);
     }
-
     public List<Agenda> pesquisar(Agenda agenda) throws Exception {
         return agendaDAO.pesquisar(agenda);
     }
-
+    public List<Usuario> listarProfissionais() throws Exception {
+        return agendaDAO.listarProfissionais();
+    }
     private void validar(Agenda agenda) throws Exception{
         if (agenda.getData() == null || agenda.getData().isBlank()) {
             throw new Exception("A data não foi preenchida");
