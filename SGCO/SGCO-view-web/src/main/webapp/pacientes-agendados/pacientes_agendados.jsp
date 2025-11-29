@@ -13,15 +13,15 @@
 <aside class="sidebar">
   <a href="index.html"><h2>SGCO</h2></a>
   <ul>
-    <li><a href="gestao_pacientes.html">Gestão de Pacientes</a></li>
-    <li><a href="gestao_usuarios.html">Gestão de Usuários</a></li>
-    <li><a href="gestao_procedimentos.html">Gestão de Procedimentos</a></li>
-    <li><a href="estoque.html">Controle de Estoque</a></li>
-    <li><a href="fornecedores_materiais.html">Fornecedores de Materiais</a></li>
-    <li><a href="fornecedores_servicos.html">Fornecedores de Serviços</a></li>
-    <li><a href="receita.html">Gestão da Receita</a></li>
-    <li><a href="../pacientes-agendados/pacientes_agendados.jsp" class="active">Pacientes Agendados</a></li>
-    <li><a href="login.html" class="logout">Sair</a></li>
+    <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
+    <li><a href="${pageContext.request.contextPath}/gestaoUsuarios/gestao_usuarios.jsp">Gestão de Usuários</a></li>
+    <li><a href="${pageContext.request.contextPath}/core/procedimentos/pagina.jsp">Gestão de Procedimentos</a></li>
+    <li><a href="${pageContext.request.contextPath}estoque.html">Controle de Estoque</a></li>
+    <li><a href="${pageContext.request.contextPath}fornecedores_materiais.html">Fornecedores de Materiais</a></li>
+    <li><a href="${pageContext.request.contextPath}fornecedores_servicos.html">Fornecedores de Serviços</a></li>
+    <li><a href="${pageContext.request.contextPath}receita.html">Gestão da Receita</a></li>
+    <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp" class="active">Pacientes Agendados</a></li>
+    <li><a href="${pageContext.request.contextPath}LogoutController" class="logout">Sair</a></li>
   </ul>
 </aside>
 

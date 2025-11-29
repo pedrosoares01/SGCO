@@ -1,5 +1,5 @@
 package sgco.sgco.service;
-import sgco.sgco.dao.ram.AgendaDAO;
+import sgco.model.dao.AgendaDAO;
 import sgco.sgco.domain.Agenda;
 import java.sql.ResultSet;
 import java.util.List;

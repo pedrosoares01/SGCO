@@ -8,21 +8,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SGCO - Menu Principal</title>
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 </head>
 <body>
   <aside class="sidebar">
     <h2>SGCO</h2>
     <ul>
-      <li><a href="gestao_pacientes.jsp">Gestão de Pacientes</a></li>
+      <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
       <li><a href="${pageContext.request.contextPath}/gestaoUsuarios/gestao_usuarios.jsp">Gestão de Usuários</a></li>
-      <li><a href="gestao_procedimentos.jsp">Gestão de Procedimentos</a></li>
-      <li><a href="estoque.jsp">Controle de Estoque</a></li>
-      <li><a href="fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
-      <li><a href="fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
-      <li><a href="receita.jsp">Gestão da Receita</a></li>
-      <li><a href="pacientes_agendados.jsp">Pacientes Agendados</a></li>
-      <li><a href="LogoutController" class="logout">Sair</a></li>
+      <li><a href="${pageContext.request.contextPath}/core/procedimentos/pagina.jsp">Gestão de Procedimentos</a></li>
+      <li><a href="${pageContext.request.contextPath}/erro.jsp">Controle de Estoque</a></li>
+      <li><a href="${pageContext.request.contextPath}/erro.jsp">Fornecedores de Materiais</a></li>
+      <li><a href="${pageContext.request.contextPath}/erro.jsp">Fornecedores de Serviços</a></li>
+      <li><a href="${pageContext.request.contextPath}/erro.jsp">Gestão da Receita</a></li>
+      <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+      <li><a href="${pageContext.request.contextPath}LogoutController" class="logout">Sair</a></li>
     </ul>
   </aside>
 

@@ -1,6 +1,5 @@
 package sgco.sgco.service;
-
-import sgco.sgco.dao.ram.AvaliacaoDAO;
+import sgco.model.dao.AvaliacaoDAO;
 import sgco.sgco.domain.Avaliacao;
 import java.util.List;
 
