@@ -1,3 +1,6 @@
+@charset "UTF-8";
+
+/* Estrutura geral */
 .sidebar {
   width: 250px;
   background-color: #023e8a;
@@ -5,6 +8,7 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  box-sizing: border-box;
 }
 
 .sidebar h2 {
@@ -17,12 +21,21 @@
 .sidebar ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .sidebar li {
   margin: 10px 0;
 }
 
+/* Link principal + setinha */
+.menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Links da sidebar */
 .sidebar a {
   color: white;
   text-decoration: none;
@@ -30,12 +43,76 @@
   display: block;
   border-radius: 8px;
   transition: background 0.3s;
+  flex: 0;
+  box-sizing: border-box;
 }
 
 .sidebar a:hover {
   background-color: #0077b6;
 }
 
+/* setinha (span) - aparência leve */
+.arrow {
+  font-size: 0.9rem;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: transform 0.25s ease, color 0.25s ease;
+  color: #90e0ef;
+  user-select: none;
+  line-height: 1;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.arrow:hover {
+  color: #cbe9f8;
+  background: rgba(255,255,255,0.03);
+}
+
+/* rotação quando aberto */
+.arrow.rotated {
+  transform: rotate(90deg);
+}
+
+/* Submenu - escondido por padrão (max-height technique) */
+.submenu {
+  list-style: none;
+  margin-left: 12px;
+  margin-top: 6px;
+  padding: 0;
+  overflow: hidden;
+  max-height: 0;               /* escondido */
+  transition: max-height 0.28s ease, opacity 0.28s ease, transform 0.28s ease;
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+/* Quando aberto */
+.submenu.open {
+  max-height: 400px;           /* suficientemente grande para conter itens */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* itens do submenu */
+.submenu li {
+  margin: 4px 0;
+}
+
+.submenu a {
+  background-color: #0353a4;
+  border-radius: 6px;
+  margin: 2px 0;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  display: block;
+}
+
+.submenu a:hover {
+  background-color: #0077b6;
+}
+
+/* logout */
 .logout {
   background-color: #ff4d4d;
   text-align: center;

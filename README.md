@@ -82,6 +82,7 @@ Descrição do projeto.
 | CSU16 | Avaliação de Profissionais | REQ024, REQ025 |  |
 | CSU17 | Pesquisa | REQ003 |  |
 | CSU18 | Login |  | RN009 |
+| CSU19 | Controle de Equipamentos e Manutenção | | RN01, RN02, RN03, RN04 |
 
 ## Planejamento
 | Sprint | Caso de Uso | Desenvolvedor  |
@@ -99,8 +100,9 @@ Descrição do projeto.
 | 3 | CSU11 | 2 |
 | 3 | CSU12 | 4 |
 | 3 | CSU13 | 3 |
-| 2 | CSU14 | 5 |
+| 2 | CSU14 | 2 |
 | 3 | CSU15 | 1 |
 | 1 | CSU16 | 2 |
 | 2 | CSU17 | 2 |
 | 1 | CSU18 | 1 |
+| 2 | CSU19 | 5 |

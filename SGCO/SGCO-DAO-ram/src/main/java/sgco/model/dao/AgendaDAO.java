@@ -1,4 +1,4 @@
-package sgco.sgco.dao.ram;
+package sgco.model.dao;
 import java.sql.*;
 import sgco.sgco.domain.Agenda;
 import java.util.List;
@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 public class AgendaDAO {
     public void agendar(Agenda agenda) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "sgcopass");
+        Connection conn = ConnectionFactory.getConnection();
         PreparedStatement st = conn.prepareStatement("INSERT INTO agenda (paciente, profissional, data_agendamento, hora_agendamento) VALUES (?, ?, ?, ?)");
         st.setString(1, agenda.getPaciente());
         st.setString(2, agenda.getProfissional());
@@ -18,10 +17,8 @@ public class AgendaDAO {
         conn.close();
     }
     public List<Agenda> pesquisar(Agenda agenda) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn;
+        Connection conn = ConnectionFactory.getConnection();
         PreparedStatement st;
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda", "root", "sgcopass");
         String sql = "SELECT * FROM agenda WHERE paciente LIKE ? OR profissional LIKE ? ORDER BY data_agendamento, hora_agendamento";
         st = conn.prepareStatement(sql);
         st.setString(1, "%" + agenda.getPaciente() + "%");

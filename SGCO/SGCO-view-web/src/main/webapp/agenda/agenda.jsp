@@ -16,12 +16,12 @@
 <aside class="sidebar">
     <a href="indexrecepcionista.html"><h2>SGCO</h2></a>
     <ul>
-        <li><a href="gestao_pacientes.html">Gestão de Pacientes</a></li>
+        <li><a href="${pageContext.request.contextPath}gestao_pacientes/gestao_pacientes.jsp">Gestão de Pacientes</a></li>
         <li><a href="agenda.jsp">Agenda</a></li>
-        <li><a href="pagamento.html">Pagamentos</a></li>
-        <li><a href="../pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
-        <li><a href="avaliacao.html">Avaliação de Profissionais</a></li>
-        <li><a href="login.html" class="logout">Sair</a></li>
+        <li><a href="${pageContext.request.contextPath}/pagamento/pagamento.jsp">Pagamentos</a></li>
+        <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+        <li><a href="${pageContext.request.contextPath}/avaliacao/avaliacao.jsp">Avaliação de Profissionais</a></li>
+        <li><a href="${pageContext.request.contextPath}/login/login.jsp" class="logout">Sair</a></li>
     </ul>
 </aside>
 <main class="content">
