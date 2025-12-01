@@ -61,4 +61,25 @@ public class AgendaDAO {
         conn.close();
         return lista;
     }
+    public List<Agenda> listarHorariosOcupados(String profissional, String data) throws Exception {
+        Connection conn = ConnectionFactory.getConnection();
+        String sql = "SELECT * FROM agenda WHERE profissional = ? AND data_agendamento = ? ORDER BY hora_agendamento";
+        PreparedStatement st = conn.prepareStatement(sql);
+        st.setString(1, profissional);
+        st.setString(2, data);
+        ResultSet rs = st.executeQuery();
+        List<Agenda> lista = new ArrayList<>();
+        while (rs.next()) {
+            Agenda a = new Agenda();
+            a.setPaciente(rs.getString("paciente"));
+            a.setProfissional(rs.getString("profissional"));
+            a.setData(rs.getString("data_agendamento"));
+            a.setHora(rs.getString("hora_agendamento"));
+            lista.add(a);
+        }
+        rs.close();
+        st.close();
+        conn.close();
+        return lista;
+    }
 }

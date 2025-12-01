@@ -19,6 +19,9 @@ public class AgendaService {
     public List<Usuario> listarProfissionais() throws Exception {
         return agendaDAO.listarProfissionais();
     }
+    public List<Agenda> listarHorariosOcupados(String profissional, String data) throws Exception {
+        return agendaDAO.listarHorariosOcupados(profissional, data);
+    }
     private void validar(Agenda agenda) throws Exception{
         if (agenda.getData() == null || agenda.getData().isBlank()) {
             throw new Exception("A data não foi preenchida");

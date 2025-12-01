@@ -1,4 +1,5 @@
 <%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="sgco.sgco.domain.Agenda"%>
 <%@ page import="sgco.sgco.domain.Usuario" %>
@@ -11,6 +12,7 @@
     <title>Agenda - SGCO</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/agenda.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
 </head>
 <body>
 <aside class="sidebar">
@@ -37,55 +39,38 @@
                 <%
                     try{
                         List<Usuario> profissionais = (List<Usuario>) request.getAttribute("profissionais");
-                        if (profissionais != null) {
                 %>
-                <select>
+                <select id="profissional" name="profissional" onchange="carregarHorarios()">
                     <%
-                            if (profissionais.isEmpty()) {
+                        if (profissionais == null || profissionais.isEmpty()) {
                     %>
                     <option value="">Nenhum profissional encontrado</option>
                     <%
-                            } else {
-                                %>
+                        } else {
+                    %>
                     <option value="">Selecione um profissional:</option>
                     <%
-                                for (Usuario p : profissionais) {
+                            for (Usuario p : profissionais) {
                     %>
                     <option value="<%= p.getNome() %>"><%= p.getNome() %></option>
                     <%
-                                }
                             }
+                        }
                     %>
+                    <c:forEach var="p" items="${profissionais}">
+                        <option value="${p.nome}">${p.nome}</option>
+                    </c:forEach>
                 </select>
                 <%
-                        }
                     } catch (Exception e){}
                 %>
                 <label>Data:</label>
-                <input type="date" name="data" required>
+                <input type="date" id="data" name="data" onchange="carregarHorarios()">
                 <label>Hora:</label>
                 <input type="time" name="hora" required>
                 <div class="buttons">
                     <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='agendar'">Agendar</button>
                 </div>
-            </form>
-            <%
-                String mensagem = (String) request.getAttribute("msg");
-                String tipoMensagem = (String) request.getAttribute("tipoMensagem");
-            %>
-
-            <% if (mensagem != null) { %>
-            <div id="popup" class="<%= tipoMensagem %>">
-                <p><%= mensagem %></p>
-                <button onclick="fecharPopup()">OK</button>
-            </div>
-
-            <script>
-                function fecharPopup() {
-                    document.getElementById("popup").style.display = "none";
-                }
-            </script>
-            <% } %>
             </form>
         </section>
         <section class="card">
@@ -137,6 +122,81 @@
                 } catch (Exception e){}
             %>
         </section>
+        <section id="areaProfissional" class="card">
+            <div id="horarios-container" style="margin-top:20px; display:none;">
+                <h3>Horarios Disponiveis</h3>
+                <table class="horarios-table">
+                    <tr><th>Horario</th><th>Status</th></tr>
+                    <%
+                        List<Agenda> ocupados = (List<Agenda>) request.getAttribute("ocupados");
+                        if (ocupados == null) ocupados = new ArrayList<>();
+
+                        List<String> horarios = new ArrayList<>();
+
+                        java.time.LocalTime h = java.time.LocalTime.of(8,0);
+                        while (!h.isAfter(java.time.LocalTime.of(11,30))) {
+                            horarios.add(h.toString().substring(0,5)); // 08:00
+                            h = h.plusMinutes(30);
+                        }
+
+                        h = java.time.LocalTime.of(14,0);
+                        while (!h.isAfter(java.time.LocalTime.of(17,30))) {
+                            horarios.add(h.toString().substring(0,5));
+                            h = h.plusMinutes(30);
+                        }
+
+                        for (String hora : horarios) {
+                            boolean ocupado = ocupados.stream().anyMatch(a -> {
+                                String hSql = a.getHora().toString().substring(0,5);
+                                return hSql.equals(hora);
+                            });
+                    %>
+                    <tr>
+                        <td><%= hora %></td>
+                        <td>
+                            <% if (ocupado) { %>
+                            <span class="status-ocupado">OCUPADO</span>
+                            <% } else { %>
+                            <span class="status-livre">LIVRE</span>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% } %>
+                </table>
+            </div>
+            <script>
+                function carregarHorarios() {
+                    const prof = document.getElementById("profissional").value;
+                    const data = document.getElementById("data").value;
+
+                    if (!prof || !data) return;
+
+                    fetch("AgendaController?action=horarios&idProf=" + prof + "&data=" + data)
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById("horarios-container").innerHTML = html;
+                            document.getElementById("horarios-container").style.display = "block";
+                        });
+                }
+            </script>
+        </section>
+        <%
+            String mensagem = (String) request.getAttribute("msg");
+            String tipoMensagem = (String) request.getAttribute("tipoMensagem");
+        %>
+
+        <% if (mensagem != null) { %>
+        <div id="popup" class="<%= tipoMensagem %>">
+            <p><%= mensagem %></p>
+            <button onclick="fecharPopup()">OK</button>
+        </div>
+
+        <script>
+            function fecharPopup() {
+                document.getElementById("popup").style.display = "none";
+            }
+        </script>
+        <% } %>
     </div>
 </main>
 </body>
