@@ -245,3 +245,46 @@ button {
   font-style: italic;
   padding: 1rem;
 }
+
+
+.mult-select {
+    position: relative;
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+    width: 250px;
+}
+
+.mult-select select {
+    width: 100%;
+    padding: 12px 10px 8px 10px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background: transparent;
+    font-size: 16px;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.mult-select select:focus {
+    border-bottom-color: #1a73e8;
+}
+
+.mult-select label {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    font-size: 16px;
+    color: #777;
+    transition: 0.2s ease all;
+    pointer-events: none;
+}
+
+.mult-select select:focus + label,
+.mult-select select:not([value=""]) + label,
+.mult-select select:not(:invalid) + label {
+    top: -8px;
+    font-size: 12px;
+    color: #1a73e8;
+}

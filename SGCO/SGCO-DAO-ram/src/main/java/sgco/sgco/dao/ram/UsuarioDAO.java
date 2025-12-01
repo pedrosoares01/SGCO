@@ -15,7 +15,7 @@ public class UsuarioDAO {
         PreparedStatement st;
         Class.forName("com.mysql.cj.jdbc.Driver");
         
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios", "root", "rjm30.03.24");
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco", "root", "Sgco1234");
         String sql = "INSERT INTO usuarios VALUES (?,?,?,?,?)";
         st = conexao.prepareStatement(sql);
         
@@ -32,7 +32,7 @@ public class UsuarioDAO {
         PreparedStatement st;
         Class.forName("com.mysql.cj.jdbc.Driver");
         
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios", "root", "rjm30.03.24");
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco", "root", "Sgco1234");
         String sql = "UPDATE usuarios SET nome = ?, email = ?, senha = ?, cargo = ? WHERE id = ?";
         st = conexao.prepareStatement(sql);
         st.setString(1, usuario.getNome());
@@ -48,7 +48,7 @@ public class UsuarioDAO {
         PreparedStatement st;
         Class.forName("com.mysql.cj.jdbc.Driver");
         
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios" , "root", "rjm30.03.24");
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco" , "root", "Sgco1234");
         String sql = "DELETE FROM usuarios WHERE id = ? AND email = ? AND nome = ?";
         st = conexao.prepareStatement(sql);
         st.setString(3, usuario.getNome());
@@ -62,7 +62,7 @@ public class UsuarioDAO {
         PreparedStatement st;
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios" , "root", "rjm30.03.24");
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco" , "root", "Sgco1234");
         String sql = "SELECT * FROM usuarios WHERE  nome = ?";
         st = conexao.prepareStatement(sql);
         st.setString(1, usuario.getNome());
@@ -89,7 +89,7 @@ public class UsuarioDAO {
         PreparedStatement st;
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestaousuarios" , "root", "rjm30.03.24");
+        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco" , "root", "Sgco1234");
         String sql = "SELECT * FROM usuarios WHERE  nome = ?";
         st = conexao.prepareStatement(sql);
         st.setString(1, usuario.getNome());

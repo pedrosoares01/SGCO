@@ -1,4 +1,4 @@
-<%@ page import="Controller.LoginController" %>
+<%@ page import="sgco.controller.LoginController" %>
 <%@page contentType ="text/html" pageEncoding="UTF-8"%>
 
 <% LoginController.validarSessao(request,response);%>
@@ -14,8 +14,8 @@
   <aside class="sidebar">
     <h2>SGCO</h2>
     <ul>
-      <li><a href="gestao_pacientes.jsp">Gestão de Pacientes</a></li>
-      <li><a href="agenda.jsp">Agenda</a></li>
+      <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
+      <li><a href="${pageContext.request.contextPath}AgendaController">Agenda</a></li>
       <li><a href="pagamento.jsp">Pagamentos</a></li>
       <li><a href="pacientes_agendados.jsp">Pacientes Agendados</a></li>
       <li><a href="avaliacao.jsp">Avaliação de Profissionais</a></li>
@@ -61,5 +61,5 @@
   </main>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
-</head>
+</body>
 </html>

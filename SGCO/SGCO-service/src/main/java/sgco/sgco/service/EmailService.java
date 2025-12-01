@@ -14,8 +14,8 @@ public class EmailService {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
 
-        final String usuarioEmail = "seuemail@gmail.com";
-        final String senhaEmail = "senhaApp";
+        final String usuarioEmail = "pedro.soares.souto@gmail.com";
+        final String senhaEmail = "tzxl yfhg aqwb uhgj ";
 
         Session session = Session.getInstance(props, new Authenticator() {
             @Override

@@ -1,4 +1,4 @@
-package Controller;
+package sgco.controller;
 import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.ServletException;
@@ -25,6 +25,7 @@ public class AgendaController extends HttpServlet {
                 break;
             case "listar":
                 listar(request, response);
+                break;
             default:
                 break;
         }
@@ -58,8 +59,8 @@ public class AgendaController extends HttpServlet {
             agenda.setProfissional(nome);
             AgendaService agendaService = new AgendaService();
             lista = agendaService.pesquisar(agenda);
-            request.setAttribute("nome", nome);
-            request.setAttribute("resultados", lista);
+            request.setAttribute("nomePesquisa", nome);
+            request.setAttribute("resultadosPesquisa", lista);
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         } catch (Exception e){
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
@@ -74,8 +75,8 @@ public class AgendaController extends HttpServlet {
             agenda.setProfissional(nome);
             AgendaService agendaService = new AgendaService();
             lista = agendaService.listar(agenda);
-            request.setAttribute("nome", nome);
-            request.setAttribute("resultados", lista);
+            request.setAttribute("nomeListar", nome);
+            request.setAttribute("resultadosListar", lista);
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         } catch (Exception e){
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
