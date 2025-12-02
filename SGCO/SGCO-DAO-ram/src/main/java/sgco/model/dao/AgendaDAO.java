@@ -82,4 +82,27 @@ public class AgendaDAO {
         conn.close();
         return lista;
     }
+    public List<Agenda> pesquisarAgendamento(Agenda agenda) throws Exception {
+        Connection conn = ConnectionFactory.getConnection();
+        PreparedStatement st;
+        String sql = "SELECT * FROM agenda WHERE profissional LIKE ? ORDER BY data_agendamento, hora_agendamento";
+        st = conn.prepareStatement(sql);
+        st.setString(1, "%" + agenda.getProfissional() + "%");
+        ResultSet rs = st.executeQuery();
+        List<Agenda> lista = new ArrayList<>();
+        while (rs.next()) {
+            Agenda a = new Agenda();
+            a.setPaciente(rs.getString("paciente"));
+            a.setProfissional(rs.getString("profissional"));
+            a.setData(rs.getString("data_agendamento"));
+            a.setHora(rs.getString("hora_agendamento"));
+            lista.add(a);
+        }
+        if (lista.isEmpty())
+            throw new Exception("Nenhuma correspondecia");
+        rs.close();
+        st.close();
+        conn.close();
+        return lista;
+    }
 }

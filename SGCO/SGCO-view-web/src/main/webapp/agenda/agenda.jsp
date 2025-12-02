@@ -40,32 +40,29 @@
                     try{
                         List<Usuario> profissionais = (List<Usuario>) request.getAttribute("profissionais");
                 %>
-                <select id="profissional" name="profissional" onchange="carregarHorarios()">
+                <select id="profissional" name="profissional">
                     <%
                         if (profissionais == null || profissionais.isEmpty()) {
                     %>
                     <option value="">Nenhum profissional encontrado</option>
                     <%
-                        } else {
+                    } else {
                     %>
                     <option value="">Selecione um profissional:</option>
                     <%
-                            for (Usuario p : profissionais) {
+                        for (Usuario p : profissionais) {
                     %>
                     <option value="<%= p.getNome() %>"><%= p.getNome() %></option>
                     <%
                             }
                         }
                     %>
-                    <c:forEach var="p" items="${profissionais}">
-                        <option value="${p.nome}">${p.nome}</option>
-                    </c:forEach>
                 </select>
                 <%
                     } catch (Exception e){}
                 %>
                 <label>Data:</label>
-                <input type="date" id="data" name="data" onchange="carregarHorarios()">
+                <input type="date" id="data" name="data">
                 <label>Hora:</label>
                 <input type="time" name="hora" required>
                 <div class="buttons">
@@ -122,9 +119,35 @@
                 } catch (Exception e){}
             %>
         </section>
-        <section id="areaProfissional" class="card">
-            <div id="horarios-container" style="margin-top:20px; display:none;">
-                <h3>Horarios Disponiveis</h3>
+
+        <section class="card">
+            <h3>Horarios Disponiveis</h3>
+
+            <form method="GET" action="${pageContext.request.contextPath}/AgendaController">
+                <input type="hidden" name="action" value="horarios">
+                <label>Profissional:</label>
+                <%
+                    List<Usuario> profissionais2 = (List<Usuario>) request.getAttribute("profissionais");
+                    String selProf = request.getParameter("profissional");
+                %>
+                <select name="profissional" onchange="this.form.submit()">
+                    <option value="">Selecione um profissional</option>
+                    <%
+                        if (profissionais2 != null) {
+                            for (Usuario p : profissionais2) {
+                    %>
+                    <option value="<%= p.getNome() %>" <%= (selProf != null && selProf.equals(p.getNome())) ? "selected" : "" %>><%= p.getNome() %></option>
+                    <%
+                            }
+                        }
+                    %>
+                </select>
+
+                <label>Data:</label>
+                <input type="date" name="data" onchange="this.form.submit()" value="<%= request.getParameter("data") != null ? request.getParameter("data") : "" %>">
+            </form>
+
+            <div id="horarios-container">
                 <table class="horarios-table">
                     <tr><th>Horario</th><th>Status</th></tr>
                     <%
@@ -135,7 +158,7 @@
 
                         java.time.LocalTime h = java.time.LocalTime.of(8,0);
                         while (!h.isAfter(java.time.LocalTime.of(11,30))) {
-                            horarios.add(h.toString().substring(0,5)); // 08:00
+                            horarios.add(h.toString().substring(0,5));
                             h = h.plusMinutes(30);
                         }
 
@@ -147,6 +170,7 @@
 
                         for (String hora : horarios) {
                             boolean ocupado = ocupados.stream().anyMatch(a -> {
+                                if (a.getHora() == null) return false;
                                 String hSql = a.getHora().toString().substring(0,5);
                                 return hSql.equals(hora);
                             });
@@ -164,22 +188,8 @@
                     <% } %>
                 </table>
             </div>
-            <script>
-                function carregarHorarios() {
-                    const prof = document.getElementById("profissional").value;
-                    const data = document.getElementById("data").value;
-
-                    if (!prof || !data) return;
-
-                    fetch("AgendaController?action=horarios&idProf=" + prof + "&data=" + data)
-                        .then(response => response.text())
-                        .then(html => {
-                            document.getElementById("horarios-container").innerHTML = html;
-                            document.getElementById("horarios-container").style.display = "block";
-                        });
-                }
-            </script>
         </section>
+
         <%
             String mensagem = (String) request.getAttribute("msg");
             String tipoMensagem = (String) request.getAttribute("tipoMensagem");

@@ -65,12 +65,14 @@ public class AgendaController extends HttpServlet {
             agenda.setHora(hora);
             AgendaService agendaService = new AgendaService();
             agendaService.agendar(agenda);
+            listarProfissionais(request, response);
             carregarProfissionais(request);
             request.setAttribute("msg", "Agendamento realizado com sucesso!");
             request.setAttribute("tipoMensagem", "sucesso");
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         } catch(Exception e){
             carregarProfissionais(request);
+            listarProfissionais(request, response);
             request.setAttribute("msg", e.getMessage());
             request.setAttribute("tipoMensagem", "erro");
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
@@ -81,10 +83,9 @@ public class AgendaController extends HttpServlet {
             String nome = request.getParameter("nome");
             List<Agenda> lista;
             Agenda agenda = new Agenda();
-            agenda.setPaciente(nome);
             agenda.setProfissional(nome);
             AgendaService agendaService = new AgendaService();
-            lista = agendaService.pesquisar(agenda);
+            lista = agendaService.pesquisarAgendamento(agenda);
             carregarProfissionais(request);
             request.setAttribute("nome", nome);
             request.setAttribute("resultados", lista);
@@ -104,7 +105,7 @@ public class AgendaController extends HttpServlet {
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         }
     }
-    private void carregarProfissionais(HttpServletRequest request) {
+    protected void carregarProfissionais(HttpServletRequest request) {
         try {
             AgendaService service = new AgendaService();
             List<Usuario> lista = service.listarProfissionais();
@@ -113,8 +114,7 @@ public class AgendaController extends HttpServlet {
             request.setAttribute("profissionais", null);
         }
     }
-    private void carregarHorarios(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void carregarHorarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
             String idProf = request.getParameter("profissional");
