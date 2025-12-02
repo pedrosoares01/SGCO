@@ -4,6 +4,24 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<%
+    String mensagem = (String) request.getAttribute("mensagem");
+    String tipoMensagem = (String) request.getAttribute("tipoMensagem");
+%>
+
+<% if (mensagem != null) { %>
+<div id="popup" class="<%= tipoMensagem %>">
+    <p><%= mensagem %></p>
+    <button onclick="fecharPopup()">OK</button>
+</div>
+
+<script>
+    function fecharPopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+</script>
+<% } %>
+
 <div class="select-list">
 
     <c:if test="${not empty orcamento}">
