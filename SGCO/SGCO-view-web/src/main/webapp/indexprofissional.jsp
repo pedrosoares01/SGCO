@@ -1,4 +1,4 @@
-<%@ page import="sgco.controller.LoginController" %>
+<%@ page import="Controller.LoginController" %>
 <%@page contentType ="text/html" pageEncoding="UTF-8"%>
 
 <% LoginController.validarSessao(request,response);%>

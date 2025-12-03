@@ -1,4 +1,4 @@
-package sgco.controller;
+package Controller;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;

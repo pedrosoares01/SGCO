@@ -6,6 +6,7 @@
     <groupId>SGCO</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
+    <groupId>SGCO</groupId>
     <artifactId>SGCO-view-web</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -45,9 +46,9 @@
 
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>SGCO</groupId>
             <artifactId>SGCO-domain</artifactId>
-            <version>${project.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
 		<dependency>
