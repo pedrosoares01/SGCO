@@ -1,7 +1,7 @@
 package sgco.sgco.service;
 
 import sgco.model.domain.Paciente;
-import sgco.sgco.dao.ram.LembreteDAO;
+import sgco.model.dao.LembreteDAO;
 
 public class LembreteService {
 

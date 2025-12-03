@@ -1,7 +1,7 @@
 package sgco.sgco.service;
 
 import criptografia.Criptografia;
-import sgco.sgco.dao.ram.UsuarioDAO;
+import sgco.model.dao.UsuarioDAO;
 import sgco.sgco.domain.Usuario;
 
 public class LoginService {

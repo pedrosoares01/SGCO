@@ -15,7 +15,7 @@
                 String[] nomesPacientes = request.getParameterValues("pacientes");
 
                 if (nomesPacientes == null || nomesPacientes.length == 0) {
-                   throw new Exception("Erro ao atualizar pacientes.");
+                   throw new Exception("Erro ao Listar pacientes.");
                 }
 
                 LembreteService lembreteService = new LembreteService();

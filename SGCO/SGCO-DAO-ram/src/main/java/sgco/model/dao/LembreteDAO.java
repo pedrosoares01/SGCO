@@ -1,8 +1,6 @@
-package sgco.sgco.dao.ram;
+package sgco.model.dao;
 
 import sgco.model.domain.Paciente;
-import sgco.sgco.domain.Agenda;
-import sgco.sgco.domain.Usuario;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

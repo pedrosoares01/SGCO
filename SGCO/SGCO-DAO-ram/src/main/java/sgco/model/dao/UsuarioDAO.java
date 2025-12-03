@@ -1,4 +1,4 @@
-package sgco.sgco.dao.ram;
+package sgco.model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
