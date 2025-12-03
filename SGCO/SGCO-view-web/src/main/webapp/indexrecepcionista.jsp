@@ -18,7 +18,6 @@
       <li><a href="gestao_pacientes.jsp">Gestão de Pacientes</a></li>
       <li><a href="agenda.jsp">Agenda</a></li>
       <li><a href="pagamento.jsp">Pagamentos</a></li>
-      <li><a href="pacientes_agendados.jsp">Pacientes Agendados</a></li>
       <li><a href="avaliacao.jsp">Avaliação de Profissionais</a></li>
         <li><a href="LogoutController" class="logout">Sair</a></li>
     </ul>
