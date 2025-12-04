@@ -42,6 +42,30 @@ public class AgendaDAO {
         conn.close();
         return lista;
     }
+
+    public List<Agenda> listar(Agenda agenda) throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn;
+        PreparedStatement st;
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco" , "root", "Sgco1234");
+        String sql = "SELECT * FROM agenda WHERE data_agendamento = CURDATE() + INTERVAL 1 DAY AND profissional LIKE ?";
+        st = conn.prepareStatement(sql);
+        st.setString(1, "%" + agenda.getProfissional() + "%");
+        ResultSet rs = st.executeQuery();
+        List<Agenda> lista = new ArrayList<>();
+        while (rs.next()) {
+            Agenda a = new Agenda();
+            a.setPaciente(rs.getString("paciente"));
+            a.setProfissional(rs.getString("profissional"));
+            a.setData(rs.getString("data_agendamento"));
+            a.setHora(rs.getString("hora_agendamento"));
+            lista.add(a);
+        }
+        rs.close();
+        st.close();
+        conn.close();
+        return lista;
+    }
     public List<Usuario> listarProfissionais() throws Exception {
         Connection conn = ConnectionFactory.getConnection();
         PreparedStatement st;
@@ -105,4 +129,5 @@ public class AgendaDAO {
         conn.close();
         return lista;
     }
+}
 }
