@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="sgco.sgco.domain.FornecedorMaterial" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -49,7 +52,7 @@
 
         <section class="card">
             <h2>Cadastro de Fornecedor</h2>
-            <form id="fornecedorForm" action="<%= request.getContextPath() %>/fornecedor-materiais" method="post">
+            <form id="fornecedorForm" action="${pageContext.request.contextPath}/FornecedorMaterialController" method="post">
                 <input type="hidden" name="action" value="cadastrar">
 
                 <div class="form-group">
@@ -80,7 +83,7 @@
 
         <section class="card">
             <h2> Pesquisar Fornecedor</h2>
-            <form id="searchForm" action="<%= request.getContextPath() %>/fornecedor-materiais" method="get">
+            <form id="searchForm" action="${pageContext.request.contextPath}/FornecedorMaterialController" method="get">
                 <input type="hidden" name="action" value="pesquisar">
 
                 <div class="form-group">
@@ -108,21 +111,21 @@
                     </thead>
                     <tbody>
                     <%
-                        for (Object obj : fornecedores) {
-                            if (obj instanceof java.util.Map) {
-                                java.util.Map fornecedor = (java.util.Map) obj;
-                                String nome = (String) fornecedor.get("nome");
-                                String contato = (String) fornecedor.get("contato");
-                                String email = (String) fornecedor.get("email");
-                                if (contato == null) contato = "";
-                                if (email == null) email = "";
+                        List<FornecedorMaterial> fornecedor = (List<FornecedorMaterial>) request.getAttribute("fornecedores");
+                        for (FornecedorMaterial f : fornecedor) {
+                            String nome = f.getNome();
+                            String contato = f.getContato();
+                            String email = f.getEmail();
+                            if (contato == null) contato = "";
+                            if (email == null) email = "";
                     %>
+
                     <tr>
                         <td><%= nome %></td>
                         <td><%= contato %></td>
                         <td><%= email %></td>
                         <td>
-                            <form action="<%= request.getContextPath() %>/fornecedor-materiais" method="post" style="display: inline;">
+                            <form action="${pageContext.request.contextPath}/FornecedorMaterialController" method="post" style="display: inline;">
                                 <input type="hidden" name="action" value="excluir">
                                 <input type="hidden" name="nome" value="<%= nome %>">
                                 <button type="submit" class="btn-delete"
@@ -138,17 +141,7 @@
                     %>
                     </tbody>
                 </table>
-                <%
-                } else if (fornecedores != null && fornecedores.isEmpty() && searchFornecedor != null && !searchFornecedor.isEmpty()) {
-                %>
-                <p class="info-text">Nenhum fornecedor encontrado para "<%= searchFornecedor %>"</p>
-                <%
-                } else {
-                %>
-                <p class="info-text">Digite um nome para pesquisar fornecedores</p>
-                <%
-                    }
-                %>
+
             </div>
         </section>
     </div>

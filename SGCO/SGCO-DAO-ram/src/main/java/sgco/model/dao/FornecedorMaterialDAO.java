@@ -14,27 +14,27 @@ public class FornecedorMaterialDAO {
         ConnectionFactory connectionFactory = new ConnectionFactory();
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            
+
+
             String nome = fornecedor.getNome();
             if (nome != null && nome.length() > 255) {
                 nome = nome.substring(0, 255);
             }
-            
+
             String contato = fornecedor.getContato();
             if (contato != null && contato.length() > 20) {
                 contato = contato.substring(0, 20);
             }
-            
+
             String email = fornecedor.getEmail();
             if (email != null && email.length() > 100) {
                 email = email.substring(0, 100);
             }
-            
+
             stmt.setString(1, nome);
             stmt.setString(2, contato);
             stmt.setString(3, email);
-            
+
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             if (e.getMessage().contains("Duplicate entry") || e.getErrorCode() == 1062) {
@@ -45,7 +45,7 @@ public class FornecedorMaterialDAO {
             throw new RuntimeException(e);
         }
     }
-    
+
     public boolean excluir(String nome) throws SQLException {
         String sql = "DELETE FROM fornecedor_material WHERE nome = ?";
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -56,25 +56,25 @@ public class FornecedorMaterialDAO {
             return stmt.executeUpdate() > 0;
 
         }catch (Exception e){
-                throw new RuntimeException(e);
-            }
+            throw new RuntimeException(e);
+        }
     }
-    
+
     public List<FornecedorMaterial> pesquisarPorNome(String nome) throws SQLException {
         List<FornecedorMaterial> fornecedores = new ArrayList<>();
-        String sql = "SELECT nome, contato, email, data_cadastro FROM fornecedor_material WHERE nome LIKE ? ORDER BY nome";
+        String sql = "SELECT * FROM fornecedor_material WHERE nome LIKE ? ORDER BY nome";
         ConnectionFactory connectionFactory = new ConnectionFactory();
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
+
             stmt.setString(1, "%" + (nome != null ? nome : "") + "%");
-            
+
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     FornecedorMaterial fornecedor = new FornecedorMaterial(
-                        rs.getString("nome"),
-                        rs.getString("contato"),
-                        rs.getString("email")
+                            rs.getString("nome"),
+                            rs.getString("contato"),
+                            rs.getString("email")
                     );
                     fornecedores.add(fornecedor);
                 }
@@ -84,28 +84,28 @@ public class FornecedorMaterialDAO {
         }
         return fornecedores;
     }
-    
+
     public List<FornecedorMaterial> listarTodos() throws SQLException {
         List<FornecedorMaterial> fornecedores = new ArrayList<>();
-        String sql = "SELECT nome, contato, email, data_cadastro FROM fornecedor_material ORDER BY nome";
+        String sql = "SELECT * FROM fornecedor_material ORDER BY nome";
         ConnectionFactory connectionFactory = new ConnectionFactory();
 
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-            
+
             while (rs.next()) {
                 FornecedorMaterial fornecedor = new FornecedorMaterial(
-                    rs.getString("nome"),
-                    rs.getString("contato"),
-                    rs.getString("email")
+                        rs.getString("nome"),
+                        rs.getString("contato"),
+                        rs.getString("email")
                 );
                 fornecedores.add(fornecedor);
             }
 
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return fornecedores;
     }
 }

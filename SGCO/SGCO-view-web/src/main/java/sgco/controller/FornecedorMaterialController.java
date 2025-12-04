@@ -10,15 +10,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "FornecedorMaterialController", urlPatterns = {"/fornecedor-materiais"})
+@WebServlet(name = "FornecedorMaterialController", urlPatterns = {"/FornecedorMaterialController"})
 public class FornecedorMaterialController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String action = request.getParameter("action");
-        
+
         if ("cadastrar".equals(action)) {
             cadastrarFornecedor(request, response);
         } else if ("excluir".equals(action)) {
@@ -31,9 +31,9 @@ public class FornecedorMaterialController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String action = request.getParameter("action");
-        
+
         if ("pesquisar".equals(action)) {
             pesquisarFornecedor(request, response);
         } else {
@@ -43,7 +43,7 @@ public class FornecedorMaterialController extends HttpServlet {
 
     private void cadastrarFornecedor(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String nome = request.getParameter("nomeFornecedor");
         String contato = request.getParameter("contatoFornecedor");
         String email = request.getParameter("emailFornecedor");
@@ -71,15 +71,15 @@ public class FornecedorMaterialController extends HttpServlet {
                 tipoMensagem = "erro";
             }
         }
-        
+
         request.setAttribute("mensagem", mensagem);
         request.setAttribute("tipoMensagem", tipoMensagem);
         listarFornecedores(request, response);
     }
-    
+
     private void excluirFornecedor(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String nome = request.getParameter("nome");
         String mensagem;
         String tipoMensagem;
@@ -90,7 +90,7 @@ public class FornecedorMaterialController extends HttpServlet {
         } else {
             try {
                 FornecedorMaterialService service = new FornecedorMaterialService();
-                
+
                 if (service.excluirFornecedor(nome)) {
                     mensagem = "Fornecedor '" + nome + "' excluído com sucesso!";
                     tipoMensagem = "sucesso";
@@ -103,7 +103,7 @@ public class FornecedorMaterialController extends HttpServlet {
                 tipoMensagem = "erro";
             }
         }
-        
+
         request.setAttribute("mensagem", mensagem);
         request.setAttribute("tipoMensagem", tipoMensagem);
         listarFornecedores(request, response);
@@ -113,7 +113,7 @@ public class FornecedorMaterialController extends HttpServlet {
             throws ServletException, IOException {
 
         String nome = request.getParameter("searchFornecedor");
-        
+
         try {
             FornecedorMaterialService service = new FornecedorMaterialService();
             List<FornecedorMaterial> fornecedoresPesquisados = service.pesquisarFornecedores(nome);
@@ -129,7 +129,7 @@ public class FornecedorMaterialController extends HttpServlet {
             request.setAttribute("fornecedores", fornecedoresPesquisados);
             request.setAttribute("searchFornecedor", nome);
 
-            request.getRequestDispatcher("/fornecedores_materiais.jsp").forward(request, response);
+            request.getRequestDispatcher("fornecedores_materiais/fornecedores_materiais.jsp").forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("mensagem", "Erro ao pesquisar fornecedores: " + e.getMessage());
@@ -146,7 +146,7 @@ public class FornecedorMaterialController extends HttpServlet {
             List<FornecedorMaterial> todosFornecedores = service.listarTodosFornecedores();
 
             request.setAttribute("fornecedores", todosFornecedores);
-            
+
             String mensagem = request.getParameter("mensagem");
             String tipoMensagem = request.getParameter("tipoMensagem");
             if (mensagem != null && tipoMensagem != null) {
@@ -154,12 +154,12 @@ public class FornecedorMaterialController extends HttpServlet {
                 request.setAttribute("tipoMensagem", tipoMensagem);
             }
 
-            request.getRequestDispatcher("/fornecedores_materiais.jsp").forward(request, response);
+            request.getRequestDispatcher("fornecedores_materiais/fornecedores_materiais.jsp").forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("mensagem", "Erro ao carregar fornecedores: " + e.getMessage());
             request.setAttribute("tipoMensagem", "erro");
-            request.getRequestDispatcher("/fornecedores_materiais.jsp").forward(request, response);
+            request.getRequestDispatcher("fornecedores_materiais/fornecedores_materiais.jsp").forward(request, response);
         }
     }
 }
