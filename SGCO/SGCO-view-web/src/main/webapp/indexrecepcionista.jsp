@@ -8,7 +8,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SGCO - Recepcionista</title>
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
 </head>
 <body>
   <aside class="sidebar">
@@ -17,7 +18,6 @@
       <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
       <li><a href="${pageContext.request.contextPath}AgendaController">Agenda</a></li>
       <li><a href="pagamento.jsp">Pagamentos</a></li>
-      <li><a href="pacientes_agendados.jsp">Pacientes Agendados</a></li>
       <li><a href="avaliacao.jsp">Avaliação de Profissionais</a></li>
         <li><a href="LogoutController" class="logout">Sair</a></li>
     </ul>

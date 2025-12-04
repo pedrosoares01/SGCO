@@ -246,45 +246,100 @@ button {
   padding: 1rem;
 }
 
+select {
+  width: 100%;
+  padding: 0.875rem;
+  border: 2px solid #caf0f8;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #1a3a52;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 
-.mult-select {
-    position: relative;
-    font-family: Arial, sans-serif;
-    margin: 20px 0;
-    width: 250px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23023e8a'><polygon points='0,0 20,0 10,12'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
 }
 
-.mult-select select {
-    width: 100%;
-    padding: 12px 10px 8px 10px;
-    border: none;
-    border-bottom: 2px solid #ccc;
-    background: transparent;
-    font-size: 16px;
-    outline: none;
-    appearance: none;
-    cursor: pointer;
-    transition: border-color 0.2s;
+select:focus {
+  outline: none;
+  border-color: #0096c7;
+  box-shadow: 0 0 0 3px rgba(0, 150, 199, 0.1);
 }
 
-.mult-select select:focus {
-    border-bottom-color: #1a73e8;
+select option {
+  padding: 0.75rem;
 }
 
-.mult-select label {
-    position: absolute;
-    top: 12px;
-    left: 10px;
-    font-size: 16px;
-    color: #777;
-    transition: 0.2s ease all;
-    pointer-events: none;
+.horarios-container {
+  margin-top: 2rem;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(2, 62, 138, 0.08);
+  max-width: 450px;
+  width: 100%;
 }
 
-.mult-select select:focus + label,
-.mult-select select:not([value=""]) + label,
-.mult-select select:not(:invalid) + label {
-    top: -8px;
-    font-size: 12px;
-    color: #1a73e8;
+.horarios-container h3 {
+  color: #023e8a;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-bottom: 2px solid #90e0ef;
+  padding-bottom: 0.5rem;
+}
+
+.horarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.95rem;
+  background: white;
+}
+
+.horarios-table th {
+  background-color: #023e8a;
+  color: #fff;
+  padding: 0.9rem;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.horarios-table td {
+  padding: 0.9rem;
+  border-bottom: 1px solid #e0e8ef;
+  color: #1a3a52;
+}
+
+.horarios-table tr:last-child td {
+  border-bottom: none;
+}
+
+.horarios-table tr:hover {
+  background-color: #f0f7fa;
+  transition: background-color 0.2s ease;
+}
+
+.status-livre {
+  font-weight: 600;
+  color: #007f5f;
+  background-color: #dfffe7;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+}
+
+.status-ocupado {
+  font-weight: 600;
+  color: #d62828;
+  background-color: #ffe1e1;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
 }

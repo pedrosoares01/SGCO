@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Gestão de Usuários - SGCO</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gestao_usuarios.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/busca.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
     </head>
     <body>
         <aside class="sidebar">
@@ -46,10 +46,22 @@
                 </div>
                 
             </form>
-            <% if (request.getAttribute("msg") != null) { %>
-            <div style="color: green; font-weight: bold;">
-                <%= request.getAttribute("msg") %>
+            <%
+                String mensagem = (String) request.getAttribute("msg");
+                String tipoMensagem = (String) request.getAttribute("tipoMensagem");
+            %>
+
+            <% if (mensagem != null) { %>
+            <div id="popup" class="<%= tipoMensagem %>">
+                <p><%= mensagem %></p>
+                <button onclick="fecharPopup()">OK</button>
             </div>
+
+            <script>
+                function fecharPopup() {
+                    document.getElementById("popup").style.display = "none";
+                }
+            </script>
             <% } %>
         </main>
 

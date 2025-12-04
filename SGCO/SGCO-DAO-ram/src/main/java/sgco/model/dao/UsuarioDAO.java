@@ -10,12 +10,9 @@ import sgco.sgco.domain.Usuario;
     
 public class UsuarioDAO {    
     public void cadastrar(Usuario usuario) throws Exception{
-    
-        Connection conexao;
+
+        Connection conexao = ConnectionFactory.getConnection();
         PreparedStatement st;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco", "root", "Sgco1234");
         String sql = "INSERT INTO usuarios VALUES (?,?,?,?,?)";
         st = conexao.prepareStatement(sql);
         
@@ -28,11 +25,8 @@ public class UsuarioDAO {
     }
     
     public void atualizar(Usuario usuario) throws Exception {
-        Connection conexao;
+        Connection conexao = ConnectionFactory.getConnection();
         PreparedStatement st;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco", "root", "Sgco1234");
         String sql = "UPDATE usuarios SET nome = ?, email = ?, senha = ?, cargo = ? WHERE id = ?";
         st = conexao.prepareStatement(sql);
         st.setString(1, usuario.getNome());
@@ -44,11 +38,8 @@ public class UsuarioDAO {
     }
     
     public void excluir(Usuario usuario) throws Exception {
-        Connection conexao;
+        Connection conexao = ConnectionFactory.getConnection();
         PreparedStatement st;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco" , "root", "Sgco1234");
         String sql = "DELETE FROM usuarios WHERE id = ? AND email = ? AND nome = ?";
         st = conexao.prepareStatement(sql);
         st.setString(3, usuario.getNome());
@@ -58,11 +49,8 @@ public class UsuarioDAO {
     }
 
     public Usuario pesquisar(Usuario usuario) throws Exception {
-        Connection conexao;
+        Connection conexao = ConnectionFactory.getConnection();
         PreparedStatement st;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco" , "root", "Sgco1234");
         String sql = "SELECT * FROM usuarios WHERE  nome = ?";
         st = conexao.prepareStatement(sql);
         st.setString(1, usuario.getNome());
@@ -85,11 +73,8 @@ public class UsuarioDAO {
     }
 
     public Usuario logar(Usuario usuario) throws Exception {
-        Connection conexao;
+        Connection conexao = ConnectionFactory.getConnection();
         PreparedStatement st;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-
-        conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/banco" , "root", "Sgco1234");
         String sql = "SELECT * FROM usuarios WHERE  nome = ?";
         st = conexao.prepareStatement(sql);
         st.setString(1, usuario.getNome());

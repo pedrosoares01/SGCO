@@ -1,4 +1,4 @@
-package sgco.sgco.dao.ram;
+package sgco.model.dao;
 
 import sgco.sgco.domain.Avaliacao;
 import java.sql.*;
@@ -7,8 +7,7 @@ import java.util.List;
 
 public class AvaliacaoDAO {
     public List<Avaliacao> avaliar(Avaliacao avaliacao) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/avaliacao", "root", "sgcopass");
+        Connection conn = ConnectionFactory.getConnection();
         String sqlInsert = "INSERT INTO avaliacao(profissional, nota) VALUES (?, ?)";
         PreparedStatement stInsert = conn.prepareStatement(sqlInsert);
         stInsert.setString(1, avaliacao.getProfissional());

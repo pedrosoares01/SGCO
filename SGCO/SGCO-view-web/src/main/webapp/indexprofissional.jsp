@@ -8,17 +8,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SGCO - Profissional</title>
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 </head>
 <body>
   <aside class="sidebar">
     <h2>SGCO</h2>
     <ul>
-      <li><a href="orcamento.jsp">Orçamento</a></li>
-      <li><a href="estoque.jsp">Controle de Estoque</a></li>
-      <li><a href="prontuario.jsp">Prontuário</a></li>
-      <li><a href="pacientes_agendados.jsp">Pacientes Agendados</a></li>
-      <li><a href="LogoutController" class="logout">Sair</a></li>
+      <li><a href="${pageContext.request.contextPath}/core/orcamento/pagina.jsp">Orçamento</a></li>
+      <li><a href="${pageContext.request.contextPath}/estoque.jsp">Controle de Estoque</a></li>
+      <li><a href="${pageContext.request.contextPath}/prontuario.jsp">Prontuário</a></li>
+      <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+      <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
     </ul>
   </aside>
 

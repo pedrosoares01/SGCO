@@ -10,7 +10,13 @@
   <version>1.0-SNAPSHOT</version>
       
   <packaging>pom</packaging>
-  
+
+  <properties>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+  </properties>
+
     <modules>
         <module>SGCO-common</module>
         <module>SGCO-DAO-ram</module>
@@ -18,9 +24,6 @@
         <module>SGCO-service</module>
         <module>SGCO-view-web</module>
     </modules>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     
     <dependencies>
 	     <dependency>
