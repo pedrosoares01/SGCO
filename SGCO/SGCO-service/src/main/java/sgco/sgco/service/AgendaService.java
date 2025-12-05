@@ -1,8 +1,7 @@
 package sgco.sgco.service;
 import sgco.model.dao.AgendaDAO;
 import sgco.sgco.domain.Agenda;
-
-import sgco.sgco.domain.Usuario;
+import java.sql.ResultSet;
 import java.util.List;
 
 public class AgendaService {
@@ -14,21 +13,9 @@ public class AgendaService {
         validar(agenda);
         agendaDAO.agendar(agenda);
     }
+
     public List<Agenda> pesquisar(Agenda agenda) throws Exception {
         return agendaDAO.pesquisar(agenda);
-    }
-    public List<Usuario> listarProfissionais() throws Exception {
-        return agendaDAO.listarProfissionais();
-    }
-    public List<Agenda> listarHorariosOcupados(String profissional, String data) throws Exception {
-        return agendaDAO.listarHorariosOcupados(profissional, data);
-    }
-    public List<Agenda> pesquisarAgendamento(Agenda profissional) throws Exception {
-        return agendaDAO.pesquisarAgendamento(profissional);
-    }
-
-    public List<Agenda> listar(Agenda agenda) throws Exception {
-        return agendaDAO.listar(agenda);
     }
 
     private void validar(Agenda agenda) throws Exception{
