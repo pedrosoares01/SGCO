@@ -11,6 +11,8 @@
     
     <li><a href="${pageContext.request.contextPath}/core/pagamento/pagina.jsp" class="active">Pagamentos</a></li>
 
+    <li><a href="${pageContext.request.contextPath}/core/controleequipamentos/controleequip.jsp" class="active">Gestão de Equipamentos</a></li>
+
     <li><a href="" class="logout">Sair</a></li>
   </ul>
 </aside>
