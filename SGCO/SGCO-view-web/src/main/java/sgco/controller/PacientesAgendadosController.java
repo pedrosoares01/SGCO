@@ -1,4 +1,4 @@
-package Controller;
+package sgco.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

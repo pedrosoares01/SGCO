@@ -117,6 +117,7 @@ public class AgendaController extends HttpServlet {
             request.setAttribute("profissionais", null);
         }
     }
+
     private void carregarHorarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
@@ -126,11 +127,8 @@ public class AgendaController extends HttpServlet {
             List<Agenda> ocupados = agendaService.listarHorariosOcupados(idProf, data);
             request.setAttribute("ocupados", ocupados);
             request.setAttribute("data", data);
-            lista = agendaService.pesquisar(agenda);
-            request.setAttribute("nomePesquisa", nome);
-            request.setAttribute("resultadosPesquisa", lista);
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
-        } catch (Exception e){
+        } catch (Exception e) {
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         }
     }

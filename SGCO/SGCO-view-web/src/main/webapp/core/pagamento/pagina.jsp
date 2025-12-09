@@ -9,7 +9,17 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
 </head>
 <body>
-    <jsp:include page="../sidebar.jsp" />
+<aside class="sidebar">
+    <a href="${pageContext.request.contextPath}/indexrecepcionista.jsp"><h2>SGCO</h2></a>
+    <ul>
+        <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
+        <li><a href="${pageContext.request.contextPath}/AgendaController">Agenda</a></li>
+        <li><a href="${pageContext.request.contextPath}/core/pagamento/pagina.jsp">Pagamentos</a></li>
+        <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+        <li><a href="${pageContext.request.contextPath}/AvaliacaoController">Avaliação de Profissionais</a></li>
+        <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
+    </ul>
+</aside>
     <main class="content">
         <div class="container">
             <jsp:include page="pesquisarOrcamento.jsp" />
