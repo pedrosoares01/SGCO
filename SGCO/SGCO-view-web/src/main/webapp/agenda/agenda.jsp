@@ -3,6 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="sgco.sgco.domain.Agenda"%>
 <%@ page import="sgco.sgco.domain.Usuario" %>
+<%@ page import="java.sql.ResultSet" %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -13,17 +14,19 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/agenda.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
+
+
 </head>
 <body>
 <aside class="sidebar">
     <a href="${pageContext.request.contextPath}/indexrecepcionista.jsp"><h2>SGCO</h2></a>
     <ul>
-        <li><a href="${pageContext.request.contextPath}gestao_pacientes/gestao_pacientes.jsp">Gestão de Pacientes</a></li>
+        <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
         <li><a href="${pageContext.request.contextPath}/AgendaController">Agenda</a></li>
-        <li><a href="${pageContext.request.contextPath}/pagamento/pagamento.jsp">Pagamentos</a></li>
+        <li><a href="${pageContext.request.contextPath}/core/pagamento/pagina.jsp">Pagamentos</a></li>
         <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
-        <li><a href="${pageContext.request.contextPath}/avaliacao/avaliacao.jsp">Avaliação de Profissionais</a></li>
-        <li><a href="${pageContext.request.contextPath}LogoutController" class="logout">Sair</a></li>
+        <li><a href="${pageContext.request.contextPath}/AvaliacaoController">Avaliação de Profissionais</a></li>
+        <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
     </ul>
 </aside>
 <main class="content">
@@ -61,8 +64,10 @@
                 <%
                     } catch (Exception e){}
                 %>
+                <input type="text" name="profissional" placeholder="Nome do profissional" required>
                 <label>Data:</label>
                 <input type="date" id="data" name="data">
+                <input type="date" name="data" required>
                 <label>Hora:</label>
                 <input type="time" name="hora" required>
                 <div class="buttons">
@@ -118,6 +123,71 @@
                     }
                 } catch (Exception e){}
             %>
+        </section>
+        <section class="card">
+            <h2> Pacientes marcados para amanhã</h2>
+            <form method="POST" action="${pageContext.request.contextPath}/AgendaController">
+                <input type="hidden" name="action" id="actionListar">
+                <label>nome do Profissional:</label>
+                <input type="text" name="nome" placeholder="Digite para pesquisar..." required>
+                <div class="buttons">
+                    <button type="submit" class="btn-primary" onclick="document.getElementById('actionListar').value='listar'">listar pacientes</button>
+                </div>
+            </form>
+            <%  try{
+                List<Agenda> resultadosListar = (List<Agenda>) request.getAttribute("resultadosListar");
+                int tamanho = 1;
+                if (resultadosListar != null) {
+                    tamanho = resultadosListar.size();
+                }
+                String nomeListar = (String) request.getAttribute("nomeListar");
+                if (resultadosListar != null){
+            %>
+            <div class="search-results">
+                <h3>Pacientes de "<%= nomeListar %>":</h3>
+                <%
+                    if (resultadosListar.isEmpty()) {
+                %>
+                <p>Nenhum paciente encontrado</p>
+                <%
+                } else{
+                %>
+                <form action="${pageContext.request.contextPath}/LembreteController" method="post">
+                    <select name="pacientes" multiple size="<%= tamanho %>" class="mult-select">
+                        <% for (Agenda a : resultadosListar) { %>
+                        <option value="<%= a.getPaciente() %>">
+                            <%= a.getPaciente() %> - <%= a.getHora() %>
+                        </option>
+                        <% } %>
+                    </select>
+                    <button type="submit" class="btn-primary">Enviar lembretes</button>
+                </form>
+            </div>
+            <%} %>
+            <% }
+            } catch (Exception e){}
+            %>
+
+
+            <%
+                String mensagemListar = (String) request.getAttribute("mensagem");
+                String tipoMensagemListar = (String) request.getAttribute("tipoMensagem");
+            %>
+
+            <% if (mensagemListar != null) { %>
+            <div id="popup" class="<%= tipoMensagemListar %>">
+                <p><%= mensagemListar %></p>
+                <button onclick="fecharPopup()">OK</button>
+            </div>
+
+            <script>
+                function fecharPopup() {
+                    document.getElementById("popup").style.display = "none";
+                }
+            </script>
+            <% } %>
+
+
         </section>
 
         <section class="card">
@@ -210,4 +280,5 @@
     </div>
 </main>
 </body>
+
 </html>

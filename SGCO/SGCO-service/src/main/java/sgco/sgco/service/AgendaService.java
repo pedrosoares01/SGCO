@@ -13,6 +13,7 @@ public class AgendaService {
         validar(agenda);
         agendaDAO.agendar(agenda);
     }
+
     public List<Agenda> pesquisar(Agenda agenda) throws Exception {
         return agendaDAO.pesquisar(agenda);
     }
@@ -25,6 +26,11 @@ public class AgendaService {
     public List<Agenda> pesquisarAgendamento(Agenda profissional) throws Exception {
         return agendaDAO.pesquisarAgendamento(profissional);
     }
+
+    public List<Agenda> listar(Agenda agenda) throws Exception {
+        return agendaDAO.listar(agenda);
+    }
+
     private void validar(Agenda agenda) throws Exception{
         if (agenda.getData() == null || agenda.getData().isBlank()) {
             throw new Exception("A data não foi preenchida");

@@ -83,6 +83,7 @@ public class OrcamentoController extends HttpServlet {
         String idParam = request.getParameter("searchId");
         List<Orcamento> resultados;
         OrcamentoDAO dao = new OrcamentoDAO();
+        String origem = request.getParameter("origem");
 
         if (idParam != null && !idParam.isEmpty()) {
             try {
@@ -97,7 +98,12 @@ public class OrcamentoController extends HttpServlet {
         }
 
         request.setAttribute("resultados", resultados);
-        request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
+        if ("pagamento".equals(origem)) {
+       	 request.getRequestDispatcher("/core/pagamento/pagina.jsp").forward(request, response);
+        } else {
+        	request.getRequestDispatcher("core/orcamento/pagina.jsp").forward(request, response);
+        }
+        
     }
 
     private void editarOrcamento(HttpServletRequest request, HttpServletResponse response)

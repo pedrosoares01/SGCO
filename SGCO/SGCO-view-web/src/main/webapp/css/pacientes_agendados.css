@@ -166,6 +166,7 @@ button.btn-search:hover {
     gap: 1rem;
   }
 }
+
 .search-results table {
   width: 100%;
   border-collapse: collapse;
