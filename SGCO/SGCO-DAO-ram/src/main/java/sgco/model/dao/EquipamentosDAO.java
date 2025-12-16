@@ -29,6 +29,45 @@ public class EquipamentosDAO {
             return false;
         }
     }
+    
+    public List<Equipamentos> pesquisarPorNome(String nome) {
+        List<Equipamentos> lista = new ArrayList<>();
+
+        String sql;
+        if (nome == null || nome.trim().isEmpty()) {
+            sql = "SELECT * FROM equipamentos ORDER BY id DESC";
+        } else {
+            sql = "SELECT * FROM equipamentos WHERE nome LIKE ? ORDER BY id DESC";
+        }
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            if (nome != null && !nome.trim().isEmpty()) {
+                stmt.setString(1, "%" + nome + "%");
+            }
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Equipamentos e = new Equipamentos(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("codigo"),
+                        rs.getString("local"),
+                        rs.getString("ultima"),
+                        rs.getInt("freq"),
+                        rs.getString("status")
+                );
+                lista.add(e);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro ao pesquisar equipamentos: " + ex.getMessage());
+        }
+
+        return lista;
+    }
 
     // LISTAR TODOS
     public List<Equipamentos> listarTodos() {

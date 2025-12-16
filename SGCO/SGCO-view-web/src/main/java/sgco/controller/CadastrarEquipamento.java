@@ -27,11 +27,9 @@ public class CadastrarEquipamento extends HttpServlet {
             String ultima = request.getParameter("ultima");
             String status = request.getParameter("status");
 
-            // evita erro caso freq venha vazio
             String freqStr = request.getParameter("freq");
             int freq = (freqStr == null || freqStr.isEmpty()) ? 0 : Integer.parseInt(freqStr);
 
-            // criar objeto do modelo correto
             Equipamentos eq = new Equipamentos(nome, codigo, local, ultima, freq, status);
 
             EquipamentosDAO dao = new EquipamentosDAO();
@@ -47,7 +45,6 @@ public class CadastrarEquipamento extends HttpServlet {
             request.getSession().setAttribute("popup", "Erro inesperado: " + ex.getMessage());
         }
 
-        // volta para a página principal
         response.sendRedirect("core/controleequipamentos/controleequip.jsp");
     }
 }
