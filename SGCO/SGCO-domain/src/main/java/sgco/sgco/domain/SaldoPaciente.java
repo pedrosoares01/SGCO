@@ -2,7 +2,6 @@ package sgco.sgco.domain;
 
 public class SaldoPaciente {
     private String nomeDevedor;
-    private String prazo;
     private double pago;
     private double devido;
     private double totalPagar;
@@ -13,14 +12,6 @@ public class SaldoPaciente {
 
     public void setNomeDevedor(String nomeDevedor) {
         this.nomeDevedor = nomeDevedor;
-    }
-
-    public String getPrazo() {
-        return prazo;
-    }
-
-    public void setPrazo(String prazo) {
-        this.prazo = prazo;
     }
 
     public double getPago() {

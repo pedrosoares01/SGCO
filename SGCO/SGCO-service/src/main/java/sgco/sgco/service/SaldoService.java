@@ -2,22 +2,16 @@ package sgco.sgco.service;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import sgco.model.domain.Paciente;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
-import sgco.model.dao.SaldoDAO;
+
+import sgco.sgco.domain.SaldoPaciente;
 
 public class SaldoService {
 
-    SaldoDAO saldoDAO;
-
-    public SaldoService(){
-        saldoDAO = new SaldoDAO();
-    }
-
-    public void gerarRelatorioDevedores(List<Paciente> pacientes) {
+    public void gerarRelatorioDevedores(List<SaldoPaciente> pacientes) {
 
         try {
             Workbook workbook = new XSSFWorkbook();
@@ -30,7 +24,7 @@ public class SaldoService {
 
             Row headerRow = sheet.createRow(0);
 
-            String[] colunas = {"Paciente", "Email", "Valor Devido", "Data"};
+            String[] colunas = {"Paciente", "Valor Pago", "Valor Devido", "Data Limite", "Total a Pagar"};
 
             for (int i = 0; i < colunas.length; i++) {
                 Cell cell = headerRow.createCell(i);
@@ -40,13 +34,13 @@ public class SaldoService {
 
             int linha = 1;
 
-            for (Paciente p : pacientes) {
+            for (SaldoPaciente p : pacientes) {
                 Row row = sheet.createRow(linha++);
 
-                row.createCell(0).setCellValue(p.getNome());
-                row.createCell(1).setCellValue(p.getEmail());
-                row.createCell(2).setCellValue(p.getValorDevido());
-                row.createCell(3).setCellValue(p.getDataDivida());
+                row.createCell(0).setCellValue(p.getNomeDevedor());
+                row.createCell(1).setCellValue(p.getPago());
+                row.createCell(2).setCellValue(p.getDevido());
+                row.createCell(3).setCellValue(p.getTotalPagar());
             }
 
             for (int i = 0; i < colunas.length; i++) {
@@ -65,10 +59,51 @@ public class SaldoService {
         }
     }
 
-    }
+    public void gerarRelatorioDevedoresAtrasados(List<SaldoPaciente> pacientes) {
+        try {
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Pacientes Devedores");
 
-    public void gerarRelatorioDevedoresAtrasados() {
+            CellStyle headerStyle = workbook.createCellStyle();
+            Font headerFont = workbook.createFont();
+            headerFont.setBold(true);
+            headerStyle.setFont(headerFont);
 
+            Row headerRow = sheet.createRow(0);
+
+            String[] colunas = {"Paciente", "Valor Pago", "Valor Devido", "Data Limite", "Total a Pagar"};
+
+            for (int i = 0; i < colunas.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(colunas[i]);
+                cell.setCellStyle(headerStyle);
+            }
+
+            int linha = 1;
+
+            for (SaldoPaciente p : pacientes) {
+                Row row = sheet.createRow(linha++);
+
+                row.createCell(0).setCellValue(p.getNomeDevedor());
+                row.createCell(1).setCellValue(p.getPago());
+                row.createCell(2).setCellValue(p.getDevido());
+                row.createCell(3).setCellValue(p.getTotalPagar());
+            }
+
+            for (int i = 0; i < colunas.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            FileOutputStream fileOut =
+                    new FileOutputStream("pacientes_devedores.xlsx");
+            workbook.write(fileOut);
+            fileOut.close();
+            workbook.close();
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 

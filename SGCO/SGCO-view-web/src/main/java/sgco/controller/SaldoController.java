@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import sgco.model.dao.SaldoDAO;
+import sgco.sgco.domain.SaldoPaciente;
 import sgco.sgco.service.SaldoService;
 
 @WebServlet(name = "SaldoController", urlPatterns = {"/SaldoController"})
@@ -14,32 +15,46 @@ public class SaldoController extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        try{
 
-        String action = request.getParameter("action");
+            String action = request.getParameter("action");
 
-        switch (action){
+            switch (action){
 
-            case "Devedores":
-                gerarRelatorioDevedores(request, response);
-                break;
-            case "DevedoresAtrasados":
-                gerarRelatorioDevedoresAtrasados(request, response);
-                break;
-            default:
-                break;
+                case "Devedores":
+                    gerarRelatorioDevedores(request, response);
+                    break;
+                case "DevedoresAtrasados":
+                    gerarRelatorioDevedoresAtrasados(request, response);
+                    break;
+                default:
+                    break;
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
-
     }
 
-    private void gerarRelatorioDevedores(HttpServletRequest request, HttpServletResponse response){
-        SaldoService saldoService = new SaldoService();
-        saldoService.gerarRelatorioDevedores();
+    private void gerarRelatorioDevedores(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            SaldoService saldoService = new SaldoService();
+            SaldoDAO saldoDAO = new SaldoDAO();
+
+            List<SaldoPaciente> saldoPacientes = saldoDAO.resgatarDividas();
+            saldoService.gerarRelatorioDevedores(saldoPacientes);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
-    private void gerarRelatorioDevedoresAtrasados(HttpServletRequest request, HttpServletResponse response){
+    private void gerarRelatorioDevedoresAtrasados(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SaldoService saldoService = new SaldoService();
-        saldoService.gerarRelatorioDevedoresAtrasados();
+        SaldoDAO saldoDAO = new SaldoDAO();
+
+        List<SaldoPaciente> saldoPacientes = saldoDAO.resgatarDividas();
+        saldoService.gerarRelatorioDevedoresAtrasados(saldoPacientes);
     }
 
 
