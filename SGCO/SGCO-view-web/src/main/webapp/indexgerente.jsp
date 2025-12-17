@@ -22,7 +22,7 @@
       <li><a href="${pageContext.request.contextPath}/fornecedores_materiais/fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
       <li><a href="fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
       <li><a href="receita.jsp">Gestão da Receita</a></li>
-      <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+      <li><a href="${pageContext.request.contextPath}/PacientesAgendadosController">Pacientes Agendados</a></li>
       <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
     </ul>
   </aside>

@@ -32,6 +32,7 @@ public class AgendaDAO {
             a.setProfissional(rs.getString("profissional"));
             a.setData(rs.getString("data_agendamento"));
             a.setHora(rs.getString("hora_agendamento"));
+            a.setId(rs.getInt("id"));
             lista.add(a);
         }
         if (lista.isEmpty())
@@ -58,6 +59,7 @@ public class AgendaDAO {
             a.setProfissional(rs.getString("profissional"));
             a.setData(rs.getString("data_agendamento"));
             a.setHora(rs.getString("hora_agendamento"));
+            a.setId(rs.getInt("id"));
             lista.add(a);
         }
         rs.close();
@@ -98,6 +100,7 @@ public class AgendaDAO {
             a.setProfissional(rs.getString("profissional"));
             a.setData(rs.getString("data_agendamento"));
             a.setHora(rs.getString("hora_agendamento"));
+            a.setId(rs.getInt("id"));
             lista.add(a);
         }
         rs.close();
@@ -119,6 +122,7 @@ public class AgendaDAO {
             a.setProfissional(rs.getString("profissional"));
             a.setData(rs.getString("data_agendamento"));
             a.setHora(rs.getString("hora_agendamento"));
+            a.setId(rs.getInt("id"));
             lista.add(a);
         }
         if (lista.isEmpty())
@@ -127,5 +131,15 @@ public class AgendaDAO {
         st.close();
         conn.close();
         return lista;
+    }
+    public void desmarcar(int id) throws Exception {
+        Connection conn = ConnectionFactory.getConnection();
+        PreparedStatement st = conn.prepareStatement(
+                "DELETE FROM agenda WHERE id = ?"
+        );
+        st.setInt(1, id);
+        st.executeUpdate();
+        st.close();
+        conn.close();
     }
 }

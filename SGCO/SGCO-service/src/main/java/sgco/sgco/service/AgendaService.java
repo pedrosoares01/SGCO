@@ -31,6 +31,10 @@ public class AgendaService {
         return agendaDAO.listar(agenda);
     }
 
+    public void desmarcar(int id) throws Exception {
+        agendaDAO.desmarcar(id);
+    }
+
     private void validar(Agenda agenda) throws Exception{
         if (agenda.getData() == null || agenda.getData().isBlank()) {
             throw new Exception("A data não foi preenchida");

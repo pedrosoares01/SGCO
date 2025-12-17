@@ -18,6 +18,7 @@
   <title>Pacientes Agendados - SGCO</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pacientes_agendados.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
 </head>
 <body>
 <aside class="sidebar">
@@ -103,6 +104,7 @@
             <th>Profissional</th>
             <th>Data</th>
             <th>Hora</th>
+            <th>Ação</th>
           </tr>
           <%
             if (resultados.isEmpty()) {
@@ -117,6 +119,13 @@
             <td><%= a.getProfissional() %></td>
             <td><%= a.getData() %></td>
             <td><%= a.getHora() %></td>
+            <td>
+              <form method="post" action="${pageContext.request.contextPath}/PacientesAgendadosController" onsubmit="return confirm('Deseja realmente desmarcar este agendamento?');" style="display:inline;">
+                <input type="hidden" name="action" value="desmarcar">
+                <input type="hidden" name="id" value="<%= a.getId() %>">
+                <button type="submit" class="btn-danger">Desmarcar</button>
+              </form>
+            </td>
           </tr>
           <%
               }
@@ -130,6 +139,24 @@
       %>
     </section>
   </div>
+
+  <%
+    String mensagem = (String) request.getAttribute("msg");
+    String tipoMensagem = (String) request.getAttribute("tipoMensagem");
+  %>
+
+  <% if (mensagem != null) { %>
+  <div id="popup" class="<%= tipoMensagem %>">
+    <p><%= mensagem %></p>
+    <button onclick="fecharPopup()">OK</button>
+  </div>
+
+  <script>
+    function fecharPopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+  </script>
+  <% } %>
 </main>
 </body>
 </html>
