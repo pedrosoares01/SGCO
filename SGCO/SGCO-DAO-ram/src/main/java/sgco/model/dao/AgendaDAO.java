@@ -134,9 +134,7 @@ public class AgendaDAO {
     }
     public void desmarcar(int id) throws Exception {
         Connection conn = ConnectionFactory.getConnection();
-        PreparedStatement st = conn.prepareStatement(
-                "DELETE FROM agenda WHERE id = ?"
-        );
+        PreparedStatement st = conn.prepareStatement("DELETE FROM agenda WHERE id = ?");
         st.setInt(1, id);
         st.executeUpdate();
         st.close();

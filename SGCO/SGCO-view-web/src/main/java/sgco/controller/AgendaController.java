@@ -47,8 +47,12 @@ public class AgendaController extends HttpServlet {
         switch (action) {
             case "horarios":
                 carregarHorarios(request, response);
+                request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
                 break;
             case "carregar":
+                carregarProfissionais(request);
+                request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
+                break;
             default:
                 listarProfissionais(request, response);
                 break;

@@ -1,5 +1,4 @@
 <%@page import="java.util.List" %>
-<%@page import="java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="sgco.sgco.domain.Agenda"%>
 <%@ page import="sgco.sgco.domain.Usuario" %>
@@ -13,8 +12,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/agenda.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-
-
 </head>
 <body>
 <aside class="sidebar">
@@ -215,7 +212,8 @@
         </section>
 
         <section class="card">
-            <h3>Horários Disponíveis</h3>
+            <h2>Horários Disponíveis</h2>
+
             <div id="horarios-container" style="margin-top:20px; display:none;"></div>
         </section>
 
