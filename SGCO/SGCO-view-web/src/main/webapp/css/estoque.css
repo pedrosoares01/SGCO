@@ -14,118 +14,6 @@ body {
     min-height: 100vh;
 }
 
-.sidebar {
-    width: 250px;
-    background-color: #023e8a;
-    color: white;
-    flex-shrink: 0;
-    padding: 1rem;
-    box-sizing: border-box;
-}
-
-.sidebar h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: #90e0ef;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar li {
-    margin: 10px 0;
-}
-
-.menu-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    display: block;
-    border-radius: 8px;
-    transition: background 0.3s;
-    box-sizing: border-box;
-}
-
-.sidebar a:hover {
-    background-color: #0077b6;
-}
-
-.arrow {
-    font-size: 0.9rem;
-    margin-left: 8px;
-    cursor: pointer;
-    transition: transform 0.25s ease, color 0.25s ease;
-    color: #90e0ef;
-    user-select: none;
-    line-height: 1;
-    padding: 6px;
-    border-radius: 6px;
-}
-
-.arrow:hover {
-    color: #cbe9f8;
-    background: rgba(255,255,255,0.03);
-}
-
-.arrow.rotated {
-    transform: rotate(90deg);
-}
-
-.submenu {
-    list-style: none;
-    margin-left: 12px;
-    margin-top: 6px;
-    padding: 0;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.28s ease, opacity 0.28s ease, transform 0.28s ease;
-    opacity: 0;
-    transform: translateY(-6px);
-}
-
-.submenu.open {
-    max-height: 400px;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.submenu li {
-    margin: 4px 0;
-}
-
-.submenu a {
-    background-color: #0353a4;
-    border-radius: 6px;
-    margin: 2px 0;
-    padding: 8px 10px;
-    font-size: 0.95rem;
-    display: block;
-}
-
-.submenu a:hover {
-    background-color: #0077b6;
-}
-
-.logout {
-    background-color: #ff4d4d;
-    text-align: center;
-    border-radius: 8px;
-}
-
-.logout:hover {
-    background-color: #e63946;
-}
-
 .content {
     flex: 1;
     padding: 3rem 2rem;
@@ -275,54 +163,20 @@ button {
     transform: translateY(-1px);
 }
 
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    flex: 1;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
 .buttons {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
-}
-
-.btn-edit {
-    background-color: #023e8a;
-    color: white;
-    padding: 0.5rem 0.8rem;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-}
-
-.btn-edit:hover {
-    background-color: #0077b6;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(2, 62, 138, 0.3);
-}
-
-.btn-delete {
-    background-color: #e63946;
-    color: white;
-    padding: 0.5rem 0.8rem;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-}
-
-.btn-delete:hover {
-    background-color: #c1121f;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(230, 57, 70, 0.3);
 }
 
 .search-results {
@@ -374,6 +228,50 @@ button {
 .action-buttons {
     display: flex;
     gap: 8px;
+}
+
+.btn-edit {
+    background-color: #023e8a;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.btn-edit:hover {
+    background-color: #0077b6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(2, 62, 138, 0.3);
+}
+
+.btn-delete {
+    background-color: #e63946;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.btn-delete:hover {
+    background-color: #c1121f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(230, 57, 70, 0.3);
 }
 
 .info-text {
@@ -459,11 +357,6 @@ button {
         flex-direction: column;
     }
 
-    .sidebar {
-        width: 100%;
-        height: auto;
-    }
-
     .content {
         margin-left: 0;
         padding: 2rem 1rem;
@@ -488,5 +381,10 @@ button {
 
     .btn-edit, .btn-delete {
         width: 100%;
+    }
+
+    .btn-search, .btn-list {
+        width: 100%;
+        margin-left: 0;
     }
 }

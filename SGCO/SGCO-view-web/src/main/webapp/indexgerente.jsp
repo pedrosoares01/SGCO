@@ -65,7 +65,7 @@
 <div class="card">
         <h3>🚚 Fornecedores de Serviços</h3>
         <p>Cadastre e gerencie fornecedores de serviços.</p>
-        <a href="fornecedores_servicos.jsp">Acessar</a>
+        <a href="fornecdedores_servicos/fornecedores_servicos.jsp">Acessar</a>
       </div>
 
       <div class="card">
