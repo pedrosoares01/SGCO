@@ -1,39 +1,23 @@
 package sgco.model.dao;
-import sgco.sgco.domain.FornecedorMaterial;
 
-import java.net.ConnectException;
+import sgco.sgco.domain.FornecedorMaterial;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FornecedorMaterialDAO {
-    //assim que faz a conexao
-    // lembra de colocar catch no final dos try
+
+    // Inserir novo fornecedor
     public boolean inserir(FornecedorMaterial fornecedor) throws SQLException {
         String sql = "INSERT INTO fornecedor_material (nome, contato, email) VALUES (?, ?, ?)";
         ConnectionFactory connectionFactory = new ConnectionFactory();
+
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-
-            String nome = fornecedor.getNome();
-            if (nome != null && nome.length() > 255) {
-                nome = nome.substring(0, 255);
-            }
-
-            String contato = fornecedor.getContato();
-            if (contato != null && contato.length() > 20) {
-                contato = contato.substring(0, 20);
-            }
-
-            String email = fornecedor.getEmail();
-            if (email != null && email.length() > 100) {
-                email = email.substring(0, 100);
-            }
-
-            stmt.setString(1, nome);
-            stmt.setString(2, contato);
-            stmt.setString(3, email);
+            stmt.setString(1, fornecedor.getNome());
+            stmt.setString(2, fornecedor.getContato());
+            stmt.setString(3, fornecedor.getEmail());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -46,47 +30,101 @@ public class FornecedorMaterialDAO {
         }
     }
 
-    public boolean excluir(String nome) throws SQLException {
-        String sql = "DELETE FROM fornecedor_material WHERE nome = ?";
+    // Buscar fornecedor por nome
+    public FornecedorMaterial buscarPorNome(String nome) throws SQLException {
+        String sql = "SELECT * FROM fornecedor_material WHERE nome = ?";
         ConnectionFactory connectionFactory = new ConnectionFactory();
+
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, nome);
-            return stmt.executeUpdate() > 0;
-
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<FornecedorMaterial> pesquisarPorNome(String nome) throws SQLException {
-        List<FornecedorMaterial> fornecedores = new ArrayList<>();
-        String sql = "SELECT * FROM fornecedor_material WHERE nome LIKE ? ORDER BY nome";
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        try (Connection conn = connectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, "%" + (nome != null ? nome : "") + "%");
 
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    FornecedorMaterial fornecedor = new FornecedorMaterial(
+                if (rs.next()) {
+                    return new FornecedorMaterial(
                             rs.getString("nome"),
                             rs.getString("contato"),
                             rs.getString("email")
                     );
-                    fornecedores.add(fornecedor);
                 }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return fornecedores;
+        return null;
     }
 
+    // Atualizar fornecedor
+    public boolean atualizar(String nomeOriginal, FornecedorMaterial fornecedor) throws SQLException {
+        String sql = "UPDATE fornecedor_material SET nome = ?, contato = ?, email = ? WHERE nome = ?";
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+
+        try (Connection conn = connectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, fornecedor.getNome());
+            stmt.setString(2, fornecedor.getContato());
+            stmt.setString(3, fornecedor.getEmail());
+            stmt.setString(4, nomeOriginal);
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            if (e.getMessage().contains("Duplicate entry") || e.getErrorCode() == 1062) {
+                throw new SQLException("Já existe um fornecedor com este nome.", e);
+            }
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Excluir fornecedor
+    public boolean excluir(String nome) throws SQLException {
+        String sql = "DELETE FROM fornecedor_material WHERE nome = ?";
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+
+        try (Connection conn = connectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, nome);
+
+            return stmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Pesquisar fornecedores por nome
+    public List<FornecedorMaterial> pesquisarPorNome(String nome) throws SQLException {
+        List<FornecedorMaterial> resultados = new ArrayList<>();
+        String sql = "SELECT * FROM fornecedor_material WHERE nome LIKE ? ORDER BY nome";
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+
+        try (Connection conn = connectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + nome + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    FornecedorMaterial fm = new FornecedorMaterial(
+                            rs.getString("nome"),
+                            rs.getString("contato"),
+                            rs.getString("email")
+                    );
+                    resultados.add(fm);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return resultados;
+    }
+
+    // Listar todos os fornecedores
     public List<FornecedorMaterial> listarTodos() throws SQLException {
-        List<FornecedorMaterial> fornecedores = new ArrayList<>();
+        List<FornecedorMaterial> todos = new ArrayList<>();
         String sql = "SELECT * FROM fornecedor_material ORDER BY nome";
         ConnectionFactory connectionFactory = new ConnectionFactory();
 
@@ -95,17 +133,16 @@ public class FornecedorMaterialDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                FornecedorMaterial fornecedor = new FornecedorMaterial(
+                FornecedorMaterial fm = new FornecedorMaterial(
                         rs.getString("nome"),
                         rs.getString("contato"),
                         rs.getString("email")
                 );
-                fornecedores.add(fornecedor);
+                todos.add(fm);
             }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return fornecedores;
+        return todos;
     }
 }

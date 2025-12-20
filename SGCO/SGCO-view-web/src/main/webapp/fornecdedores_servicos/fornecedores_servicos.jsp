@@ -1,28 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="sgco.sgco.domain.FornecedorMaterial" %>
 <%@ page import="java.util.List" %>
+<%@ page import="sgco.sgco.domain.FornecedorServico" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fornecedores de Materiais - SGCO</title>
+    <title>Fornecedores de Serviços - SGCO</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/sidebar.css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/fornecedores_materiais.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/fornecedores_servicos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
 <aside class="sidebar">
-    <a href="index.jsp"><h2>SGCO</h2></a>
+    <a href="../index.jsp"><h2>SGCO</h2></a>
     <ul>
         <li><a href="gestao_pacientes.jsp">Gestão de Pacientes</a></li>
         <li><a href="gestao_usuarios.jsp">Gestão de Usuários</a></li>
         <li><a href="gestao_procedimentos.jsp">Gestão de Procedimentos</a></li>
         <li><a href="estoque.jsp">Controle de Estoque</a></li>
-        <li><a href="fornecedores_materiais.jsp" class="active">Fornecedores de Materiais</a></li>
-        <li><a href="fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
+        <li><a href="fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
+        <li><a href="fornecedores_servicos.jsp" class="active">Fornecedores de Serviços</a></li>
         <li><a href="receita.jsp">Gestão da Receita</a></li>
         <li><a href="pacientes_agendados.jsp">Pacientes Agendados</a></li>
         <li><a href="login.jsp" class="logout">Sair</a></li>
@@ -30,19 +29,22 @@
 </aside>
 
 <main class="content">
-    <h1>Gestão de Fornecedores de Materiais</h1>
+    <h1>Gestão de Fornecedores de Serviços</h1>
 
     <%
         String mensagem = (String) request.getAttribute("mensagem");
         String tipoMensagem = (String) request.getAttribute("tipoMensagem");
+        String searchServico = (String) request.getParameter("searchServico");
         String searchFornecedor = (String) request.getParameter("searchFornecedor");
+        if (searchServico == null) searchServico = "";
         if (searchFornecedor == null) searchFornecedor = "";
 
         boolean modoEdicao = request.getAttribute("modoEdicao") != null && (Boolean) request.getAttribute("modoEdicao");
-        FornecedorMaterial fornecedorEdicao = (FornecedorMaterial) request.getAttribute("fornecedorEdicao");
-        String nomeOriginal = (String) request.getAttribute("nomeOriginal");
+        FornecedorServico fornecedorServicoEdicao = (FornecedorServico) request.getAttribute("fornecedorServicoEdicao");
+        String nomeServicoOriginal = (String) request.getAttribute("nomeServicoOriginal");
+        String fornecedorOriginal = (String) request.getAttribute("fornecedorOriginal");
 
-        List<FornecedorMaterial> fornecedores = (List<FornecedorMaterial>) request.getAttribute("fornecedores");
+        List<FornecedorServico> fornecedoresServicos = (List<FornecedorServico>) request.getAttribute("fornecedoresServicos");
     %>
 
     <% if (mensagem != null && !mensagem.isEmpty()) { %>
@@ -58,34 +60,34 @@
     <% } %>
 
     <div class="container">
-
         <section class="card">
-            <h2><%= modoEdicao ? "Editar Fornecedor" : "Cadastro de Fornecedor" %></h2>
-            <form id="fornecedorForm" action="${pageContext.request.contextPath}/FornecedorMaterialController" method="post">
+            <h2><%= modoEdicao ? "Editar Serviço" : "Cadastro de Serviço" %></h2>
+            <form id="servicoForm" action="${pageContext.request.contextPath}/FornecedorServicoController" method="post">
                 <input type="hidden" name="action" value="<%= modoEdicao ? "editar" : "cadastrar" %>">
                 <% if (modoEdicao) { %>
-                <input type="hidden" name="nomeOriginal" value="<%= nomeOriginal %>">
+                <input type="hidden" name="nomeServicoOriginal" value="<%= nomeServicoOriginal %>">
+                <input type="hidden" name="fornecedorOriginal" value="<%= fornecedorOriginal %>">
                 <% } %>
 
                 <div class="form-group">
-                    <label for="nomeFornecedor">Nome do Fornecedor *</label>
-                    <input type="text" id="nomeFornecedor" name="nomeFornecedor"
+                    <label for="nomeServico" class="required">Nome do Serviço</label>
+                    <input type="text" id="nomeServico" name="nomeServico"
+                           placeholder="Nome do serviço" required
+                           value="<%= modoEdicao && fornecedorServicoEdicao != null ? fornecedorServicoEdicao.getNomeServico() : "" %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="fornecedor" class="required">Fornecedor</label>
+                    <input type="text" id="fornecedor" name="fornecedor"
                            placeholder="Nome do fornecedor" required
-                           value="<%= modoEdicao && fornecedorEdicao != null ? fornecedorEdicao.getNome() : "" %>">
+                           value="<%= modoEdicao && fornecedorServicoEdicao != null ? fornecedorServicoEdicao.getFornecedor() : "" %>">
                 </div>
 
                 <div class="form-group">
-                    <label for="contatoFornecedor">Contato</label>
-                    <input type="text" id="contatoFornecedor" name="contatoFornecedor"
-                           placeholder="Telefone ou celular"
-                           value="<%= modoEdicao && fornecedorEdicao != null && fornecedorEdicao.getContato() != null ? fornecedorEdicao.getContato() : "" %>">
-                </div>
-
-                <div class="form-group">
-                    <label for="emailFornecedor">Email</label>
-                    <input type="email" id="emailFornecedor" name="emailFornecedor"
-                           placeholder="email@exemplo.com"
-                           value="<%= modoEdicao && fornecedorEdicao != null && fornecedorEdicao.getEmail() != null ? fornecedorEdicao.getEmail() : "" %>">
+                    <label for="contato">Contato</label>
+                    <input type="text" id="contato" name="contato"
+                           placeholder="Telefone ou email"
+                           value="<%= modoEdicao && fornecedorServicoEdicao != null && fornecedorServicoEdicao.getContato() != null ? fornecedorServicoEdicao.getContato() : "" %>">
                 </div>
 
                 <div class="buttons">
@@ -106,14 +108,21 @@
         </section>
 
         <section class="card">
-            <h2>Pesquisar Fornecedor</h2>
-            <form id="searchForm" action="${pageContext.request.contextPath}/FornecedorMaterialController" method="get">
+            <h2>Pesquisar Serviço</h2>
+            <form id="searchForm" action="${pageContext.request.contextPath}/FornecedorServicoController" method="get">
                 <input type="hidden" name="action" value="pesquisar">
+
+                <div class="form-group">
+                    <label for="searchServico">Nome do Serviço</label>
+                    <input type="text" id="searchServico" name="searchServico"
+                           placeholder="Digite o nome do serviço..."
+                           value="<%= searchServico %>">
+                </div>
 
                 <div class="form-group">
                     <label for="searchFornecedor">Nome do Fornecedor</label>
                     <input type="text" id="searchFornecedor" name="searchFornecedor"
-                           placeholder="Digite o nome para pesquisar..."
+                           placeholder="Digite o nome do fornecedor..."
                            value="<%= searchFornecedor %>">
                 </div>
 
@@ -126,40 +135,42 @@
             </form>
 
             <div class="search-results">
-                <% if (fornecedores != null && !fornecedores.isEmpty()) { %>
+                <% if (fornecedoresServicos != null && !fornecedoresServicos.isEmpty()) { %>
                 <table class="results-table">
                     <thead>
                     <tr>
-                        <th>Nome</th>
+                        <th>Serviço</th>
+                        <th>Fornecedor</th>
                         <th>Contato</th>
-                        <th>Email</th>
                         <th>Ações</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (FornecedorMaterial f : fornecedores) {
-                        String nome = f.getNome();
-                        String contato = f.getContato() != null ? f.getContato() : "";
-                        String email = f.getEmail() != null ? f.getEmail() : "";
+                    <% for (FornecedorServico fs : fornecedoresServicos) {
+                        String nomeServico = fs.getNomeServico();
+                        String fornecedor = fs.getFornecedor();
+                        String contato = fs.getContato() != null ? fs.getContato() : "";
                     %>
                     <tr>
-                        <td><%= nome %></td>
+                        <td><%= nomeServico %></td>
+                        <td><%= fornecedor %></td>
                         <td><%= contato %></td>
-                        <td><%= email %></td>
                         <td class="acoes">
                             <div class="action-buttons">
-                                <form action="${pageContext.request.contextPath}/FornecedorMaterialController" method="get" style="display: inline;">
+                                <form action="${pageContext.request.contextPath}/FornecedorServicoController" method="get" style="display: inline;">
                                     <input type="hidden" name="action" value="carregarEdicao">
-                                    <input type="hidden" name="nome" value="<%= nome %>">
+                                    <input type="hidden" name="nomeServico" value="<%= nomeServico %>">
+                                    <input type="hidden" name="fornecedor" value="<%= fornecedor %>">
                                     <button type="submit" class="btn-edit" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </form>
-                                <form action="${pageContext.request.contextPath}/FornecedorMaterialController" method="post" style="display: inline;">
+                                <form action="${pageContext.request.contextPath}/FornecedorServicoController" method="post" style="display: inline;">
                                     <input type="hidden" name="action" value="excluir">
-                                    <input type="hidden" name="nome" value="<%= nome %>">
+                                    <input type="hidden" name="nomeServico" value="<%= nomeServico %>">
+                                    <input type="hidden" name="fornecedor" value="<%= fornecedor %>">
                                     <button type="submit" class="btn-delete"
-                                            onclick="return confirm('Tem certeza que deseja excluir <%= nome %>?')"
+                                            onclick="return confirm('Tem certeza que deseja excluir o serviço <%= nomeServico %> do fornecedor <%= fornecedor %>?')"
                                             title="Excluir">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -170,10 +181,10 @@
                     <% } %>
                     </tbody>
                 </table>
-                <% } else if (fornecedores != null) { %>
+                <% } else if (fornecedoresServicos != null) { %>
                 <p class="info-text">
                     <i class="fas fa-info-circle"></i>
-                    Nenhum fornecedor encontrado.
+                    Nenhum serviço encontrado.
                 </p>
                 <% } %>
             </div>
@@ -183,26 +194,26 @@
 
 <script>
     function limparFormulario() {
-        document.getElementById('fornecedorForm').reset();
+        document.getElementById('servicoForm').reset();
     }
 
     function cancelarEdicao() {
-        window.location.href = '${pageContext.request.contextPath}/FornecedorMaterialController';
+        window.location.href = '${pageContext.request.contextPath}/FornecedorServicoController';
     }
 
     function listarTodos() {
-        window.location.href = '${pageContext.request.contextPath}/FornecedorMaterialController';
+        window.location.href = '${pageContext.request.contextPath}/FornecedorServicoController';
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('searchFornecedor');
-        if (searchInput) {
-            searchInput.focus();
+        const searchServico = document.getElementById('searchServico');
+        if (searchServico) {
+            searchServico.focus();
         }
 
         // Se estiver em modo de edição, focar no primeiro campo
         if (<%= modoEdicao %>) {
-            document.getElementById('nomeFornecedor').focus();
+            document.getElementById('nomeServico').focus();
         }
     });
 

@@ -14,117 +14,7 @@ body {
     min-height: 100vh;
 }
 
-.sidebar {
-    width: 250px;
-    background-color: #023e8a;
-    color: white;
-    flex-shrink: 0;
-    padding: 1rem;
-    box-sizing: border-box;
-}
-
-.sidebar h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: #90e0ef;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar li {
-    margin: 10px 0;
-}
-
-.menu-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    display: block;
-    border-radius: 8px;
-    transition: background 0.3s;
-    box-sizing: border-box;
-}
-
-.sidebar a:hover {
-    background-color: #0077b6;
-}
-
-.arrow {
-    font-size: 0.9rem;
-    margin-left: 8px;
-    cursor: pointer;
-    transition: transform 0.25s ease, color 0.25s ease;
-    color: #90e0ef;
-    user-select: none;
-    line-height: 1;
-    padding: 6px;
-    border-radius: 6px;
-}
-
-.arrow:hover {
-    color: #cbe9f8;
-    background: rgba(255,255,255,0.03);
-}
-
-.arrow.rotated {
-    transform: rotate(90deg);
-}
-
-.submenu {
-    list-style: none;
-    margin-left: 12px;
-    margin-top: 6px;
-    padding: 0;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.28s ease, opacity 0.28s ease, transform 0.28s ease;
-    opacity: 0;
-    transform: translateY(-6px);
-}
-
-.submenu.open {
-    max-height: 400px;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.submenu li {
-    margin: 4px 0;
-}
-
-.submenu a {
-    background-color: #0353a4;
-    border-radius: 6px;
-    margin: 2px 0;
-    padding: 8px 10px;
-    font-size: 0.95rem;
-    display: block;
-}
-
-.submenu a:hover {
-    background-color: #0077b6;
-}
-
-.logout {
-    background-color: #ff4d4d;
-    text-align: center;
-    border-radius: 8px;
-}
-
-.logout:hover {
-    background-color: #e63946;
-}
+/* Sidebar - usar o mesmo sidebar.css */
 
 .content {
     flex: 1;
@@ -163,6 +53,13 @@ h1 {
     color: #023e8a;
     border-bottom: 2px solid #90e0ef;
     padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card h2 i {
+    color: #023e8a;
 }
 
 form {
@@ -181,6 +78,16 @@ label {
     font-size: 0.9rem;
     color: #1a3a52;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Asterisco para campos obrigatórios */
+label.required:after {
+    content: '*';
+    color: #e63946;
+    margin-left: 4px;
 }
 
 input, select {
@@ -212,6 +119,10 @@ button {
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .btn-primary {
@@ -238,10 +149,11 @@ button {
 }
 
 .btn-search {
-    width: 100%;
+    width: 48%;
     background-color: #0096c7;
     color: white;
     margin-top: 1rem;
+    display: inline-flex;
 }
 
 .btn-search:hover {
@@ -250,25 +162,34 @@ button {
     box-shadow: 0 4px 12px rgba(0, 150, 199, 0.3);
 }
 
+.btn-list {
+    width: 48%;
+    background-color: #6c757d;
+    color: white;
+    margin-top: 1rem;
+    display: inline-flex;
+    margin-left: 4%;
+}
+
+.btn-list:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    flex: 1;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
 .buttons {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
-}
-
-.btn-delete {
-    background-color: #e63946;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
-}
-
-.btn-delete:hover {
-    background-color: #c1121f;
 }
 
 .search-results {
@@ -313,6 +234,57 @@ button {
     color: #1a3a52;
 }
 
+.acoes {
+    width: 120px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background-color: #e63946;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.btn-delete:hover {
+    background-color: #c1121f;
+    transform: translateY(-2px);
+}
+
 .info-text {
     text-align: center;
     color: #5a6c7d;
@@ -321,14 +293,34 @@ button {
     margin-top: 1rem;
     background-color: #f8f9fa;
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .alert {
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
     font-weight: 600;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .alert-sucesso {
@@ -337,10 +329,18 @@ button {
     border: 1px solid #c3e6cb;
 }
 
+.alert-sucesso i {
+    color: #28a745;
+}
+
 .alert-erro {
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
+}
+
+.alert-erro i {
+    color: #dc3545;
 }
 
 .alert-alerta {
@@ -349,21 +349,24 @@ button {
     border: 1px solid #ffeaa7;
 }
 
+.alert-alerta i {
+    color: #ffc107;
+}
+
 .alert-info {
     background-color: #d1ecf1;
     color: #0c5460;
     border: 1px solid #bee5eb;
 }
 
+.alert-info i {
+    color: #17a2b8;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     body {
         flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        height: auto;
     }
 
     .content {
@@ -377,5 +380,23 @@ button {
 
     .card {
         min-width: 100%;
+    }
+
+    .acoes {
+        width: 100px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .btn-edit, .btn-delete {
+        width: 100%;
+    }
+
+    .btn-search, .btn-list {
+        width: 100%;
+        margin-left: 0;
     }
 }

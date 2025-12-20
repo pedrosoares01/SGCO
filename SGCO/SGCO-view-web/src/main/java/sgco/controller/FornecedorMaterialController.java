@@ -21,6 +21,8 @@ public class FornecedorMaterialController extends HttpServlet {
 
         if ("cadastrar".equals(action)) {
             cadastrarFornecedor(request, response);
+        } else if ("editar".equals(action)) {
+            editarFornecedor(request, response);
         } else if ("excluir".equals(action)) {
             excluirFornecedor(request, response);
         } else {
@@ -36,6 +38,8 @@ public class FornecedorMaterialController extends HttpServlet {
 
         if ("pesquisar".equals(action)) {
             pesquisarFornecedor(request, response);
+        } else if ("carregarEdicao".equals(action)) {
+            carregarFornecedorParaEdicao(request, response);
         } else {
             listarFornecedores(request, response);
         }
@@ -74,6 +78,74 @@ public class FornecedorMaterialController extends HttpServlet {
 
         request.setAttribute("mensagem", mensagem);
         request.setAttribute("tipoMensagem", tipoMensagem);
+        listarFornecedores(request, response);
+    }
+
+    private void carregarFornecedorParaEdicao(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String nome = request.getParameter("nome");
+
+        try {
+            FornecedorMaterialService service = new FornecedorMaterialService();
+            FornecedorMaterial fornecedor = service.buscarFornecedor(nome);
+
+            if (fornecedor != null) {
+                request.setAttribute("fornecedorEdicao", fornecedor);
+                request.setAttribute("modoEdicao", true);
+                request.setAttribute("nomeOriginal", nome);
+            } else {
+                request.setAttribute("mensagem", "Fornecedor não encontrado para edição.");
+                request.setAttribute("tipoMensagem", "erro");
+            }
+
+            listarFornecedores(request, response);
+
+        } catch (Exception e) {
+            request.setAttribute("mensagem", "Erro ao carregar fornecedor para edição: " + e.getMessage());
+            request.setAttribute("tipoMensagem", "erro");
+            listarFornecedores(request, response);
+        }
+    }
+
+    private void editarFornecedor(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String nomeOriginal = request.getParameter("nomeOriginal");
+        String novoNome = request.getParameter("nomeFornecedor");
+        String contato = request.getParameter("contatoFornecedor");
+        String email = request.getParameter("emailFornecedor");
+
+        String mensagem;
+        String tipoMensagem;
+
+        if (novoNome == null || novoNome.trim().isEmpty()) {
+            mensagem = "Erro: Nome do fornecedor é obrigatório.";
+            tipoMensagem = "erro";
+        } else if (nomeOriginal == null || nomeOriginal.trim().isEmpty()) {
+            mensagem = "Erro: Nome original não encontrado para edição.";
+            tipoMensagem = "erro";
+        } else {
+            try {
+                FornecedorMaterial fornecedor = new FornecedorMaterial(novoNome, contato, email);
+                FornecedorMaterialService service = new FornecedorMaterialService();
+
+                if (service.atualizarFornecedor(nomeOriginal, fornecedor)) {
+                    mensagem = "Fornecedor atualizado com sucesso!";
+                    tipoMensagem = "sucesso";
+                } else {
+                    mensagem = "Falha ao atualizar o fornecedor.";
+                    tipoMensagem = "erro";
+                }
+            } catch (Exception e) {
+                mensagem = "Erro ao atualizar fornecedor: " + e.getMessage();
+                tipoMensagem = "erro";
+            }
+        }
+
+        request.setAttribute("mensagem", mensagem);
+        request.setAttribute("tipoMensagem", tipoMensagem);
+        request.setAttribute("modoEdicao", false);
         listarFornecedores(request, response);
     }
 
@@ -129,7 +201,7 @@ public class FornecedorMaterialController extends HttpServlet {
             request.setAttribute("fornecedores", fornecedoresPesquisados);
             request.setAttribute("searchFornecedor", nome);
 
-            request.getRequestDispatcher("fornecedores_materiais/fornecedores_materiais.jsp").forward(request, response);
+            request.getRequestDispatcher("fornecedores_materiais.jsp").forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("mensagem", "Erro ao pesquisar fornecedores: " + e.getMessage());
@@ -147,6 +219,7 @@ public class FornecedorMaterialController extends HttpServlet {
 
             request.setAttribute("fornecedores", todosFornecedores);
 
+            // Manter mensagem se existir
             String mensagem = request.getParameter("mensagem");
             String tipoMensagem = request.getParameter("tipoMensagem");
             if (mensagem != null && tipoMensagem != null) {
@@ -154,12 +227,12 @@ public class FornecedorMaterialController extends HttpServlet {
                 request.setAttribute("tipoMensagem", tipoMensagem);
             }
 
-            request.getRequestDispatcher("fornecedores_materiais/fornecedores_materiais.jsp").forward(request, response);
+            request.getRequestDispatcher("fornecedores_materiais.jsp").forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("mensagem", "Erro ao carregar fornecedores: " + e.getMessage());
             request.setAttribute("tipoMensagem", "erro");
-            request.getRequestDispatcher("fornecedores_materiais/fornecedores_materiais.jsp").forward(request, response);
+            request.getRequestDispatcher("fornecedores_materiais.jsp").forward(request, response);
         }
     }
 }
