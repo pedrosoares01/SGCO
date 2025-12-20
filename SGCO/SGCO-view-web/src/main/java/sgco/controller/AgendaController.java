@@ -123,12 +123,10 @@ public class AgendaController extends HttpServlet {
             String idProf = request.getParameter("profissional");
             String data = request.getParameter("data");
             AgendaService agendaService = new AgendaService();
+            List<Agenda> lista;
             List<Agenda> ocupados = agendaService.listarHorariosOcupados(idProf, data);
             request.setAttribute("ocupados", ocupados);
             request.setAttribute("data", data);
-            ocupados = agendaService.pesquisar(agenda);
-            request.setAttribute("nomePesquisa", nome);
-            request.setAttribute("resultadosPesquisa", lista);
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
         } catch (Exception e){
             request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);

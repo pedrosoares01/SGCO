@@ -15,34 +15,32 @@ public class SaldoController extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        try{
+        try {
+            SaldoService saldoService = new SaldoService();
+            List<SaldoPaciente> saldoPacientes = saldoService.gerarRelatorioDevedores();
 
-            String action = request.getParameter("action");
+            request.setAttribute("saldos", saldoPacientes);
 
-            switch (action){
-
-                case "Devedores":
-                    gerarRelatorioDevedores(request, response);
-                    break;
-                case "DevedoresAtrasados":
-                    gerarRelatorioDevedoresAtrasados(request, response);
-                    break;
-                default:
-                    break;
-            }
-
-        }catch(Exception e){
-            e.printStackTrace();
+            request.setAttribute("msg", "relatório gerado com sucesso");
+            request.setAttribute("tipoMensagem", "sucesso");
+            request.getRequestDispatcher("saldo/saldo.jsp").forward(request, response);
+        }catch (Exception e){
+            request.setAttribute("msg", e.getMessage());
+            request.setAttribute("tipoMensagem", "erro");
+            request.getRequestDispatcher("saldo/saldo.jsp").forward(request, response);
         }
     }
 
     private void gerarRelatorioDevedores(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             SaldoService saldoService = new SaldoService();
-            SaldoDAO saldoDAO = new SaldoDAO();
+            List<SaldoPaciente> saldoPacientes = saldoService.gerarRelatorioDevedores();
 
-            List<SaldoPaciente> saldoPacientes = saldoDAO.resgatarDividas();
-            saldoService.gerarRelatorioDevedores(saldoPacientes);
+            request.setAttribute("saldos", saldoPacientes);
+
+            request.setAttribute("msg", "relatório gerado com sucesso");
+            request.setAttribute("tipoMensagem", "sucesso");
+            request.getRequestDispatcher("saldo/saldo.jsp").forward(request, response);
         }catch (Exception e){
             e.printStackTrace();
         }
