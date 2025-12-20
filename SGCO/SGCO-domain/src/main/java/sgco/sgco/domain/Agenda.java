@@ -2,6 +2,7 @@ package sgco.sgco.domain;
 
 public class Agenda {
     private String paciente, profissional, data, hora;
+    private int id;
     public String getPaciente() {
         return paciente;
     }
@@ -14,6 +15,9 @@ public class Agenda {
     public String getHora() {
         return hora;
     }
+    public int getId() {
+        return id;
+    }
     public void setData(String data) {
         this.data = data;
     }
@@ -25,5 +29,8 @@ public class Agenda {
     }
     public void setHora(String hora) {
         this.hora = hora;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

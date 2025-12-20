@@ -35,10 +35,10 @@
                                 </div>
 
                                 <form action="${pageContext.request.contextPath}/OrcamentoController" method="get" class="select-form">
-		    <input type="hidden" name="acao" value="selecionarProcedimento">
-		    <input type="hidden" name="id_procedimento" value="<%= p.getId() %>">
-		    <button type="submit" class="btn-select">Selecionar</button>
-		</form>
+								    <input type="hidden" name="acao" value="selecionarProcedimento">
+								    <input type="hidden" name="id_procedimento" value="<%= p.getId() %>">
+								    <button type="submit" class="btn-select">Selecionar</button>
+								</form>
                             </div>
                         <% } %>
                     </div>

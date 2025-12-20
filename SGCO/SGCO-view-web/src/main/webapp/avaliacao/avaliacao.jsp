@@ -13,18 +13,17 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <a href="${pageContext.request.contextPath}/indexrecepcionista.jsp"><h2>SGCO</h2></a>
-    <ul>
-      <li><a href="${pageContext.request.contextPath}/gestao_pacientes.jsp">Gestão de Pacientes</a></li>
-      <li><a href="${pageContext.request.contextPath}/agenda/agenda.jsp">Agenda</a></li>
-      <li><a href="pagamento.html">Pagamentos</a></li>
-      <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
-      <li><a href="avaliacao.jsp" class="active">Avaliação de Profissionais</a></li>
-      <li><a href="${pageContext.request.contextPath}login.jsp" class="logout">Sair</a></li>
-    </ul>
-  </aside>
-
+<aside class="sidebar">
+  <a href="${pageContext.request.contextPath}/indexrecepcionista.jsp"><h2>SGCO</h2></a>
+  <ul>
+    <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
+    <li><a href="${pageContext.request.contextPath}/AgendaController">Agenda</a></li>
+    <li><a href="${pageContext.request.contextPath}/core/pagamento/pagina.jsp">Pagamentos</a></li>
+    <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+    <li><a href="${pageContext.request.contextPath}/AvaliacaoController">Avaliação de Profissionais</a></li>
+    <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
+  </ul>
+</aside>
   <main class="content">
     <h1>Avaliação de Profissionais</h1>
 
