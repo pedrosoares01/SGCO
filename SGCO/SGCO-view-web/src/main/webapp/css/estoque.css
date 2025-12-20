@@ -14,8 +14,6 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar - usar o mesmo sidebar.css */
-
 .content {
     flex: 1;
     padding: 3rem 2rem;
@@ -83,7 +81,6 @@ label {
     gap: 5px;
 }
 
-/* Asterisco para campos obrigatórios */
 label.required:after {
     content: '*';
     color: #e63946;

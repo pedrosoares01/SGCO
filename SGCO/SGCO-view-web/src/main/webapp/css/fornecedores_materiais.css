@@ -355,7 +355,6 @@ button {
     border: 1px solid #bee5eb;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     body {
         flex-direction: column;

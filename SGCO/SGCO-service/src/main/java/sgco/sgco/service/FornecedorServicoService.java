@@ -4,7 +4,7 @@ import sgco.model.dao.FornecedorServicoDAO;
 import sgco.sgco.domain.FornecedorServico;
 import java.sql.SQLException;
 import java.util.List;
-
+//ajustei pra editar
 public class FornecedorServicoService {
     private FornecedorServicoDAO fornecedorServicoDAO;
 

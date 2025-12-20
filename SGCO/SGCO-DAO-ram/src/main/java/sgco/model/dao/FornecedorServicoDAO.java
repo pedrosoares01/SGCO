@@ -44,7 +44,6 @@ public class FornecedorServicoDAO {
         }
     }
 
-    // Buscar por nome do serviço e fornecedor (para edição)
     public FornecedorServico buscarPorChave(String nomeServico, String fornecedor) throws SQLException {
         String sql = "SELECT * FROM fornecedor_servico WHERE nome_servico = ? AND fornecedor = ?";
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -70,7 +69,6 @@ public class FornecedorServicoDAO {
         return null;
     }
 
-    // Atualizar serviço (baseado no nome e fornecedor original)
     public boolean atualizar(String nomeServicoOriginal, String fornecedorOriginal,
                              FornecedorServico fornecedorServico) throws SQLException {
         String sql = "UPDATE fornecedor_servico SET nome_servico = ?, fornecedor = ?, contato = ? " +
@@ -112,7 +110,6 @@ public class FornecedorServicoDAO {
         }
     }
 
-    // Excluir serviço
     public boolean excluir(String nomeServico, String fornecedor) throws SQLException {
         String sql = "DELETE FROM fornecedor_servico WHERE nome_servico = ? AND fornecedor = ?";
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -129,7 +126,6 @@ public class FornecedorServicoDAO {
         }
     }
 
-    // Pesquisar serviços
     public List<FornecedorServico> pesquisar(String nomeServico, String fornecedor) throws SQLException {
         List<FornecedorServico> resultados = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM fornecedor_servico WHERE 1=1");
@@ -171,7 +167,7 @@ public class FornecedorServicoDAO {
         return resultados;
     }
 
-    // Listar todos os serviços
+
     public List<FornecedorServico> listarTodos() throws SQLException {
         List<FornecedorServico> todos = new ArrayList<>();
         String sql = "SELECT * FROM fornecedor_servico ORDER BY nome_servico, fornecedor";

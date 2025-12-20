@@ -5,6 +5,7 @@ import sgco.sgco.domain.Material;
 import java.sql.SQLException;
 import java.util.List;
 
+//Julgo que não necessita de editar
 public class MaterialService {
 
     public boolean cadastrarMaterial(Material material) throws SQLException {

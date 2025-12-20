@@ -211,7 +211,6 @@
             searchServico.focus();
         }
 
-        // Se estiver em modo de edição, focar no primeiro campo
         if (<%= modoEdicao %>) {
             document.getElementById('nomeServico').focus();
         }

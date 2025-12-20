@@ -14,8 +14,6 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar - manter igual ao seu CSS original */
-
 .content {
     flex: 1;
     padding: 3rem 2rem;
@@ -361,7 +359,6 @@ button {
     color: #17a2b8;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     body {
         flex-direction: column;

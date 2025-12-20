@@ -7,7 +7,6 @@ import java.util.List;
 
 public class FornecedorMaterialDAO {
 
-    // Inserir novo fornecedor
     public boolean inserir(FornecedorMaterial fornecedor) throws SQLException {
         String sql = "INSERT INTO fornecedor_material (nome, contato, email) VALUES (?, ?, ?)";
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -55,7 +54,6 @@ public class FornecedorMaterialDAO {
         return null;
     }
 
-    // Atualizar fornecedor
     public boolean atualizar(String nomeOriginal, FornecedorMaterial fornecedor) throws SQLException {
         String sql = "UPDATE fornecedor_material SET nome = ?, contato = ?, email = ? WHERE nome = ?";
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -79,7 +77,6 @@ public class FornecedorMaterialDAO {
         }
     }
 
-    // Excluir fornecedor
     public boolean excluir(String nome) throws SQLException {
         String sql = "DELETE FROM fornecedor_material WHERE nome = ?";
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -94,8 +91,6 @@ public class FornecedorMaterialDAO {
             throw new RuntimeException(e);
         }
     }
-
-    // Pesquisar fornecedores por nome
     public List<FornecedorMaterial> pesquisarPorNome(String nome) throws SQLException {
         List<FornecedorMaterial> resultados = new ArrayList<>();
         String sql = "SELECT * FROM fornecedor_material WHERE nome LIKE ? ORDER BY nome";
@@ -122,7 +117,6 @@ public class FornecedorMaterialDAO {
         return resultados;
     }
 
-    // Listar todos os fornecedores
     public List<FornecedorMaterial> listarTodos() throws SQLException {
         List<FornecedorMaterial> todos = new ArrayList<>();
         String sql = "SELECT * FROM fornecedor_material ORDER BY nome";

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class FornecedorMaterialService {
     private FornecedorMaterialDAO fornecedorMaterialDAO;
-
+    //ajustei pra editar
     public FornecedorMaterialService() {
         this.fornecedorMaterialDAO = new FornecedorMaterialDAO();
     }

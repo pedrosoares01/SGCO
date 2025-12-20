@@ -232,7 +232,7 @@ public class FornecedorMaterialController extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute("mensagem", "Erro ao carregar fornecedores: " + e.getMessage());
             request.setAttribute("tipoMensagem", "erro");
-            request.getRequestDispatcher("fornecedores_materiais.jsp").forward(request, response);
+            request.getRequestDispatcher("fornecedores_materiais/fornecedores_materiais.jsp").forward(request, response);
         }
     }
 }

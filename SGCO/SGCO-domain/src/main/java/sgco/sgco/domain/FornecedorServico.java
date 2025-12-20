@@ -14,7 +14,6 @@ public class FornecedorServico {
         this.contato = contato;
     }
 
-    // Getters e Setters
     public String getNomeServico() {
         return nomeServico;
     }

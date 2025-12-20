@@ -4,7 +4,6 @@ public class Material {
     private String nome;
     private int quantidade;
 
-    // Construtores
     public Material() {
     }
 
@@ -13,7 +12,6 @@ public class Material {
         this.quantidade = quantidade;
     }
 
-    // Getters e Setters
     public String getNome() {
         return nome;
     }

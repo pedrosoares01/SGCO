@@ -247,7 +247,7 @@ public class FornecedorServicoController extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute("mensagem", "Erro ao carregar serviços: " + e.getMessage());
             request.setAttribute("tipoMensagem", "erro");
-            request.getRequestDispatcher("fornecedores_servicos/fornecedores_servicos.jsp").forward(request, response);
+            request.getRequestDispatcher("fornecdedores_servicos/fornecedores_servicos.jsp").forward(request, response);
         }
     }
 }
