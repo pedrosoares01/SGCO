@@ -1,9 +1,7 @@
 <%@page import="java.util.List" %>
-<%@page import="java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="sgco.sgco.domain.Agenda"%>
 <%@ page import="sgco.sgco.domain.Usuario" %>
-<%@ page import="java.sql.ResultSet" %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -14,8 +12,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/agenda.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-
-
 </head>
 <body>
 <aside class="sidebar">
@@ -43,7 +39,7 @@
                     try{
                         List<Usuario> profissionais = (List<Usuario>) request.getAttribute("profissionais");
                 %>
-                <select id="profissional" name="profissional">
+                <select id="profissional" name="profissional" onchange="carregarHorarios()">
                     <%
                         if (profissionais == null || profissionais.isEmpty()) {
                     %>
@@ -64,12 +60,13 @@
                 <%
                     } catch (Exception e){}
                 %>
-                <input type="text" name="profissional" placeholder="Nome do profissional" required>
                 <label>Data:</label>
-                <input type="date" id="data" name="data">
-                <input type="date" name="data" required>
+                <input type="date" id="data" name="data" onchange="carregarHorarios()" required>
                 <label>Hora:</label>
-                <input type="time" name="hora" required>
+                <select name="hora" id="hora" required>
+                    <option value="">Selecione um horário</option>
+                </select>
+
                 <div class="buttons">
                     <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='agendar'">Agendar</button>
                 </div>
@@ -128,8 +125,32 @@
             <h2> Pacientes marcados para amanhã</h2>
             <form method="POST" action="${pageContext.request.contextPath}/AgendaController">
                 <input type="hidden" name="action" id="actionListar">
-                <label>nome do Profissional:</label>
-                <input type="text" name="nome" placeholder="Digite para pesquisar..." required>
+                <label>Profissional:</label>
+                <%
+                    try{
+                        List<Usuario> profissionais = (List<Usuario>) request.getAttribute("profissionais");
+                %>
+                <select id="profissional2" name="profissional2">
+                    <%
+                        if (profissionais == null || profissionais.isEmpty()) {
+                    %>
+                    <option value="">Nenhum profissional encontrado</option>
+                    <%
+                    } else {
+                    %>
+                    <option value="">Selecione um profissional:</option>
+                    <%
+                        for (Usuario p : profissionais) {
+                    %>
+                    <option value="<%= p.getNome() %>"><%= p.getNome() %></option>
+                    <%
+                            }
+                        }
+                    %>
+                </select>
+                <%
+                    } catch (Exception e){}
+                %>
                 <div class="buttons">
                     <button type="submit" class="btn-primary" onclick="document.getElementById('actionListar').value='listar'">listar pacientes</button>
                 </div>
@@ -191,73 +212,9 @@
         </section>
 
         <section class="card">
-            <h3>Horarios Disponiveis</h3>
+            <h2>Horários Disponíveis</h2>
 
-            <form method="GET" action="${pageContext.request.contextPath}/AgendaController">
-                <input type="hidden" name="action" value="horarios">
-                <label>Profissional:</label>
-                <%
-                    List<Usuario> profissionais2 = (List<Usuario>) request.getAttribute("profissionais");
-                    String selProf = request.getParameter("profissional");
-                %>
-                <select name="profissional" onchange="this.form.submit()">
-                    <option value="">Selecione um profissional</option>
-                    <%
-                        if (profissionais2 != null) {
-                            for (Usuario p : profissionais2) {
-                    %>
-                    <option value="<%= p.getNome() %>" <%= (selProf != null && selProf.equals(p.getNome())) ? "selected" : "" %>><%= p.getNome() %></option>
-                    <%
-                            }
-                        }
-                    %>
-                </select>
-
-                <label>Data:</label>
-                <input type="date" name="data" onchange="this.form.submit()" value="<%= request.getParameter("data") != null ? request.getParameter("data") : "" %>">
-            </form>
-
-            <div id="horarios-container">
-                <table class="horarios-table">
-                    <tr><th>Horario</th><th>Status</th></tr>
-                    <%
-                        List<Agenda> ocupados = (List<Agenda>) request.getAttribute("ocupados");
-                        if (ocupados == null) ocupados = new ArrayList<>();
-
-                        List<String> horarios = new ArrayList<>();
-
-                        java.time.LocalTime h = java.time.LocalTime.of(8,0);
-                        while (!h.isAfter(java.time.LocalTime.of(11,30))) {
-                            horarios.add(h.toString().substring(0,5));
-                            h = h.plusMinutes(30);
-                        }
-
-                        h = java.time.LocalTime.of(14,0);
-                        while (!h.isAfter(java.time.LocalTime.of(17,30))) {
-                            horarios.add(h.toString().substring(0,5));
-                            h = h.plusMinutes(30);
-                        }
-
-                        for (String hora : horarios) {
-                            boolean ocupado = ocupados.stream().anyMatch(a -> {
-                                if (a.getHora() == null) return false;
-                                String hSql = a.getHora().toString().substring(0,5);
-                                return hSql.equals(hora);
-                            });
-                    %>
-                    <tr>
-                        <td><%= hora %></td>
-                        <td>
-                            <% if (ocupado) { %>
-                            <span class="status-ocupado">OCUPADO</span>
-                            <% } else { %>
-                            <span class="status-livre">LIVRE</span>
-                            <% } %>
-                        </td>
-                    </tr>
-                    <% } %>
-                </table>
-            </div>
+            <div id="horarios-container" style="margin-top:20px; display:none;"></div>
         </section>
 
         <%
@@ -278,6 +235,48 @@
         </script>
         <% } %>
     </div>
+    <script>
+        function carregarHorarios() {
+            const profissional = document.getElementById("profissional").value;
+            const data = document.getElementById("data").value;
+            if (!profissional || !data) {
+                return;
+            }
+            fetch("AgendaController?action=horarios"
+                + "&profissional=" + encodeURIComponent(profissional)
+                + "&data=" + data
+            )
+                .then(response => response.text())
+                .then(html => {
+                    const container = document.getElementById("horarios-container");
+                    container.innerHTML = html;
+                    container.style.display = "block";
+                    const selectHora = document.getElementById("hora");
+                    selectHora.innerHTML = '<option value="">Selecione um horário</option>';
+                    const livres = container.querySelectorAll(".status-livre");
+                    livres.forEach(span => {
+                        const hora = span.dataset.hora;
+
+                        if (hora) {
+                            const option = document.createElement("option");
+                            option.value = hora;
+                            option.textContent = hora;
+                            selectHora.appendChild(option);
+                        }
+                    });
+                    if (livres.length === 0) {
+                        const option = document.createElement("option");
+                        option.textContent = "Nenhum horário disponível";
+                        option.disabled = true;
+                        selectHora.appendChild(option);
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao carregar horários:", error);
+                });
+        }
+    </script>
+
 </main>
 </body>
 

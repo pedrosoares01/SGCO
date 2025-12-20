@@ -17,9 +17,17 @@ import java.util.List;
 public class PacientesAgendadosController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action == null || action.equals("gerar-relatorio") ) {
-            gerarRelatorio(request, response);
+        if (action == null)
+            action = "gerar-relatorio";
+        switch (action) {
+            case "gerar-relatorio":
+                gerarRelatorio(request, response);
+                break;
+            case "desmarcar":
+                desmarcar(request, response);
+                break;
         }
+
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         listarProfissionais(request, response);
@@ -61,5 +69,21 @@ public class PacientesAgendadosController extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute("profissionais", null);
         }
+    }
+    private void desmarcar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            AgendaService agendaService = new AgendaService();
+            agendaService.desmarcar(id);
+
+            request.setAttribute("msg", "Agendamento desmarcado com sucesso!");
+            request.setAttribute("tipoMensagem", "sucesso");
+
+        } catch (Exception e) {
+            request.setAttribute("msg", "Erro ao desmarcar agendamento");
+            request.setAttribute("tipoMensagem", "erro");
+        }
+        listarProfissionais(request, response);
     }
 }

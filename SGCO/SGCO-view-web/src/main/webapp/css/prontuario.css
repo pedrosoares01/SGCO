@@ -27,7 +27,7 @@ h1 {
   font-weight: 700;
 }
 
-.card h2 {
+h2 {
   color: #023e8a;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
@@ -38,38 +38,47 @@ h1 {
 
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
   gap: 2rem;
   max-width: 1400px;
 }
 
-.card, .panel {
-  background-color: #ffffff;
+.card,
+.panel {
+  background: #ffffff;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(2,62,138,0.08);
+  box-shadow: 0 4px 12px rgba(2, 62, 138, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card:hover, .panel:hover {
+.card:hover,
+.panel:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(2,62,138,0.12);
+  box-shadow: 0 6px 16px rgba(2, 62, 138, 0.12);
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
 }
 
 label {
   font-weight: 600;
   font-size: 0.9rem;
-  color: #1a3a52;
   margin-bottom: 0.5rem;
+  color: #1a3a52;
 }
 
-input, select {
+input,
+select,
+textarea {
   width: 100%;
   padding: 0.875rem;
   border: 2px solid #caf0f8;
@@ -79,20 +88,45 @@ input, select {
   transition: all 0.3s ease;
 }
 
-input:focus, select:focus {
-  outline: none;
-  border-color: #0096c7;
-  box-shadow: 0 0 0 3px rgba(0,150,199,0.1);
+textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
-input::placeholder {
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #0096c7;
+  box-shadow: 0 0 0 3px rgba(0, 150, 199, 0.1);
+}
+
+input::placeholder,
+textarea::placeholder {
   color: #90a4ae;
+}
+
+select {
+  background-color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23023e8a'><polygon points='0,0 20,0 10,12'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 button {
   padding: 0.875rem 1.5rem;
-  border: none;
   border-radius: 8px;
+  border: none;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -100,50 +134,101 @@ button {
   font-family: inherit;
 }
 
-button.btn-primary {
+.btn-primary {
   background-color: #023e8a;
   color: white;
+  flex: 1;
 }
 
-button.btn-primary:hover {
+.btn-primary:hover {
   background-color: #0077b6;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(2,62,138,0.3);
+  box-shadow: 0 4px 12px rgba(2, 62, 138, 0.3);
 }
 
-button.btn-secondary {
+.btn-secondary {
   background-color: transparent;
   color: #023e8a;
   border: 2px solid #023e8a;
+  flex: 1;
 }
 
-button.btn-secondary:hover {
+.btn-secondary:hover {
   background-color: #f0f5f9;
 }
 
-button.btn-search {
+.btn-search {
+  width: 100%;
   background-color: #0096c7;
   color: white;
 }
 
-button.btn-search:hover {
+.btn-search:hover {
   background-color: #0077b6;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,150,199,0.3);
+  box-shadow: 0 4px 12px rgba(0, 150, 199, 0.3);
+}
+
+.info-text {
+  font-size: 0.9rem;
+  color: #5a6c7d;
+  font-style: italic;
 }
 
 .search-results {
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
   background-color: #f0f5f9;
   border-radius: 8px;
   border-left: 4px solid #90e0ef;
 }
 
-.info-text {
-  color: #5a6c7d;
-  font-size: 0.9rem;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(2, 62, 138, 0.08);
+  margin-bottom: 2rem;
+}
+
+th,
+td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e8ef;
+  font-size: 0.95rem;
+}
+
+th {
+  background-color: #023e8a;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.section-title th {
+  background-color: #062f73;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+tr:hover {
+  background-color: #f0f7fa;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.no-results {
+  text-align: center;
+  padding: 1rem;
   font-style: italic;
+  color: #5a6c7d;
 }
 
 @media (max-width: 1024px) {
@@ -163,99 +248,31 @@ button.btn-search:hover {
 
   .buttons {
     flex-direction: column;
-    gap: 1rem;
   }
 }
 
-.search-results table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  background-color: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(2, 62, 138, 0.08);
+.radio-group {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
 }
 
-.search-results th,
-.search-results td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e0e8ef;
-  font-size: 0.95rem;
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.search-results th {
-  background-color: #023e8a;
-  color: #fff;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.search-results tr:hover {
-  background-color: #f0f7fa;
-  transition: background-color 0.2s ease;
-}
-
-.search-results tr:last-child td {
-  border-bottom: none;
-}
-
-.search-results td {
-  color: #1a3a52;
-}
-
-.search-results caption {
-  caption-side: top;
-  text-align: left;
-  font-weight: 600;
-  color: #023e8a;
-  margin-bottom: 0.75rem;
-}
-
-.search-results .no-results {
-  text-align: center;
-  color: #5a6c7d;
-  font-style: italic;
-  padding: 1rem;
-}
-
-select {
-  width: 100%;
-  padding: 0.875rem;
-  border: 2px solid #caf0f8;
-  border-radius: 8px;
-  background-color: #fff;
-  font-size: 1rem;
-  font-family: inherit;
-  color: #1a3a52;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23023e8a'><polygon points='0,0 20,0 10,12'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 14px;
-}
-
-select:focus {
-  outline: none;
-  border-color: #0096c7;
-  box-shadow: 0 0 0 3px rgba(0, 150, 199, 0.1);
-}
-
-select option {
-  padding: 0.75rem;
+.radio-item input[type="radio"] {
+  accent-color: #023e8a;
 }
 
 .btn-danger {
   background-color: #d62828;
   color: #fff;
   border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
 }
