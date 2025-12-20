@@ -31,6 +31,7 @@
 </aside>
 
 <main class="content">
+  <h1>Prontuário</h1>
   <div class="container">
     <section class="card">
       <h2>Cadastrar Prontuário</h2>
