@@ -1,4 +1,4 @@
-package Controller;
+package sgco;
 
 import sgco.sgco.service.MaterialService;
 import sgco.sgco.domain.Material;

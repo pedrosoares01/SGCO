@@ -1,4 +1,4 @@
-package Controller;
+package sgco;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

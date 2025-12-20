@@ -1,4 +1,4 @@
-package Controller;
+package sgco;
 
 import sgco.sgco.service.FornecedorServicoService;
 import sgco.sgco.domain.FornecedorServico;
