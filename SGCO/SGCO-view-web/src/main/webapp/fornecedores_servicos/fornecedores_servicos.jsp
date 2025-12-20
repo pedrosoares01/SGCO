@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="sgco.sgco.domain.FornecedorMaterial" %>
+<%@ page import="sgco.sgco.domain.FornecedorServico" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fornecedores de Materiais - SGCO</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/fornecedores_materiais.css">
+    <title>Fornecedores de Serviços - SGCO</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/fornecedores_servicos.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
 </head>
@@ -19,26 +19,26 @@
         <li><a href="${pageContext.request.contextPath}/gestao_usuarios.jsp">Gestão de Usuários</a></li>
         <li><a href="${pageContext.request.contextPath}/gestao_procedimentos.jsp">Gestão de Procedimentos</a></li>
         <li><a href="${pageContext.request.contextPath}/estoque.jsp">Controle de Estoque</a></li>
-        <li><a href="${pageContext.request.contextPath}/FornecedorMaterialController">Fornecedores de Materiais</a></li>
-        <li><a href="${pageContext.request.contextPath}/fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
+        <li><a href="${pageContext.request.contextPath}/fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
+        <li><a href="${pageContext.request.contextPath}/FornecedorServicoController">Fornecedores de Serviços</a></li>
         <li><a href="${pageContext.request.contextPath}/receita.jsp">Gestão da Receita</a></li>
         <li><a href="${pageContext.request.contextPath}/pacientes_agendados.jsp">Pacientes Agendados</a></li>
         <li><a href="${pageContext.request.contextPath}/login.jsp" class="logout">Sair</a></li>
     </ul>
 </aside>
 <main class="content">
-    <h1>Gestão de Fornecedores de Materiais</h1>
+    <h1>Gestão de Fornecedores de Serviços</h1>
     <div class="container">
         <section class="card">
-            <h2>Cadastro de Fornecedor</h2>
-            <form id="fornecedorForm" method="POST" action="${pageContext.request.contextPath}/FornecedorMaterialController">
+            <h2>Cadastro de Serviço</h2>
+            <form id="servicoForm" method="POST" action="${pageContext.request.contextPath}/FornecedorServicoController">
                 <input type="hidden" name="action" id="action">
-                <label>Nome do Fornecedor:</label>
-                <input type="text" name="nomeFornecedor" placeholder="Nome do fornecedor" required>
+                <label>Nome do Serviço:</label>
+                <input type="text" name="nomeServico" placeholder="Nome do serviço" required>
+                <label>Fornecedor:</label>
+                <input type="text" name="fornecedor" placeholder="Nome do fornecedor" required>
                 <label>Contato:</label>
-                <input type="text" name="contatoFornecedor" placeholder="Telefone ou celular">
-                <label>Email:</label>
-                <input type="email" name="emailFornecedor" placeholder="email@exemplo.com">
+                <input type="text" name="contato" placeholder="Telefone ou email">
 
                 <div class="buttons">
                     <button type="submit" class="btn-primary" onclick="document.getElementById('action').value='cadastrar'">Cadastrar</button>
@@ -47,10 +47,10 @@
         </section>
 
         <section class="card">
-            <h2>Pesquisar Fornecedor</h2>
-            <form method="POST" action="${pageContext.request.contextPath}/FornecedorMaterialController">
+            <h2>Pesquisar Serviço</h2>
+            <form method="POST" action="${pageContext.request.contextPath}/FornecedorServicoController">
                 <input type="hidden" name="action" id="actionPesquisar">
-                <label>Nome do Fornecedor:</label>
+                <label>Nome do Serviço ou Fornecedor:</label>
                 <input type="text" name="nome" placeholder="Digite para pesquisar..." required>
                 <div class="buttons">
                     <button type="submit" class="btn-primary" onclick="document.getElementById('actionPesquisar').value='pesquisar'">Buscar</button>
@@ -58,36 +58,37 @@
             </form>
             <%
                 try{
-                    List<FornecedorMaterial> fornecedores = (List<FornecedorMaterial>) request.getAttribute("fornecedores");
-                    String nomeFornecedor = (String) request.getAttribute("nomeFornecedor");
-                    if (fornecedores != null && !fornecedores.isEmpty()) {
+                    List<FornecedorServico> fornecedoresServicos = (List<FornecedorServico>) request.getAttribute("fornecedoresServicos");
+                    String nomeServico = (String) request.getAttribute("nomeServico");
+                    if (fornecedoresServicos != null && !fornecedoresServicos.isEmpty()) {
             %>
             <div class="search-results">
-                <h3>Resultados da pesquisa por "<%= nomeFornecedor != null ? nomeFornecedor : "" %>":</h3>
+                <h3>Resultados da pesquisa por "<%= nomeServico != null ? nomeServico : "" %>":</h3>
                 <table>
                     <tr>
-                        <th>Nome</th>
+                        <th>Serviço</th>
+                        <th>Fornecedor</th>
                         <th>Contato</th>
-                        <th>Email</th>
                         <th>Ações</th>
                     </tr>
                     <%
-                        if (fornecedores.isEmpty()) {
+                        if (fornecedoresServicos.isEmpty()) {
                     %>
-                    <tr><td colspan="4">Nenhum fornecedor encontrado.</td></tr>
+                    <tr><td colspan="4">Nenhum serviço encontrado.</td></tr>
                     <%
                     } else {
-                        for (FornecedorMaterial f : fornecedores) {
+                        for (FornecedorServico fs : fornecedoresServicos) {
                     %>
                     <tr>
-                        <td><%= f.getNome() %></td>
-                        <td><%= f.getContato() != null ? f.getContato() : "" %></td>
-                        <td><%= f.getEmail() != null ? f.getEmail() : "" %></td>
+                        <td><%= fs.getNomeServico() %></td>
+                        <td><%= fs.getFornecedor() %></td>
+                        <td><%= fs.getContato() != null ? fs.getContato() : "" %></td>
                         <td>
-                            <form action="${pageContext.request.contextPath}/FornecedorMaterialController" method="post" style="display: inline;">
+                            <form action="${pageContext.request.contextPath}/FornecedorServicoController" method="post" style="display: inline;">
                                 <input type="hidden" name="action" value="excluir">
-                                <input type="hidden" name="nome" value="<%= f.getNome() %>">
-                                <button type="submit" class="btn-delete" onclick="return confirm('Tem certeza que deseja excluir <%= f.getNome() %>?')">Excluir</button>
+                                <input type="hidden" name="nomeServico" value="<%= fs.getNomeServico() %>">
+                                <input type="hidden" name="fornecedor" value="<%= fs.getFornecedor() %>">
+                                <button type="submit" class="btn-delete" onclick="return confirm('Tem certeza que deseja excluir o serviço <%= fs.getNomeServico() %> do fornecedor <%= fs.getFornecedor() %>?')">Excluir</button>
                             </form>
                         </td>
                     </tr>
