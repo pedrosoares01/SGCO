@@ -5,6 +5,8 @@ public class SaldoPaciente {
     private double pago;
     private double devido;
     private double totalPagar;
+    private int pacienteId;
+    private int orcamentoId;
 
     public String getNomeDevedor() {
         return nomeDevedor;
@@ -36,5 +38,21 @@ public class SaldoPaciente {
 
     public void setTotalPagar(double totalPagar) {
         this.totalPagar = totalPagar;
+    }
+
+    public int getPacienteId() {
+        return pacienteId;
+    }
+
+    public void setPacienteId(int pacienteId) {
+        this.pacienteId = pacienteId;
+    }
+
+    public int getOrcamentoId() {
+        return orcamentoId;
+    }
+
+    public void setOrcamentoId(int orcamentoId) {
+        this.orcamentoId = orcamentoId;
     }
 }

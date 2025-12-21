@@ -17,8 +17,11 @@ public class SaldoService {
         return saldoDAO.resgatarDividas();
     }
 
-    public void gerarRelatorioDevedoresAtrasados(List<SaldoPaciente> pacientes) {
-
+    public void atualizarDevedores(SaldoPaciente saldoPaciente) throws Exception {
+        saldoDAO.atualizarSaldos(saldoPaciente);
     }
 
+    public List<SaldoPaciente> pesquisarDevedores(SaldoPaciente saldoPaciente) throws Exception {
+        return saldoDAO.pesquisarDividas(saldoPaciente);
+    }
 }
