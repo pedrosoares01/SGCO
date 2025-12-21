@@ -10,7 +10,7 @@
 %>
 
 <% if (mensagem != null) { %>
-<div id="popup" class="<%= tipoMensagem %>">
+<div id="popup" class="<%= tipoMensagem %>"> 
     <p><%= mensagem %></p>
     <button onclick="fecharPopup()">OK</button>
 </div>
@@ -50,7 +50,18 @@
 
             <button type="submit" class="btn-primary">Confirmar Pagamento</button>
         </form>
-
+        
     </c:if>
+    <c:if test="${requestScope.tipoMensagem eq 'sucesso' && not empty orcamento}">
+        <form action="${pageContext.request.contextPath}/NotaFiscalController" method="post">
+            <input type="hidden" name="acao" value="emitir">
+            <input type="hidden" name="orcamentoId" value="${orcamento.id}">
+            <button type="submit" class="btn-primary">
+                Emitir Nota Fiscal (PDF)
+            </button>
+        </form>
+    </c:if>
+    
+
 
 </div>

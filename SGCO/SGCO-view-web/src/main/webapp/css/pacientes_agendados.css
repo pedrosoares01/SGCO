@@ -166,6 +166,7 @@ button.btn-search:hover {
     gap: 1rem;
   }
 }
+
 .search-results table {
   width: 100%;
   border-collapse: collapse;
@@ -247,4 +248,18 @@ select:focus {
 
 select option {
   padding: 0.75rem;
+}
+
+.btn-danger {
+  background-color: #d62828;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-danger:hover {
+  background-color: #b91c1c;
 }

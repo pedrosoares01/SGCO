@@ -47,8 +47,12 @@ public class AgendaController extends HttpServlet {
         switch (action) {
             case "horarios":
                 carregarHorarios(request, response);
+                request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
                 break;
             case "carregar":
+                carregarProfissionais(request);
+                request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
+                break;
             default:
                 listarProfissionais(request, response);
                 break;
@@ -117,25 +121,25 @@ public class AgendaController extends HttpServlet {
             request.setAttribute("profissionais", null);
         }
     }
+
     private void carregarHorarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-            String idProf = request.getParameter("profissional");
+            String Prof = request.getParameter("profissional");
             String data = request.getParameter("data");
             AgendaService agendaService = new AgendaService();
-            List<Agenda> lista;
-            List<Agenda> ocupados = agendaService.listarHorariosOcupados(idProf, data);
+            List<Agenda> ocupados = agendaService.listarHorariosOcupados(Prof, data);
             request.setAttribute("ocupados", ocupados);
             request.setAttribute("data", data);
-            request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
-        } catch (Exception e){
-            request.getRequestDispatcher("agenda/agenda.jsp").forward(request, response);
+            request.getRequestDispatcher("agenda/horarios.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher("agenda/horarios.jsp").forward(request, response);
         }
     }
 
     protected void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String nome = request.getParameter("nome");
+            String nome = request.getParameter("profissional2");
             List<Agenda> lista;
             Agenda agenda = new Agenda();
             agenda.setProfissional(nome);

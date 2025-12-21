@@ -105,7 +105,6 @@ public class OrcamentoDAO {
                 o.setNomeProfissional(rs.getString("nome_profissional"));
                 o.setNomePaciente(rs.getString("nome_paciente"));
 
-                // Converte string de IDs para lista de inteiros
                 String idsStr = rs.getString("id_procedimentos");
                 List<Integer> idsProcedimentos = new ArrayList<>();
                 if (idsStr != null && !idsStr.isEmpty()) {

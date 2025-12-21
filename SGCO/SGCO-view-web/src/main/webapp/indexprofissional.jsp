@@ -1,4 +1,4 @@
-<%@ page import="Controller.LoginController" %>
+<%@ page import="sgco.controller.LoginController" %>
 <%@page contentType ="text/html" pageEncoding="UTF-8"%>
 
 <% LoginController.validarSessao(request,response);%>
@@ -12,11 +12,11 @@
 </head>
 <body>
   <aside class="sidebar">
-    <h2>SGCO</h2>
+    <a href="${pageContext.request.contextPath}/indexprofissional.jsp"><h2>SGCO</h2></a>
     <ul>
       <li><a href="${pageContext.request.contextPath}/core/orcamento/pagina.jsp">Orçamento</a></li>
-      <li><a href="${pageContext.request.contextPath}/estoque.jsp">Controle de Estoque</a></li>
-      <li><a href="${pageContext.request.contextPath}/prontuario.jsp">Prontuário</a></li>
+      <li><a href="estoque.jsp">Controle de Estoque</a></li>
+      <li><a href="${pageContext.request.contextPath}/ProntuarioController">Prontuário</a></li>
       <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
       <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
     </ul>
@@ -30,7 +30,7 @@
       <div class="card">
         <h3>💰 Orçamento</h3>
         <p>Crie orçamentos com base nos procedimentos cadastrados.</p>
-        <a href="orcamento.jsp">Acessar</a>
+        <a href="${pageContext.request.contextPath}/core/orcamento/pagina.jsp">Acessar</a>
       </div>
 
       <div class="card">
@@ -48,7 +48,7 @@
       <div class="card">
         <h3>📅 Pacientes Agendados</h3>
         <p>Visualize a agenda de consultas e os pacientes marcados.</p>
-        <a href="pacientes_agendados.jsp">Acessar</a>
+        <a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Acessar</a>
       </div>
     </div>
   </main>

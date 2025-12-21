@@ -1,7 +1,6 @@
 package sgco.sgco.service;
 import sgco.model.dao.AgendaDAO;
 import sgco.sgco.domain.Agenda;
-
 import sgco.sgco.domain.Usuario;
 import java.util.List;
 
@@ -14,6 +13,7 @@ public class AgendaService {
         validar(agenda);
         agendaDAO.agendar(agenda);
     }
+
     public List<Agenda> pesquisar(Agenda agenda) throws Exception {
         return agendaDAO.pesquisar(agenda);
     }
@@ -29,6 +29,10 @@ public class AgendaService {
 
     public List<Agenda> listar(Agenda agenda) throws Exception {
         return agendaDAO.listar(agenda);
+    }
+
+    public void desmarcar(int id) throws Exception {
+        agendaDAO.desmarcar(id);
     }
 
     private void validar(Agenda agenda) throws Exception{

@@ -6,11 +6,9 @@
     <groupId>SGCO</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-    <groupId>SGCO</groupId>
+  
     <artifactId>SGCO-view-web</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>SGCO-view-web</name>
     
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -22,30 +20,34 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>jakarta.servlet.jsp.jstl</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-         <dependency>
+	    <dependency>
+		    <groupId>jakarta.servlet.jsp.jstl</groupId>
+		    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		    <version>2.0.0</version>
+		</dependency>
+	
+		<dependency>
+		    <groupId>org.glassfish.web</groupId>
+		    <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+		    <version>2.0.0</version>
+		</dependency>
+    	<dependency>
 	        <groupId>jakarta.servlet</groupId>
 	        <artifactId>jakarta.servlet-api</artifactId>
 	        <version>6.0.0</version>
-	        <scope>provided</scope>
 	    </dependency>
+         
+         <dependency>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>1.3.30</version>
+        </dependency>
+        
         <dependency>
 		    <groupId>SGCO</groupId>
 		    <artifactId>SGCO-domain</artifactId>
 		    <version>1.0-SNAPSHOT</version>
 		</dependency>
-
-
 		<dependency>
 		    <groupId>SGCO</groupId>
 		    <artifactId>SGCO-DAO-ram</artifactId>
@@ -62,16 +64,6 @@
     <build>
         <finalName>SGCO-view-web</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
