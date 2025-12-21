@@ -4,10 +4,12 @@ import sgco.model.dao.OrcamentoDAO;
 import sgco.model.dao.PagamentoDAO;
 import sgco.model.domain.Orcamento;
 import sgco.model.domain.Pagamento;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -38,7 +40,7 @@ public class PagamentoController extends HttpServlet {
                 break;
 
             default:
-                enviarMensagem(request, response, "Ação inválida: " + acao, "erro");
+                enviarMensagem(request, response, "Ação inválida: " + acao, "erro", null);
         }
     }
 
@@ -55,7 +57,7 @@ public class PagamentoController extends HttpServlet {
         String idStr = request.getParameter("orcamentoId");
 
         if (idStr == null || idStr.trim().isEmpty()) {
-            enviarMensagem(request, response, "ID do orçamento não informado!", "erro");
+            enviarMensagem(request, response, "ID do orçamento não informado!", "erro", null);
             return;
         }
 
@@ -72,12 +74,12 @@ public class PagamentoController extends HttpServlet {
                 request.getRequestDispatcher("/core/pagamento/pagina.jsp").forward(request, response);
 
             } else {
-                enviarMensagem(request, response, "Orçamento não encontrado!", "erro");
+                enviarMensagem(request, response, "Orçamento não encontrado!", "erro", null);
             }
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Erro ao selecionar orçamento.", e);
-            enviarMensagem(request, response, "Erro ao buscar orçamento: " + e.getMessage(), "erro");
+            enviarMensagem(request, response, "Erro ao buscar orçamento: " + e.getMessage(), "erro", null);
         }
     }
 
@@ -89,7 +91,7 @@ public class PagamentoController extends HttpServlet {
             String forma = request.getParameter("formaPagamento");
 
             if (idStr == null || forma == null || forma.isEmpty()) {
-                enviarMensagem(request, response, "Preencha todos os campos!", "erro");
+                enviarMensagem(request, response, "Preencha todos os campos!", "erro", null);
                 return;
             }
 
@@ -99,16 +101,14 @@ public class PagamentoController extends HttpServlet {
             Orcamento orc = orcDao.buscarPorId(orcamentoId);
 
             if (orc == null) {
-                enviarMensagem(request, response, "Orçamento não encontrado!", "erro");
+                enviarMensagem(request, response, "Orçamento não encontrado!", "erro", null);
                 return;
             }
-
-            double valor = orc.getValor();
 
             Pagamento pagamento = new Pagamento();
             pagamento.setOrcamentoId(orcamentoId);
             pagamento.setFormaPagamento(forma);
-            pagamento.setValorPago(valor);
+            pagamento.setValorPago(orc.getValor());
             pagamento.setDataPagamento(LocalDate.now());
 
             PagamentoDAO dao = new PagamentoDAO();
@@ -116,23 +116,29 @@ public class PagamentoController extends HttpServlet {
 
             if (sucesso) {
                 logger.log(Level.INFO, "Pagamento registrado. Orçamento ID {0}", orcamentoId);
-                enviarMensagem(request, response, "Pagamento registrado com sucesso!", "sucesso");
+
+                enviarMensagem( request, response, "Pagamento registrado com sucesso!", "sucesso", orc
+                );
+
             } else {
-                enviarMensagem(request, response, "Erro ao registrar pagamento.", "erro");
+                enviarMensagem(request, response, "Erro ao registrar pagamento.", "erro", orc);
             }
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Erro ao salvar pagamento.", e);
-            enviarMensagem(request, response, "Erro ao salvar: " + e.getMessage(), "erro");
+            enviarMensagem(request, response,"Erro ao salvar: " + e.getMessage(), "erro", null);
         }
     }
 
-    private void enviarMensagem(HttpServletRequest request, HttpServletResponse response,
-                                String mensagem, String tipo)
+    private void enviarMensagem(HttpServletRequest request, HttpServletResponse response, String mensagem, String tipo, Orcamento orcamento)
             throws ServletException, IOException {
 
         request.setAttribute("mensagem", mensagem);
         request.setAttribute("tipoMensagem", tipo);
+
+        if (orcamento != null) {
+            request.setAttribute("orcamento", orcamento);
+        }
 
         request.getRequestDispatcher("/core/pagamento/pagina.jsp").forward(request, response);
     }
