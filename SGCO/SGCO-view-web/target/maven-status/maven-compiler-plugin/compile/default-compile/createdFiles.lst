@@ -5,6 +5,7 @@ sgco\controller\OrcamentoController.class
 sgco\controller\ProcedimentoController.class
 sgco\controller\AvaliacaoController.class
 sgco\controller\UsuarioController.class
+sgco\util\NotaFiscalPDFUtil.class
 sgco\controller\LembreteController.class
 sgco\controller\FornecedorMaterialController.class
 sgco\controller\LoginController.class

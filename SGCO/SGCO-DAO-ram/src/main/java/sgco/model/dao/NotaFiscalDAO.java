@@ -6,8 +6,9 @@ import java.sql.*;
 public class NotaFiscalDAO {
 
     private static final String INSERT =
-        "INSERT INTO nota_fiscal (orcamento_id, valor_total, data_emissao, nome_paciente, nome_profissional) " +
-        "VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO nota_fiscal (orcamento_id, valor_total, data_emissao, nome_paciente, nome_profissional, forma_pagamento) " +
+    "VALUES (?, ?, ?, ?, ?, ?)";
+
 
     private static final String BUSCAR_POR_ORCAMENTO =
         "SELECT * FROM nota_fiscal WHERE orcamento_id = ?";
@@ -22,6 +23,7 @@ public class NotaFiscalDAO {
             stmt.setDate(3, java.sql.Date.valueOf(nota.getDataEmissao()));
             stmt.setString(4, nota.getNomePaciente());
             stmt.setString(5, nota.getNomeProfissional());
+            stmt.setString(6, nota.getFormaPagamento());
 
             stmt.executeUpdate();
             return true;

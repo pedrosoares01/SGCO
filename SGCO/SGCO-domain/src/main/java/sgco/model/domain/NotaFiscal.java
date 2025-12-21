@@ -10,6 +10,7 @@ public class NotaFiscal {
     private LocalDate dataEmissao;
     private String nomePaciente;
     private String nomeProfissional;
+    private String formaPagamento;
 
     public NotaFiscal() {
     }
@@ -80,4 +81,12 @@ public class NotaFiscal {
     public void setNomeProfissional(String nomeProfissional) {
         this.nomeProfissional = nomeProfissional;
     }
+
+    public String getFormaPagamento() {
+    return formaPagamento;
+}
+
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }   
 }
