@@ -69,6 +69,7 @@
                         <th>Valor Pago</th>
                         <th>Total a Ser Pago</th>
                         <th>Valor Devido</th>
+                        <th>Ação</th>
                     </tr>
                     <%
                         if (resultados.isEmpty()) {
