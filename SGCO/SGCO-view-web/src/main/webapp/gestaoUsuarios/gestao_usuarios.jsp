@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Gestão de Usuários - SGCO</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/gestao_usuarios.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
     </head>
     <body>

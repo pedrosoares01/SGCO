@@ -259,7 +259,6 @@ button {
     border-radius: 6px;
     border: none;
     cursor: pointer;
-    font-size: 0.9rem;
     transition: all 0.3s;
     display: flex;
     align-items: center;
