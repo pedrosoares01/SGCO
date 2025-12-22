@@ -53,7 +53,7 @@
         
     </c:if>
     <c:if test="${requestScope.tipoMensagem eq 'sucesso' && not empty orcamento}">
-        <form action="${pageContext.request.contextPath}/NotaFiscalController" method="post">
+        <form action="${pageContext.request.contextPath}/NotaFiscalController" method="post" target="_blank">
             <input type="hidden" name="acao" value="emitir">
             <input type="hidden" name="orcamentoId" value="${orcamento.id}">
             <button type="submit" class="btn-primary">
