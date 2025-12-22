@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 
-@WebServlet("/financeiro")
+@WebServlet(name = "FinanceiroController", urlPatterns = {"/FinanceiroController"})
 public class RelatorioFinanceiroController extends HttpServlet {
 
     @Override
