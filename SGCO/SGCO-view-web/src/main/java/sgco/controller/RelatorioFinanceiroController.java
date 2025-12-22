@@ -20,11 +20,6 @@ public class RelatorioFinanceiroController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Connection conn = (Connection) request
-                .getServletContext()
-                .getAttribute("connection");
-
-      
         ReceitaDAO receitaDAO = new ReceitaDAO();
         DespesaDAO despesaDAO = new DespesaDAO();
 

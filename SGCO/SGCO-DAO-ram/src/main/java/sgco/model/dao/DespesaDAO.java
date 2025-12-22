@@ -11,18 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DespesaDAO {
-
-    private Connection connection;
-    
     public List<Despesa> listarDespesas() throws Exception{
+        Connection connection;
         connection = ConnectionFactory.getConnection();
         List<Despesa> lista = new ArrayList<>();
 
-        String sql = """
-            SELECT descricao, valor, forma_pagamento, data_despesa
-            FROM despesa
-            ORDER BY data_despesa DESC
-        """;
+        String sql = "SELECT descricao, valor, forma_pagamento, data_despesa FROM despesa ORDER BY data_despesa";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -40,12 +34,13 @@ public class DespesaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        connection.close();
         return lista;
     }
 
     
     public BigDecimal totalDespesas() throws Exception{
+        Connection connection;
         connection = ConnectionFactory.getConnection();
         String sql = "SELECT SUM(valor) FROM despesa";
 
@@ -61,7 +56,7 @@ public class DespesaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        connection.close();
         return BigDecimal.ZERO;
     }
 }

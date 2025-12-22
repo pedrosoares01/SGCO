@@ -37,13 +37,14 @@
         <li><a href="${pageContext.request.contextPath}/fornecedores_materiais/fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
         <li><a href="${pageContext.request.contextPath}/fornecedores_servicos/fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
         <li><a href="${pageContext.request.contextPath}/FinanceiroController">Gestão da Receita</a></li>
+        <li><a href="${pageContext.request.contextPath}/saldo/saldo.jsp">Saldo</a></li>
         <li><a href="${pageContext.request.contextPath}/PacientesAgendadosController">Pacientes Agendados</a></li>
         <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
         <%} else if (cargo.equals("Profissional")){%>
         <li><a href="${pageContext.request.contextPath}/core/orcamento/pagina.jsp">Orçamento</a></li>
         <li><a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Controle de Estoque</a></li>
         <li><a href="${pageContext.request.contextPath}/ProntuarioController">Prontuário</a></li>
-        <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+        <li><a href="${pageContext.request.contextPath}/PacientesAgendadosController">Pacientes Agendados</a></li>
         <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
         <%} else {%>
         <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>

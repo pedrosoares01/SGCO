@@ -22,6 +22,7 @@
       <li><a href="${pageContext.request.contextPath}/fornecedores_materiais/fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
       <li><a href="${pageContext.request.contextPath}/fornecedores_servicos/fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
       <li><a href="${pageContext.request.contextPath}/FinanceiroController">Gestão da Receita</a></li>
+      <li><a href="${pageContext.request.contextPath}/saldo/saldo.jsp">Saldo</a></li>
       <li><a href="${pageContext.request.contextPath}/PacientesAgendadosController">Pacientes Agendados</a></li>
       <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
     </ul>
@@ -73,6 +74,12 @@
         <p>Visualize relatórios de despesas e receitas do consultório.</p>
         <a href="${pageContext.request.contextPath}/FinanceiroController">Acessar</a>
       </div>
+
+        <div class="card">
+            <h3>📈 Saldo</h3>
+            <p>Visualize os pacientes devedores.</p>
+            <a href="${pageContext.request.contextPath}/saldo/saldo.jsp">Acessar</a>
+        </div>
 
       <div class="card">
         <h3>📋 Pacientes Agendados</h3>

@@ -30,4 +30,28 @@
     <c:if test="${empty listaReceitas}">
         <p class="info-text">Nenhuma receita encontrada </p>
     </c:if>
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+        <tr>
+            <th>Descrição</th>
+            <th>Valor (R$)</th>
+            <th>Forma de Pagamento</th>
+            <th>Data</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="r" items="${listasDespesas}">
+            <tr>
+                <td>${r.descricao}</td>
+                <td>${r.valor}</td>
+                <td>${r.formaPagamento}</td>
+                <td>${r.data}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+    <c:if test="${empty listaDespesas}">
+        <p class="info-text">Nenhuma receita encontrada </p>
+    </c:if>
 </section>
