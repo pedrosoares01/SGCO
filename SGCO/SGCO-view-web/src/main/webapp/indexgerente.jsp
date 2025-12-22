@@ -21,7 +21,7 @@
       <li><a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Controle de Estoque</a></li>
       <li><a href="${pageContext.request.contextPath}/fornecedores_materiais/fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
       <li><a href="${pageContext.request.contextPath}/fornecedores_servicos/fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
-      <li><a href="receita.jsp">Gestão da Receita</a></li>
+      <li><a href="${pageContext.request.contextPath}/core/receita/pagina.jsp">Gestão da Receita</a></li>
       <li><a href="${pageContext.request.contextPath}/PacientesAgendadosController">Pacientes Agendados</a></li>
       <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
     </ul>
@@ -71,7 +71,7 @@
       <div class="card">
         <h3>📈 Receita</h3>
         <p>Visualize relatórios de despesas e receitas do consultório.</p>
-        <a href="receita.jsp">Acessar</a>
+        <a href="${pageContext.request.contextPath}/core/receita/pagina.jsp">Acessar</a>
       </div>
 
       <div class="card">

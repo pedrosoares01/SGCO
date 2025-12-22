@@ -1,0 +1,61 @@
+package sgco.controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import sgco.model.dao.EquipamentosDAO;
+import sgco.model.domain.Equipamentos;
+
+import java.io.IOException;
+
+@WebServlet("/CadastrarEquipamento")
+public class CadastrarEquipamento extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+            request.setCharacterEncoding("UTF-8");
+
+            String nome = request.getParameter("nome");
+            String codigo = request.getParameter("codigo");
+            String local = request.getParameter("local");
+            String ultima = request.getParameter("ultima");
+            String status = request.getParameter("status");
+
+            String freqStr = request.getParameter("freq");
+            int freq = (freqStr == null || freqStr.isEmpty())
+                    ? 0
+                    : Integer.parseInt(freqStr);
+
+            Equipamentos eq = new Equipamentos(
+                    nome, codigo, local, ultima, freq, status
+            );
+
+            EquipamentosDAO dao = new EquipamentosDAO();
+            boolean sucesso = dao.inserir(eq);
+
+            if (sucesso) {
+                request.getSession().setAttribute(
+                        "popup", "Equipamento cadastrado com sucesso!"
+                );
+            } else {
+                request.getSession().setAttribute(
+                        "popup", "Erro ao cadastrar equipamento."
+                );
+            }
+
+        } catch (Exception ex) {
+            request.getSession().setAttribute(
+                    "popup", "Erro inesperado: " + ex.getMessage()
+            );
+        }
+
+        response.sendRedirect(
+                request.getContextPath() + "/core/controleequipamentos/pagina.jsp"
+        );
+    }
+}
