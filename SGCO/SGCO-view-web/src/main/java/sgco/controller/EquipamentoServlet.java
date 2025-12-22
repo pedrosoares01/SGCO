@@ -32,7 +32,7 @@ public class EquipamentoServlet extends HttpServlet {
 
             request.setAttribute("equipamento", eq);
 
-            request.getRequestDispatcher("/core/controleequipamentos/controleequip.jsp")
+            request.getRequestDispatcher("/core/controleequipamentos/pagina.jsp")
                    .forward(request, response);
 
         } catch (Exception e) {

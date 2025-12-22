@@ -230,18 +230,3 @@ button {
 .search-results td {
   color: #1a3a52;
 }
-
-.search-results caption {
-  caption-side: top;
-  text-align: left;
-  font-weight: 600;
-  color: #023e8a;
-  margin-bottom: 0.75rem;
-}
-
-.search-results .no-results {
-  text-align: center;
-  color: #5a6c7d;
-  font-style: italic;
-  padding: 1rem;
-}

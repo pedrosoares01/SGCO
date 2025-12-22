@@ -10,12 +10,8 @@ public class ReceitaDAO {
 
     private Connection connection;
 
-    public ReceitaDAO(Connection connection) {
-        this.connection = connection;
-    }
-
     public List<Receita> listarReceitas() {
-
+        connection = ConnectionFactory.getConnection();
         List<Receita> lista = new ArrayList<>();
 
         String sql = """
@@ -46,7 +42,7 @@ public class ReceitaDAO {
 
 
     public BigDecimal totalReceitas() {
-
+        connection = ConnectionFactory.getConnection();
         String sql = "SELECT SUM(valor_pago) FROM pagamento";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql);

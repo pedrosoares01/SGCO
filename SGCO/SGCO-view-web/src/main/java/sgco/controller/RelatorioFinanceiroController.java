@@ -4,11 +4,11 @@ import sgco.model.dao.ReceitaDAO;
 import sgco.model.dao.DespesaDAO;
 import sgco.model.domain.RelatorioFinanceiro;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,8 +26,8 @@ public class RelatorioFinanceiroController extends HttpServlet {
                 .getAttribute("connection");
 
       
-        ReceitaDAO receitaDAO = new ReceitaDAO(conn);
-        DespesaDAO despesaDAO = new DespesaDAO(conn);
+        ReceitaDAO receitaDAO = new ReceitaDAO();
+        DespesaDAO despesaDAO = new DespesaDAO();
 
         
         request.setAttribute("listaReceitas", receitaDAO.listarReceitas());
@@ -45,7 +45,7 @@ public class RelatorioFinanceiroController extends HttpServlet {
         request.setAttribute("relatorio", relatorio);
 
       
-        request.getRequestDispatcher("/pages/receita/pagina.jsp")
+        request.getRequestDispatcher("core/receita/pagina.jsp")
                .forward(request, response);
     }
 }

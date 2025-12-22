@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Equipamento</title>
-    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/controleequip.css">
 </head>
 
@@ -78,10 +77,6 @@
             <option value="Funcionando">Funcionando</option>
             <option value="Em manutenção">Em manutenção</option>
             <option value="Aguardando manutenção">Aguardando manutenção</option>
-            <option value="Inativo">Inativo</option>
-            <option value="Desativado">Desativado</option>
-            <option value="Em teste">Em teste</option>
-
         </select>
     </div>
 

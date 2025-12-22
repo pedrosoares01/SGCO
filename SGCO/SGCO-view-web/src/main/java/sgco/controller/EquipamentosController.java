@@ -159,7 +159,7 @@ public class EquipamentosController extends HttpServlet {
             List<Equipamentos> resultados = dao.pesquisarPorNome(nome);
 
             request.setAttribute("listaEquipamentos", resultados);
-            request.getRequestDispatcher("/core/controleequipamentos/controleequip.jsp").forward(request, response);
+            request.getRequestDispatcher("/core/controleequipamentos/pagina.jsp").forward(request, response);
 
         } catch (Exception ex) {
             enviarMensagem(request, response, "Erro ao pesquisar equipamentos: " + ex.getMessage(), "erro");

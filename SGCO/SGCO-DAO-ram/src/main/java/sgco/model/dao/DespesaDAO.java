@@ -9,14 +9,9 @@ import java.util.List;
 public class DespesaDAO {
 
     private Connection connection;
-
-    public DespesaDAO(Connection connection) {
-        this.connection = connection;
-    }
-
     
     public List<Despesa> listarDespesas() {
-
+        connection = ConnectionFactory.getConnection();
         List<Despesa> lista = new ArrayList<>();
 
         String sql = """
@@ -47,7 +42,7 @@ public class DespesaDAO {
 
     
     public BigDecimal totalDespesas() {
-
+        connection = ConnectionFactory.getConnection();
         String sql = "SELECT SUM(valor) FROM despesa";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql);
