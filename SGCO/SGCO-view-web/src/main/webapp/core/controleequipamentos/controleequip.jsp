@@ -1,17 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <title>Controle de Equipamentos</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/controleequip.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
 </head>
-
 <body>
-    <jsp:include page="../sidebar.jsp" />
 
 <%
 String popup = (String) session.getAttribute("popup");
@@ -25,41 +20,53 @@ if (popup != null) {
 }
 %>
 
-
 <div class="content">
-
-
     <h1>Controle de Equipamentos</h1>
 
     <div class="container">
-
-        <!-- Card – Listagem -->
         <div class="card big-card">
             <h2>Equipamentos Cadastrados</h2>
 
-            <!-- Barra de Pesquisa -->
-            <input type="text" id="buscar" placeholder="Pesquisar equipamento..." 
-                   onkeyup="filtrar()">
+<form action="${pageContext.request.contextPath}/EquipamentoServlet" method="get">
+    <p class="info-text">
+        Digite o código do equipamento e clique em <strong>Buscar</strong> para ver os resultados.
+    </p>
+    <input type="text" name="codigo" placeholder="Digite o código">
+    <button type="submit" class="btn-primary">Buscar</button>
+</form>
 
+<%@ page import="sgco.model.domain.Equipamentos" %>
+<%
+    Equipamentos eq = (Equipamentos) request.getAttribute("equipamento");
+    if (eq != null) {
+%>
+
+    <h3>Resultado da Busca</h3>
+    <table border="1" id="tabela-equip">
+        <tbody>
+            <tr><th>ID</th><td><%= eq.getId() %></td></tr>
+            <tr><th>Nome</th><td><%= eq.getNome() %></td></tr>
+            <tr><th>Código</th><td><%= eq.getCodigo() %></td></tr>
+            <tr><th>Local</th><td><%= eq.getLocal() %></td></tr>
+            <tr><th>Última</th><td><%= eq.getUltima() %></td></tr>
+            <tr><th>Frequência</th><td><%= eq.getFreq() %></td></tr>
+            <tr><th>Status</th><td><%= eq.getStatus() %></td></tr>
+        </tbody>
+    </table>
+<%
+    } else if (request.getParameter("codigo") != null) {
+%>
+    <p>Nenhum equipamento encontrado com esse código.</p>
+<%
+    }
+%>
         </div>
-
     </div>
-			<a href="cadastrar.jsp">
-                <button class="btn-primary">Novo Equipamento</button>
-            </a>
+
+    <a href="cadastrar.jsp">
+        <button class="btn-primary">Novo Equipamento</button>
+    </a>
 </div>
-
-<script>
-function filtrar(){
-    let termo = document.getElementById("buscar").value.toLowerCase();
-    let linhas = document.querySelectorAll("#tabela-equip tbody tr");
-
-    linhas.forEach(linha =>{
-        let texto = linha.textContent.toLowerCase();
-        linha.style.display = texto.includes(termo) ? "table-row" : "none";
-    });
-}
-</script>
 
 </body>
 </html>

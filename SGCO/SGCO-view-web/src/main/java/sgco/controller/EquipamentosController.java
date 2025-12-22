@@ -74,11 +74,10 @@ public class EquipamentosController extends HttpServlet {
             Equipamentos eq = dao.buscarPorId(id);
 
             if (eq != null) {
-                request.setAttribute("equip", eq);
+                request.setAttribute("equipamento", eq);
                 request.getRequestDispatcher("/core/controleequipamentos/editar.jsp").forward(request, response);
-            } else {
-                enviarMensagem(request, response, "Equipamento não encontrado.", "erro");
             }
+
 
         } catch (Exception ex) {
             enviarMensagem(request, response, "Erro ao carregar equipamento: " + ex.getMessage(), "erro");

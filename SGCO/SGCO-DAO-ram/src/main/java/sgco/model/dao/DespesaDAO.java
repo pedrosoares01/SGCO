@@ -1,88 +1,68 @@
-package model.dao;
+package sgco.model.dao;
 
+import sgco.model.domain.Despesa;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import model.domain.Despesa;
 
 public class DespesaDAO {
 
-    public void inserir(Despesa d) throws Exception {
-        String sql = "INSERT INTO despesa (descricao, valor, pagamento) VALUES (?, ?, ?)";
+    private Connection connection;
 
-        try (Connection c = ConnectionFactory.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setString(1, d.getDescricao());
-            ps.setBigDecimal(2, d.getValor());
-            ps.setString(3, d.getPagamento());
-            ps.execute();
-        }
+    public DespesaDAO(Connection connection) {
+        this.connection = connection;
     }
 
-    public List<Despesa> listar() throws Exception {
-        List<Despesa> lista = new ArrayList<>();
-        String sql = "SELECT * FROM despesa";
+    
+    public List<Despesa> listarDespesas() {
 
-        try (Connection c = ConnectionFactory.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        List<Despesa> lista = new ArrayList<>();
+
+        String sql = """
+            SELECT descricao, valor, forma_pagamento, data_despesa
+            FROM despesa
+            ORDER BY data_despesa DESC
+        """;
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Despesa d = new Despesa();
-                d.setId(rs.getInt("id"));
                 d.setDescricao(rs.getString("descricao"));
                 d.setValor(rs.getBigDecimal("valor"));
-                d.setPagamento(rs.getString("pagamento"));
+                d.setFormaPagamento(rs.getString("forma_pagamento"));
+                d.setData(rs.getDate("data_despesa"));
+
                 lista.add(d);
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
         return lista;
     }
 
-    public Despesa buscarPorId(int id) throws Exception {
-        String sql = "SELECT * FROM despesa WHERE id = ?";
-        Despesa d = null;
+    
+    public BigDecimal totalDespesas() {
 
-        try (Connection c = ConnectionFactory.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        String sql = "SELECT SUM(valor) FROM despesa";
 
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             if (rs.next()) {
-                d = new Despesa();
-                d.setId(id);
-                d.setDescricao(rs.getString("descricao"));
-                d.setValor(rs.getBigDecimal("valor"));
-                d.setPagamento(rs.getString("pagamento"));
+                return rs.getBigDecimal(1) == null
+                        ? BigDecimal.ZERO
+                        : rs.getBigDecimal(1);
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return d;
-    }
 
-    public void atualizar(Despesa d) throws Exception {
-        String sql = "UPDATE despesa SET descricao=?, valor=?, pagamento=? WHERE id=?";
-
-        try (Connection c = ConnectionFactory.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setString(1, d.getDescricao());
-            ps.setBigDecimal(2, d.getValor());
-            ps.setString(3, d.getPagamento());
-            ps.setInt(4, d.getId());
-            ps.execute();
-        }
-    }
-
-    public void excluir(int id) throws Exception {
-        String sql = "DELETE FROM despesa WHERE id=?";
-
-        try (Connection c = ConnectionFactory.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-            ps.execute();
-        }
+        return BigDecimal.ZERO;
     }
 }

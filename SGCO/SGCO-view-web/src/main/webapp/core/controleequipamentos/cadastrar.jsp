@@ -6,12 +6,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Equipamento</title>
+    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/controleequip.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sidebar.css">
 </head>
 
 <body>
 
+	    <a href="pagina.jsp">
+    <button>Voltar</button>
+    	</a>
+    	
 <div class="content">
 
     <h1>Cadastrar Equipamento</h1>
@@ -19,25 +23,48 @@
     <div class="container">
 
         <div class="card">
-           <form action="${pageContext.request.contextPath}/CadastrarEquipamento" method="post">
+			<form action="${pageContext.request.contextPath}/CadastrarEquipamento" method="post">
+
     <div>
         <label for="nome">Nome do Equipamento</label>
-        <input type="text" id="nome" name="nome" placeholder="Ex: Autoclave">
+        	<select id="nome" name="nome">
+        	<option value="Cadeira odontológica">Cadeira odontológica</option>
+			<option value="Equipo odontológico">Equipo odontológico</option>
+			<option value="Refletor odontológico">Refletor odontológico</option>
+			<option value="Compressor de ar">Compressor de ar</option>
+			<option value="Bomba a vácuo">Bomba a vácuo</option>
+			<option value="Sugador cirúrgico">Sugador cirúrgico</option>
+			<option value="Autoclave">Autoclave</option>
+			<option value="Estufa de esterilização">Estufa de esterilização</option>
+			<option value="Seladora térmica">Seladora térmica</option>
+			<option value="Caneta de alta rotação">Caneta de alta rotação</option>
+			<option value="Caneta de baixa rotação">Caneta de baixa rotação</option>
+			<option value="Micromotor">Micromotor</option>
+			<option value="Contra-ângulo">Contra-ângulo</option>
+			<option value="Ultrassom odontológico">Ultrassom odontológico</option>
+			<option value="Jato de bicarbonato">Jato de bicarbonato</option>
+			<option value="Raio-X odontológico">Raio-X odontológico</option>
+			<option value="Aparelho de raio-X portátil">Aparelho de raio-X portátil</option>
+			<option value="Cuba ultrassônica">Cuba ultrassônica</option>
+			<option value="Laser terapêutico">Laser terapêutico</option>
+			<option value="Motor de implante">Motor de implante</option>
+        	
+        </select>
     </div>
 
     <div>
-        <label for="codigo">Código / Identificação</label>
-        <input type="text" id="codigo" name="codigo" placeholder="Ex: EQP-0021">
+        <label for="codigo">Identificação com código</label>
+        <input type="text" id="codigo" name="codigo" value="EQP-" placeholder="Ex: EQP-0021">
     </div>
 
     <div>
         <label for="local">Local / Sala</label>
-        <input type="text" id="local" name="local" placeholder="Ex: Sala 01">
+        <input type="text" id="local" name="local" value="Sala " placeholder="Ex: Sala 01">
     </div>
 
     <div>
         <label for="ultima">Última Manutenção</label>
-        <input type="date" id="ultima" name="ultima">
+        <input type="date" max="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" id="ultima" name="ultima">
     </div>
 
     <div>
@@ -51,14 +78,17 @@
             <option value="Funcionando">Funcionando</option>
             <option value="Em manutenção">Em manutenção</option>
             <option value="Aguardando manutenção">Aguardando manutenção</option>
+            <option value="Inativo">Inativo</option>
+            <option value="Desativado">Desativado</option>
+            <option value="Em teste">Em teste</option>
+
         </select>
     </div>
 
-    <!-- BOTÃO SALVAR (não pode ficar dentro de <a> !!!) -->
     <button type="submit" class="btn-primary">Salvar Equipamento</button>
 
-    <!-- BOTÃO VOLTAR -->
-    <a href="controleequip.jsp" class="btn-secondary">Voltar</a>
+  
+    
 </form>
 
         </div>
@@ -66,6 +96,5 @@
     </div>
 
 </div>
-
 </body>
 </html>

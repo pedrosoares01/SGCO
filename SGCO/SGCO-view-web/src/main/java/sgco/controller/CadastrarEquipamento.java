@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "CadastrarEquipamento", urlPatterns = {"/CadastrarEquipamento"})
+@WebServlet("/CadastrarEquipamento")
 public class CadastrarEquipamento extends HttpServlet {
 
     @Override
@@ -28,23 +28,35 @@ public class CadastrarEquipamento extends HttpServlet {
             String status = request.getParameter("status");
 
             String freqStr = request.getParameter("freq");
-            int freq = (freqStr == null || freqStr.isEmpty()) ? 0 : Integer.parseInt(freqStr);
+            int freq = (freqStr == null || freqStr.isEmpty())
+                    ? 0
+                    : Integer.parseInt(freqStr);
 
-            Equipamentos eq = new Equipamentos(nome, codigo, local, ultima, freq, status);
+            Equipamentos eq = new Equipamentos(
+                    nome, codigo, local, ultima, freq, status
+            );
 
             EquipamentosDAO dao = new EquipamentosDAO();
             boolean sucesso = dao.inserir(eq);
 
             if (sucesso) {
-                request.getSession().setAttribute("popup", "Equipamento cadastrado com sucesso!");
+                request.getSession().setAttribute(
+                        "popup", "Equipamento cadastrado com sucesso!"
+                );
             } else {
-                request.getSession().setAttribute("popup", "Erro ao cadastrar equipamento.");
+                request.getSession().setAttribute(
+                        "popup", "Erro ao cadastrar equipamento."
+                );
             }
 
         } catch (Exception ex) {
-            request.getSession().setAttribute("popup", "Erro inesperado: " + ex.getMessage());
+            request.getSession().setAttribute(
+                    "popup", "Erro inesperado: " + ex.getMessage()
+            );
         }
 
-        response.sendRedirect("core/controleequipamentos/controleequip.jsp");
+        response.sendRedirect(
+                request.getContextPath() + "/core/controleequipamentos/pagina.jsp"
+        );
     }
 }

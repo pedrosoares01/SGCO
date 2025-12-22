@@ -3,6 +3,7 @@ package sgco.model.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import sgco.model.domain.Equipamentos;
 
 public class EquipamentosDAO {
@@ -25,15 +26,45 @@ public class EquipamentosDAO {
             return stmt.executeUpdate() > 0;
 
         } catch (SQLException ex) {
-            System.err.println("Erro SQL ao inserir equipamento: " + ex.getMessage());
+            ex.printStackTrace();
             return false;
         }
     }
-    
+
+    // BUSCAR POR CÓDIGO
+    public Equipamentos buscarPorCodigo(String codigo) {
+        String sql = "SELECT * FROM equipamentos WHERE codigo = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, codigo);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Equipamentos(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("codigo"),
+                        rs.getString("local"),
+                        rs.getString("ultima"),
+                        rs.getInt("freq"),
+                        rs.getString("status")
+                );
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro SQL ao buscar equipamento por código: " + ex.getMessage());
+        }
+
+        return null;
+    }
+
+    // PESQUISAR POR NOME
     public List<Equipamentos> pesquisarPorNome(String nome) {
         List<Equipamentos> lista = new ArrayList<>();
-
         String sql;
+
         if (nome == null || nome.trim().isEmpty()) {
             sql = "SELECT * FROM equipamentos ORDER BY id DESC";
         } else {

@@ -7,7 +7,7 @@
     
     <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp" class="active">Gestão de Pacientes</a></li>
     
-    <li><a href="${pageContext.request.contextPath}/core/controleequipamentos/controleequip.jsp" class="active">Gestão de Equipamentos</a></li>
+    <li><a href="${pageContext.request.contextPath}/core/controleequipamentos/pagina.jsp" class="active">Gestão de Equipamentos</a></li>
 
     <li><a href="${pageContext.request.contextPath}/core/receita/pagina.jsp" class="active">Gestão de Receita</a></li>
 

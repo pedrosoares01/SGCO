@@ -1,36 +1,33 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<h1>Gestão da Receita</h1>
+
 <section class="card">
-    <h2>Registro de Despesas</h2>
+    <h2>Relatório de Receitas</h2>
 
-    <form method="post" action="${pageContext.request.contextPath}/DespesaController">
-        <input type="hidden" name="acao" value="cadastrar">
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor (R$)</th>
+                <th>Forma de Pagamento</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="r" items="${listaReceitas}">
+                <tr>
+                    <td>${r.descricao}</td>
+                    <td>${r.valor}</td>
+                    <td>${r.formaPagamento}</td>
+                    <td>${r.data}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
 
-        <div class="form-group">
-            <label for="expense">Despesa</label>
-            <input type="text" id="expense" name="expense" required>
-        </div>
-
-        <div class="form-group">
-            <label for="amount">Valor (R$)</label>
-            <input type="number" id="amount" name="amount" step="0.01" required>
-        </div>
-
-        <div class="form-group">
-            <label for="payment">Forma de Pagamento</label>
-            <select id="payment" name="payment">
-                <option>Dinheiro</option>
-                <option>PIX</option>
-                <option>Cart�o</option>
-            </select>
-        </div>
-
-        <div class="buttons">
-            <button type="submit" class="btn-primary">Registrar</button>
-
-            <a href="${pageContext.request.contextPath}/DespesaController?acao=editar&id=1">
-    			Editar
-			</a>
-
-
-        </div>
-    </form>
+    <c:if test="${empty listaReceitas}">
+        <p class="info-text">Nenhuma receita encontrada </p>
+    </c:if>
 </section>
