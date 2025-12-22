@@ -18,9 +18,9 @@
       <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
       <li><a href="${pageContext.request.contextPath}/gestaoUsuarios/gestao_usuarios.jsp">Gestão de Usuários</a></li>
       <li><a href="${pageContext.request.contextPath}/core/procedimentos/pagina.jsp">Gestão de Procedimentos</a></li>
-      <li><a href="estoque.jsp">Controle de Estoque</a></li>
+      <li><a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Controle de Estoque</a></li>
       <li><a href="${pageContext.request.contextPath}/fornecedores_materiais/fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
-      <li><a href="fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
+      <li><a href="${pageContext.request.contextPath}/fornecedores_servicos/fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
       <li><a href="receita.jsp">Gestão da Receita</a></li>
       <li><a href="${pageContext.request.contextPath}/PacientesAgendadosController">Pacientes Agendados</a></li>
       <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
@@ -53,7 +53,7 @@
       <div class="card">
         <h3>📦 Estoque</h3>
         <p>Gerencie materiais e produtos disponíveis no consultório.</p>
-        <a href="estoque.jsp">Acessar</a>
+        <a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Acessar</a>
       </div>
 
       <div class="card">
@@ -65,7 +65,7 @@
 <div class="card">
         <h3>🚚 Fornecedores de Serviços</h3>
         <p>Cadastre e gerencie fornecedores de serviços.</p>
-        <a href="fornecdedores_servicos/fornecedores_servicos.jsp">Acessar</a>
+        <a href="${pageContext.request.contextPath}/fornecedores_servicos/fornecedores_servicos.jsp">Acessar</a>
       </div>
 
       <div class="card">

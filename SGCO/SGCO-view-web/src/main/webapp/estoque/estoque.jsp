@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="sgco.sgco.domain.Material" %>
+<%@ page import="sgco.sgco.domain.Usuario" %>
+<%@ page import="sgco.controller.LoginController" %>
+<% LoginController.validarSessao(request,response);%>
+<%
+    Usuario u;
+    u = (Usuario) session.getAttribute("usuarioLogado");
+    String cargo = u.getCargo();
+%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,18 +21,33 @@
 </head>
 <body>
 <aside class="sidebar">
+    <%if (cargo.equals("Gerente")){%>
     <a href="${pageContext.request.contextPath}/indexgerente.jsp"><h2>SGCO</h2></a>
+    <%} else if (cargo.equals("Profissional")){%>
+    <a href="${pageContext.request.contextPath}/indexprofissional.jsp"><h2>SGCO</h2></a>
+    <%} else {%>
+    <a href="${pageContext.request.contextPath}/index.jsp"></a>
+    <%}%>
     <ul>
-        <li><a href="${pageContext.request.contextPath}/gestao_pacientes.jsp">Gestão de Pacientes</a></li>
-        <li><a href="${pageContext.request.contextPath}/gestao_usuarios.jsp">Gestão de Usuários</a></li>
-        <li><a href="${pageContext.request.contextPath}/gestao_procedimentos.jsp">Gestão de Procedimentos</a></li>
-        <li><a href="${pageContext.request.contextPath}/MaterialController">Controle de Estoque</a></li>
-        <li><a href="${pageContext.request.contextPath}/fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
-        <li><a href="${pageContext.request.contextPath}/fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
-        <li><a href="${pageContext.request.contextPath}/receita.jsp">Gestão da Receita</a></li>
-        <li><a href="${pageContext.request.contextPath}/pacientes_agendados.jsp">Pacientes Agendados</a></li>
-        <li><a href="${pageContext.request.contextPath}/relatorios.jsp">Relatórios Gerenciais</a></li>
-        <li><a href="${pageContext.request.contextPath}/login.jsp" class="logout">Sair</a></li>
+        <%if (cargo.equals("Gerente")){%>
+        <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
+        <li><a href="${pageContext.request.contextPath}/gestaoUsuarios/gestao_usuarios.jsp">Gestão de Usuários</a></li>
+        <li><a href="${pageContext.request.contextPath}/core/procedimentos/pagina.jsp">Gestão de Procedimentos</a></li>
+        <li><a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Controle de Estoque</a></li>
+        <li><a href="${pageContext.request.contextPath}/fornecedores_materiais/fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
+        <li><a href="${pageContext.request.contextPath}/fornecedores_servicos/fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
+        <li><a href="receita.jsp">Gestão da Receita</a></li>
+        <li><a href="${pageContext.request.contextPath}/PacientesAgendadosController">Pacientes Agendados</a></li>
+        <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
+        <%} else if (cargo.equals("Profissional")){%>
+        <li><a href="${pageContext.request.contextPath}/core/orcamento/pagina.jsp">Orçamento</a></li>
+        <li><a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Controle de Estoque</a></li>
+        <li><a href="${pageContext.request.contextPath}/ProntuarioController">Prontuário</a></li>
+        <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+        <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
+        <%} else {%>
+        <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
+        <%}%>
     </ul>
 </aside>
 <main class="content">

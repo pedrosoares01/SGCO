@@ -15,7 +15,7 @@
     <a href="${pageContext.request.contextPath}/indexprofissional.jsp"><h2>SGCO</h2></a>
     <ul>
       <li><a href="${pageContext.request.contextPath}/core/orcamento/pagina.jsp">Orçamento</a></li>
-      <li><a href="estoque.jsp">Controle de Estoque</a></li>
+      <li><a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Controle de Estoque</a></li>
       <li><a href="${pageContext.request.contextPath}/ProntuarioController">Prontuário</a></li>
       <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
       <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
@@ -36,13 +36,13 @@
       <div class="card">
         <h3>📦 Controle de Estoque</h3>
         <p>Verifique ou atualize os materiais disponíveis no consultório.</p>
-        <a href="estoque.jsp">Acessar</a>
+        <a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Acessar</a>
       </div>
 
       <div class="card">
         <h3>🩺 Prontuário</h3>
         <p>Atualize os prontuários dos pacientes com os procedimentos realizados.</p>
-        <a href="prontuario.jsp">Acessar</a>
+        <a href="${pageContext.request.contextPath}/ProntuarioController">Acessar</a>
       </div>
 
       <div class="card">

@@ -3,7 +3,6 @@
 <%@ page import="sgco.sgco.domain.Agenda" %>
 <%@ page import="sgco.controller.LoginController" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page contentType="text/html;charset=UTF-8" language="java" %>
 <% LoginController.validarSessao(request,response);%>
 <%
   Usuario u;
@@ -24,6 +23,8 @@
 <aside class="sidebar">
   <%if (cargo.equals("Gerente")){%>
   <a href="${pageContext.request.contextPath}/indexgerente.jsp"><h2>SGCO</h2></a>
+  <%} else if (cargo.equals("Recepcionista")){%>
+  <a href="${pageContext.request.contextPath}/indexrecepcionista.jsp"><h2>SGCO</h2></a>
   <%} else if (cargo.equals("Profissional")){%>
   <a href="${pageContext.request.contextPath}/indexprofissional.jsp"><h2>SGCO</h2></a>
   <%} else {%>
@@ -34,17 +35,24 @@
     <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
     <li><a href="${pageContext.request.contextPath}/gestaoUsuarios/gestao_usuarios.jsp">Gestão de Usuários</a></li>
     <li><a href="${pageContext.request.contextPath}/core/procedimentos/pagina.jsp">Gestão de Procedimentos</a></li>
-    <li><a href="estoque.jsp">Controle de Estoque</a></li>
+    <li><a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Controle de Estoque</a></li>
     <li><a href="${pageContext.request.contextPath}/fornecedores_materiais/fornecedores_materiais.jsp">Fornecedores de Materiais</a></li>
-    <li><a href="fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
+    <li><a href="${pageContext.request.contextPath}/fornecedores_servicos/fornecedores_servicos.jsp">Fornecedores de Serviços</a></li>
     <li><a href="receita.jsp">Gestão da Receita</a></li>
-    <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+    <li><a href="${pageContext.request.contextPath}/PacientesAgendadosController">Pacientes Agendados</a></li>
     <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
     <%} else if (cargo.equals("Profissional")){%>
     <li><a href="${pageContext.request.contextPath}/core/orcamento/pagina.jsp">Orçamento</a></li>
-    <li><a href="estoque.jsp">Controle de Estoque</a></li>
-    <li><a href="prontuario.jsp">Prontuário</a></li>
+    <li><a href="${pageContext.request.contextPath}/estoque/estoque.jsp">Controle de Estoque</a></li>
+    <li><a href="${pageContext.request.contextPath}/ProntuarioController">Prontuário</a></li>
     <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+    <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
+    <%} else if (cargo.equals("Recepcionista")){%>
+    <li><a href="${pageContext.request.contextPath}/core/paciente/pagina.jsp">Gestão de Pacientes</a></li>
+    <li><a href="${pageContext.request.contextPath}/AgendaController">Agenda</a></li>
+    <li><a href="${pageContext.request.contextPath}/core/pagamento/pagina.jsp">Pagamentos</a></li>
+    <li><a href="${pageContext.request.contextPath}/pacientes-agendados/pacientes_agendados.jsp">Pacientes Agendados</a></li>
+    <li><a href="${pageContext.request.contextPath}/AvaliacaoController">Avaliação de Profissionais</a></li>
     <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
     <%} else {%>
     <li><a href="${pageContext.request.contextPath}/LogoutController" class="logout">Sair</a></li>
